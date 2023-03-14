@@ -11,3 +11,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.wd-color-white {
+  color: white;
+}
+
+.wd-float-right {
+  position: relative;
+  float: right;
+}

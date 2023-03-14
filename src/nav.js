@@ -1,11 +1,13 @@
 import {Link} from "react-router-dom";
+import HomeButton from "./top-nav-options/home-button";
+import LoginButton from "./top-nav-options/login-button";
+import SearchBar from "./top-nav-options/search-bar";
+import TopNavBar from "./top-nav-options";
 
 function Nav() {
   return (
       <span className="d-flex justify-content-between">
-        <Link to="/" className="w-25">Home</Link>
-        <Link to="/search" className="w-50">Search</Link>
-        <Link to="/login" className="w-25">Log In</Link>
+        <TopNavBar/>
       </span>
   )
 }

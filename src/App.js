@@ -1,3 +1,4 @@
+
 // import Profile from "./profile";
 import Home from "./home";
 // import Search from "./search";
@@ -9,8 +10,8 @@ import Nav from "./nav";
 function App() {
   return (
       <BrowserRouter>
-        <div className="container pt-3">
-          <Nav/>
+        <div className="container">
+          <Nav loggedIn='n'/>
           <Routes>
             <Route index
                    element={<Home/>}/>
