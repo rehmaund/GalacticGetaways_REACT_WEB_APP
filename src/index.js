@@ -1,4 +1,4 @@
-import 'bootswatch/dist/darkly/bootstrap.min.css';
+import 'bootswatch/dist/vapor/bootstrap.min.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
