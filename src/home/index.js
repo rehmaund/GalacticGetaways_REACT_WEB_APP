@@ -1,5 +1,7 @@
 import HomeFeedColumn from "./HomeFeedColumn";
 import allContent from "./allContent.js";
+import HomeSidebar from "./home-sidebar";
+import quotes from "./quotes";
 
 
 const columns = [[], [], [], [], [], []];
@@ -19,7 +21,12 @@ for (let item of allContent) {
 function Home() {
   return (
       <div className="row">
+        <div className="col-4">
+          <HomeSidebar quotes={quotes}/>
+        </div>
+        <div className="col-8">
         {columns.map(column => HomeFeedColumn(column))}
+        </div>
       </div>
   );
 }
