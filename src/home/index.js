@@ -10,7 +10,7 @@ function Home() {
           <HomeSidebar quotes={quotes}/>
         </div>
         <div className="row col-12 col-lg-8">
-          {allContent.map(item => <ItemPreview item={item}/>)}
+          {allContent.map(item => <ItemPreview item={item} key={item._id}/>)}
         </div>
       </div>
   );

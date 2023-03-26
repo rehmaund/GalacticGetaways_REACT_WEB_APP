@@ -1,7 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 
-const ItemPreview = ({item}) => {
+const ItemPreview = ({item}, {key}) => {
   console.log(item.title);
   return(
       <div className="col-xl-3 col-lg-4 col-md-4 col-6 pb-4">
