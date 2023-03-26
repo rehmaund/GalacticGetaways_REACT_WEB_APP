@@ -5,13 +5,13 @@ import Home from "./home";
 // import Login from "./login";
 import {BrowserRouter} from "react-router-dom";
 import {Routes, Route} from "react-router";
-import Nav from "./nav";
+import TopNavBar from "./top-nav-options";
 
 function App() {
   return (
       <BrowserRouter>
+        <TopNavBar/>
         <div className="container">
-          <Nav loggedIn='n'/>
           <Routes>
             <Route index
                    element={<Home/>}/>
