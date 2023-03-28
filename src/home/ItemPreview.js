@@ -6,7 +6,7 @@ const ItemPreview = ({item}, {key}) => {
   return(
       <div className="col-xl-3 col-lg-4 col-md-4 col-6 pb-4">
         <div className="card card-primary">
-          <img className="card-img-top" src={item.image}/>
+          <img className="card-img-top" src={item.preview.source}/>
           <div className="card-body">
             <h5 className="card-title">{item.name}</h5>
             <p className="card-text">{item.address.city}, {item.address.country}</p>

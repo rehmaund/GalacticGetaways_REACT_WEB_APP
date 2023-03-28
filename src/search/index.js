@@ -44,7 +44,8 @@ const Search = () => {
     if (!places.includes(data) && data.image !== undefined) {
       places.push(data);
     }
-    setPlaceItems(places.map(place => <ItemPreview item={place} key={place.xid}/>));
+    // setPlaceItems(places.map(place => <ItemPreview item={place} key={place.xid}/>));
+    console.log(places)
   }
 
   apiGet("geoname", "name=" + query).then(setLocationResults);
