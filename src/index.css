@@ -33,3 +33,7 @@ code {
 .search-bar-set-width {
   width: 50%;
 }
+
+img.white-border {
+  border: thin solid white;
+}
