@@ -6,7 +6,7 @@ function SearchBar() {
             <div className="form-group">
                 <input type="text" className="form-control rounded-pill px-6" placeholder="Search"/>
             </div>
-            <button type="submit" className="btn btn-default d-inline wd-float-right">Submit</button>
+            <button type="submit" className="btn btn-default d-inline float-end">Submit</button>
         </form>
         </div>
         );

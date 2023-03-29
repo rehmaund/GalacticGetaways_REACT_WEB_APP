@@ -1,8 +1,8 @@
 import {useParams} from "react-router";
-import ItemPreview from "../home/ItemPreview";
 import React, {useEffect, useState} from "react";
 import {getPlaceDetailsThunk, getPlacesThunk} from "./search-thunks.js";
 import {useDispatch, useSelector} from "react-redux";
+import ItemColumns from "../item-preview/item-columns";
 
 
 
@@ -14,6 +14,8 @@ const Search = () => {
     dispatch(getPlacesThunk(place))
   }, [dispatch, place])
   useEffect(() => {
+    if (placesList === undefined) return;
+
     placesList.forEach(place => {
       if (xidList.includes(place.properties.xid)) return;
       dispatch(getPlaceDetailsThunk(place.properties.xid))
@@ -25,7 +27,7 @@ const Search = () => {
         <h4>Place: {place}</h4>
         <div className="row col-12 w-100 p-0 m-0">
           {loading && <div>Loading...</div>}
-          {places.map(place => <ItemPreview item={place} key={place.xid}/>)}
+          {<ItemColumns allContent={places}/>}
         </div>
       </div>
   );

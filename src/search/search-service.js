@@ -21,29 +21,7 @@ export const getPlaceDetails = async (xid) => {
   .then(response => {
     const place = response.data;
     return place.preview ? place : null
-  }).catch(error => console.log(error));
+  }).catch(error => {
+    return error.response.status !== 429 ? console.log(error) : null;
+  });
 }
-
-// const setLocationResults = (data) => {
-//   apiGet("radius", `radius=100&lon=${data.lon}&lat=${data.lat}&limit=100`).then(setPlaces);
-// }
-//
-// const setPlaces = (data) => {
-//   for (let i = 0; i < data.features.length; i++) {
-//     const place = data.features[i];
-//     apiGet("xid/" + place.properties.xid).then(setPlaceDetails);
-//   }
-// }
-//
-// let places = [];
-//
-// const setPlaceDetails = (data) => {
-//   if (!places.includes(data) && data.image !== undefined) {
-//     places.push(data);
-//   }
-//   // setPlaceItems(places.map(place => <ItemPreview item={place} key={place.xid}/>));
-//   console.log(places)
-// }
-//
-// apiGet("geoname", "name=" + query).then(setLocationResults);
-// const [placeItems, setPlaceItems] = useState(null);
