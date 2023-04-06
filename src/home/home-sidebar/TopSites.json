@@ -1,0 +1,13 @@
+[{"name": "Buenos Aires", "image": "/images/buenosaires.jpg"},
+  {"name": "Cape Town", "image": "/images/capetown.jpg"},
+  {"name": "Dresden", "image": "/images/dresden.jpg"},
+  {"name": "Edinburgh", "image": "/images/edinburgh.jpg"},
+  {"name": "Florence", "image": "/images/florence.jpg"},
+  {"name": "Galway", "image": "/images/galway.jpg"},
+  {"name": "Honolulu", "image": "/images/honolulu.jpg"},
+  {"name": "Houston", "image": "/images/houston.jpg"},
+  {"name": "Nairobi", "image": "/images/nairobi.jpg"},
+  {"name": "Perth", "image": "/images/perth.jpg"},
+  {"name": "Gothenburg", "image": "/images/sweden.jpg"},
+  {"name": "Tokyo", "image": "/images/tokyo.jpg"}
+]
