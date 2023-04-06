@@ -15,7 +15,7 @@ function HomeSidebar({ quotes }) {
             <div className="card-body">
                 <h4 className="card-title">Welcome, NAME!</h4>
                 <br/>
-                <img src="/images/galaxy.jpg" className="wd-rounded-corners-white" width="100%" height="180px"></img>
+                <img src="/images/galaxy.jpg" className="wd-rounded-corners-white" width="100%" height="180px"/>
                 <br/><br/>
                 {selectedQuote && <p className="card-text">{selectedQuote}</p>}
 
@@ -25,18 +25,18 @@ function HomeSidebar({ quotes }) {
                 <div className="container">
                     <div className="row mb-4">
                         <div className="col-6">
-                        <img src="/images/houston.jpg" width="100%" height = "90px"></img>
+                        <img src="/images/houston.jpg" width="100%" height = "90px"/>
                     </div>
                     <div className="col-6">
-                        <img src="/images/nairobi.jpg" width="100%" height = "90px"></img>
+                        <img src="/images/nairobi.jpg" width="100%" height = "90px"/>
                     </div>
                     </div>
                     <div className="row mt-4">
                         <div className="col-6">
-                            <img src="/images/tokyo.jpg" width="100%" height = "90px"></img>
+                            <img src="/images/tokyo.jpg" width="100%" height = "90px"/>
                         </div>
                         <div className="col-6">
-                            <img src="/images/sweden.jpg" width="100%" height = "90px"></img>
+                            <img src="/images/sweden.jpg" width="100%" height = "90px"/>
                         </div>
                     </div>
                     </div>
