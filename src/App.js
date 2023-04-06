@@ -6,6 +6,7 @@ import Search from "./search";
 import {Provider} from "react-redux";
 import { configureStore } from '@reduxjs/toolkit';
 import searchReducer from "./search/search-reducer";
+import BottomNavBar from "./bottom-nav-options";
 
 
 const store = configureStore({
@@ -15,7 +16,9 @@ function App() {
   return (
       <Provider store={store}>
         <BrowserRouter>
-          <TopNavBar/>
+          <div className="row d-none d-md-block">
+            <TopNavBar loggedIn='y'/>
+          </div>
           <div className="container">
             <Routes>
               <Route index
@@ -25,6 +28,9 @@ function App() {
               {/*<Route path="/login"*/}
               {/*       element={<Login/>}/>*/}
             </Routes>
+          </div>
+          <div className="row d-block d-md-none">
+            <BottomNavBar loggedIn='y'/>
           </div>
         </BrowserRouter>
       </Provider>

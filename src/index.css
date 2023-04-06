@@ -21,3 +21,8 @@ code {
   border-radius: 30px;
   border: medium solid white;
 }
+
+img.white-border {
+  border: thin solid white;
+}
+
