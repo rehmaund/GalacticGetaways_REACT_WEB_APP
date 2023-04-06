@@ -9,9 +9,9 @@ function TopNavBar(loggedIn) {
         navigate(`/search/${input}`);
     }
     return(
-        <nav className="navbar navbar-expand-lg navbar-dark bg-primary w-100 mb-4 ps-3 pe-3 p-sm-0">
-            <div className="container container-fluid">
-                <a className="navbar-brand" href="#">Website Title</a>
+        <nav className="navbar navbar-expand-md navbar-dark bg-primary w-100 mb-4 ps-3 pe-3 p-sm-0">
+            <div className="container-fluid m-4">
+                <a className="navbar-brand" href="#">Website name</a>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false"
                         aria-label="Toggle navigation">
@@ -19,22 +19,20 @@ function TopNavBar(loggedIn) {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarColor01">
                     <ul className="navbar-nav me-auto">
-                        <li className="nav-item mx-2">
-                            <Link className="nav-link active" to="/"><i className="fa-solid fa-house fa-2x"/>
-                                <span className="visually-hidden">(current)</span>
+                        <li className="nav-item">
+                            <Link className="navbar-item mx-2 nav-link active" to="/"><i className="fa-solid fa-house fa-2x"/>
                             </Link>
+
                         </li>
-                        <li className="nav-item mx-2">
-                            <a className="nav-link active" href="#"><i className={`${loggedIn === 'n' ? 'fa-solid fa-right-to-bracket fa-2x' : 'fa-solid fa-user fa-2x'}`}/>
-                                <span className="visually-hidden">(current)</span>
+                        <li className="nav-item">
+                            <a className="navbar-item mx-2 nav-link active" href="#"><i className={`${loggedIn === 'n' ? 'fa-solid fa-right-to-bracket fa-2x' : 'fa-solid fa-user fa-2x'}`}/>
                             </a>
                         </li>
-
                     </ul>
-                    <form className="d-flex">
-                        <input className="form-control me-sm-2" type="search" placeholder="Search"
+                    <form className="d-flex w-50">
+                        <input className="form-control me-sm-3" type="search" placeholder="Search"
                                onChange={(event) => setInput(event.target.value)}/>
-                        <button className="btn btn-secondary my-2 my-sm-0" type="submit" onClick={goToSearch}>Search</button>
+                        <button className="btn btn-secondary my-2 my-sm-0 me-4" type="submit" onClick={goToSearch}>Search</button>
                     </form>
                 </div>
             </div>

@@ -5,6 +5,7 @@ import ItemPreview from "./ItemPreview";
 
 function Home() {
   return (
+      <div className="container">
       <div className="row w-100">
         <div className="col-lg-4 d-none d-lg-block">
           <HomeSidebar quotes={quotes}/>
@@ -12,6 +13,7 @@ function Home() {
         <div className="row col-12 col-lg-8">
           {allContent.map(item => <ItemPreview item={item} key={item._id}/>)}
         </div>
+      </div>
       </div>
   );
 }
