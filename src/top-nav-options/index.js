@@ -15,7 +15,7 @@ function TopNavBar(loggedIn) {
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false"
                         aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
+                    <span className="navbar-toggler-icon"/>
                 </button>
                 <div className="collapse navbar-collapse" id="navbarColor01">
                     <ul className="navbar-nav me-auto">
@@ -29,7 +29,7 @@ function TopNavBar(loggedIn) {
                             </a>
                         </li>
                     </ul>
-                    <form className="d-flex search-bar-set-width">
+                    <form className="d-flex w-50">
                         <input className="form-control me-sm-3" type="search" placeholder="Search"
                                onChange={(event) => setInput(event.target.value)}/>
                         <button className="btn btn-secondary my-2 my-sm-0 me-4" type="submit" onClick={goToSearch}>Search</button>
