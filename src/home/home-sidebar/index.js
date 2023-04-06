@@ -57,22 +57,26 @@ function HomeSidebar({ quotes }) {
                 <div className="container">
                     <div className="row mb-4">
                         <div className="col-6">
+
                             <Link to={searchSite0}><img src={site0.image} className="white-border" width="100%" height = "90px"/></Link>
                             {site0.name}
                     </div>
                     <div className="col-6">
                         <Link to={searchSite1}><img src={site1.image} className="white-border" width="100%" height = "90px"/></Link>
                         {site1.name}
+
                     </div>
                     </div>
                     <div className="row mt-4">
                         <div className="col-6">
+
                             <Link to={searchSite2}><img src={site2.image} className="white-border" width="100%" height = "90px"/></Link>
                             {site2.name}
                         </div>
                         <div className="col-6">
                             <Link to={searchSite3}><img src={site3.image} className="white-border" width="100%" height = "90px"/></Link>
                             {site3.name}
+
                         </div>
                     </div>
                     </div>
