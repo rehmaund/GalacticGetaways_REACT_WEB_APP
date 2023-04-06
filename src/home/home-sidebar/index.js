@@ -42,7 +42,7 @@ function HomeSidebar({ quotes }) {
     const searchSite3 = "/search/" + site3.name;
 
     return(
-        <div className="card text-white bg-info mb-3 wd-card-width">
+        <div className="card text-white bg-info mb-3">
             <div className="card-header">Travel, Explore, Visit Earth!</div>
             <div className="card-body">
                 <h4 className="card-title">Welcome, NAME!</h4>
