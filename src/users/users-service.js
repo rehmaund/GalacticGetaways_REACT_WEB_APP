@@ -30,7 +30,7 @@ export const updateUser = async (user) => {
 }
 
 export const findUserByUsername = async (username) => {
-  const response = await axios.get(`${USERS_API}/${username}`);
+  const response = await axios.get(`${USERS_API}/username/${username}`);
   return response.data;
 }
 
