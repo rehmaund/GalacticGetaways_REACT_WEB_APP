@@ -7,7 +7,7 @@ import {Provider} from "react-redux";
 import { configureStore } from '@reduxjs/toolkit';
 import searchReducer from "./search/search-reducer";
 import BottomNavBar from "./bottom-nav-options";
-import Login from "./login";
+import Login from "./login/index.js";
 import Register from "./register";
 
 
@@ -19,7 +19,7 @@ function App() {
       <Provider store={store}>
         <BrowserRouter>
           <div className="row d-none d-md-block">
-            <TopNavBar loggedIn='y'/>
+            <TopNavBar loggedIn='n'/>
           </div>
           <div className="container">
             <Routes>
@@ -34,7 +34,7 @@ function App() {
             </Routes>
           </div>
           <div className="row d-block d-md-none">
-            <BottomNavBar loggedIn='y'/>
+            <BottomNavBar loggedIn='n'/>
           </div>
         </BrowserRouter>
       </Provider>
