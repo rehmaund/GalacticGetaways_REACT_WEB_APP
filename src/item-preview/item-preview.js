@@ -8,7 +8,7 @@ const ItemPreview = ({item}, {key}) => {
         <div className="card-body">
           <h5 className="card-title">{item.name}</h5>
           <div>
-            <Link to={{pathname: "/details", query: item.xid}} className="btn btn-primary float-end">See more</Link>
+            <Link to={{pathname: `/details/${item.xid}`}} className="btn btn-primary float-end">See more</Link>
             <p className="card-text">{item.address.city}, {item.address.country}</p>
           </div>
           <div className="row w-100 pt-3">

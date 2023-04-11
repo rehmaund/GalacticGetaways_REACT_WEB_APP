@@ -6,6 +6,11 @@ export const getPlacesThunk = createAsyncThunk(
         await service.getPlaces(place)
 )
 
+export const getPlaceDetailsForListThunk = createAsyncThunk(
+    'search/getPlaceDetailsForList', async (xid) =>
+        await service.getPlaceDetails(xid)
+)
+
 export const getPlaceDetailsThunk = createAsyncThunk(
     'search/getPlaceDetails', async (xid) =>
         await service.getPlaceDetails(xid)
