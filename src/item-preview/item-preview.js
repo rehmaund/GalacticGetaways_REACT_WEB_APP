@@ -9,7 +9,7 @@ const ItemPreview = ({item}, {key}) => {
           <img className="card-img-top" src={item.preview.source}/>
         </div>
         <div className="card-body">
-          <h5 className="card-title preview-title-overflow">{item.name}</h5>
+          <h5 className="card-title text-truncate">{item.name}</h5>
           <p className="card-text">{item.address.city}, {item.address.country}</p>
           <div>
             <Link to={{pathname: "/details", query: item.xid}} className="btn btn-primary">See more</Link>

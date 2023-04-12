@@ -13,16 +13,7 @@ code {
     monospace;
 }
 
-.wd-color-white {
-  color: white;
-}
-
-.wd-rounded-corners-white {
-  border-radius: 30px;
-  border: medium solid white;
-}
-
-img.white-border {
+.white-border {
   border: thin solid white;
 }
 
@@ -44,10 +35,4 @@ img.white-border {
 
 .preview-font-size {
   font-size: 14px;
-}
-
-.preview-title-overflow {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
