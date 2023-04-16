@@ -3,11 +3,11 @@
   {"name": "Dresden", "image": "/images/dresden.jpg"},
   {"name": "Edinburgh", "image": "/images/edinburgh.jpg"},
   {"name": "Florence", "image": "/images/florence.jpg"},
-  {"name": "Galway", "image": "/images/galway.jpg"},
+  {"name": "Madrid", "image": "/images/madrid.jpg"},
   {"name": "Honolulu", "image": "/images/honolulu.jpg"},
-  {"name": "Houston", "image": "/images/houston.jpg"},
+  {"name": "Washington", "image": "/images/washington.jpg"},
   {"name": "Nairobi", "image": "/images/nairobi.jpg"},
   {"name": "Perth", "image": "/images/perth.jpg"},
-  {"name": "Gothenburg", "image": "/images/sweden.jpg"},
-  {"name": "Tokyo", "image": "/images/tokyo.jpg"}
+  {"name": "Malmo", "image": "/images/sweden.jpg"},
+  {"name": "Osaka", "image": "/images/osaka.jpg"}
 ]

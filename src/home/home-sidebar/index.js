@@ -47,7 +47,7 @@ function HomeSidebar({ quotes }) {
             <div className="card-body">
                 <h4 className="card-title">Welcome, NAME!</h4>
                 <br/>
-                <img src="/images/galaxy.jpg" className="wd-rounded-corners-white" width="100%" height="180px"/>
+                <img src="/images/galaxy.jpg" className="white-border" width="100%" height="180px"/>
                 <br/><br/>
                 {selectedQuote && <p className="card-text">{selectedQuote}</p>}
 

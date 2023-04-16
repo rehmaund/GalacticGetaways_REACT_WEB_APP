@@ -2,9 +2,12 @@ import {useState} from "react";
 import {useNavigate} from "react-router";
 import {Link} from "react-router-dom";
 
-function TopNavBar(loggedIn) {
+function TopNavBar({loggedIn}) {
     let [input, setInput] = useState('');
     const navigate = useNavigate();
+    console.log(loggedIn);
+
+
     const goToSearch = () => {
         navigate(`/search/${input}`);
     }
@@ -25,8 +28,8 @@ function TopNavBar(loggedIn) {
 
                         </li>
                         <li className="nav-item">
-                            <a className="navbar-item mx-2 nav-link active" href="#"><i className={`${loggedIn === 'n' ? 'fa-solid fa-right-to-bracket fa-2x' : 'fa-solid fa-user fa-2x'}`}/>
-                            </a>
+                            <Link to={`${loggedIn === 'y' ? '/profile' : '/login'}`} className="navbar-item mx-2 nav-link active"><i className={`${loggedIn === 'y' ? 'fa-solid fa-user fa-2x' : 'fa-solid fa-right-to-bracket fa-2x'}`}/>
+                            </Link>
                         </li>
                     </ul>
                     <form className="d-flex w-50">
