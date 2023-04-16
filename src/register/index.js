@@ -21,19 +21,25 @@ function Register() {
                     <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                            placeholder="Enter email"/>
                 </div>
+
+                <div className="form-group">
+                    <label htmlFor="exampleInputPhone" className="form-label mt-4">Phone Number</label>
+                    <input type="phone" className="form-control" id="exampleInputPhone" placeholder="XXX-XXX-XXXX"/>
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="exampleInputUsername" className="form-label mt-4">Username</label>
+                    <input type="username" className="form-control" id="exampleInputUsername" placeholder="Username"/>
+                </div>
+
                 <div className="form-group">
                     <label htmlFor="exampleInputPassword1" className="form-label mt-4">Password</label>
                     <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password"/>
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="firstName" className="form-label mt-4">First Name</label>
-                    <input type="text" className="form-control" id="firstName" placeholder="Name"/>
-                </div>
-
-                <div className="form-group">
-                    <label htmlFor="lastName" className="form-label mt-4">Last Name</label>
-                    <input type="text" className="form-control" id="lastName" placeholder="Name"/>
+                    <label htmlFor="displayName" className="form-label mt-4">Display Name</label>
+                    <input type="text" className="form-control" id="displayName" placeholder="Display Name"/>
                 </div>
 
                 <div className="form-group">
