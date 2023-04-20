@@ -2,6 +2,39 @@ import {createAsyncThunk} from "@reduxjs/toolkit"
 import * as service from "./users-service"
 
 
+
+export const loginThunk = createAsyncThunk(
+    "user/login", async (credentials) => {
+        const user = await service.login(credentials);
+        return user;
+    }
+);
+
+export const profileThunk = createAsyncThunk(
+    "auth/profile", async () => {
+        return await service.profile();
+    });
+
+
+export const logoutThunk = createAsyncThunk(
+    "auth/logout", async () => {
+        return await service.logout();
+    });
+
+
+export const updateUserThunk = createAsyncThunk(
+    "user/updateUser", async (user) => {
+        await service.updateUser(user);
+        return user;
+    }
+);
+
+
+export const registerThunk = createAsyncThunk('auth/register',
+    async (userData) => {
+            const response = await service.register(userData);
+            return response;
+    });
 export const getAllUsersThunk = createAsyncThunk(
     'users/getAllUsers', async () =>
         await service.getAllUsers()
@@ -22,11 +55,6 @@ export const deleteUserThunk = createAsyncThunk(
         await service.deleteUser(uid)
 )
 
-export const updateUserThunk = createAsyncThunk(
-    'users/updateUser', async (user) =>
-        await service.updateUser(user)
-)
-
 export const findUserByUsernameThunk = createAsyncThunk(
     'users/findUserByUsername', async (username) =>
         await service.findUserByUsername(username)
@@ -42,17 +70,9 @@ export const incrementUserCommentsThunk = createAsyncThunk(
         await service.incrementUserComments(uid)
 )
 
-export const incrementUserRecommendationsThunk = createAsyncThunk(
-    'users/incrementUserRecommendations', async (uid) =>
-        await service.incrementUserRecommendations(uid)
-)
-
-export const incrementUserContributionsThunk = createAsyncThunk(
-    'users/incrementUserContributions', async (uid) =>
-        await service.incrementUserContributions(uid)
-)
 
 export const incrementUserActionsTakenThunk = createAsyncThunk(
     'users/incrementUserActionsTaken', async (uid) =>
         await service.incrementUserActionsTaken(uid)
 )
+

@@ -1,11 +1,12 @@
 import {useState} from "react";
 import {useNavigate} from "react-router";
 import {Link} from "react-router-dom";
+import {useSelector} from "react-redux";
 
-function TopNavBar({loggedIn}) {
+function TopNavBar() {
     let [input, setInput] = useState('');
     const navigate = useNavigate();
-    console.log(loggedIn);
+    const { user } = useSelector((state) => state.user);
 
 
     const goToSearch = () => {
@@ -14,7 +15,7 @@ function TopNavBar({loggedIn}) {
     return(
         <nav className="navbar navbar-expand-md navbar-dark bg-primary w-100 mb-4 ps-3 pe-3 p-sm-0">
             <div className="container-fluid m-4">
-                <a className="navbar-brand" href="#">Website name</a>
+                <a className="navbar-brand" href="#">Galactic Getaways</a>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false"
                         aria-label="Toggle navigation">
@@ -28,12 +29,16 @@ function TopNavBar({loggedIn}) {
 
                         </li>
                         <li className="nav-item">
-                            <Link to={`${loggedIn === 'y' ? '/profile' : '/login'}`} className="navbar-item mx-2 nav-link active"><i className={`${loggedIn === 'y' ? 'fa-solid fa-user fa-2x' : 'fa-solid fa-right-to-bracket fa-2x'}`}/>
+                            <Link to={`${user ? '/logout' : '/login'}`} className="navbar-item mx-2 nav-link active"><i className={`${user ? 'fa-solid fa-right-from-bracket fa-2x' : 'fa-solid fa-right-to-bracket fa-2x'}`}/>
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to={`${user ? '/profile' : '/'}`} className="navbar-item mx-2 nav-link active"><i className={`${user ? 'fa-solid fa-user fa-2x' : ''}`}/>
                             </Link>
                         </li>
                     </ul>
                     <form className="d-flex w-50">
-                        <input className="form-control me-sm-3" type="search" placeholder="Search"
+                        <input className="form-control me-sm-3" type="search" placeholder="Search for an Earthling City"
                                onChange={(event) => setInput(event.target.value)}/>
                         <button className="btn btn-secondary my-2 my-sm-0 me-4" type="submit" onClick={goToSearch}>Search</button>
                     </form>
