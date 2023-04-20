@@ -36,3 +36,13 @@ code {
 .preview-font-size {
   font-size: 14px;
 }
+
+.text-truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.width-70pc {
+  width: 70%;
+}
