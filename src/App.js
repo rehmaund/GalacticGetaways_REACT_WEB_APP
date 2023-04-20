@@ -7,11 +7,12 @@ import Detail from "./detail";
 import {Provider} from "react-redux";
 import { configureStore } from '@reduxjs/toolkit';
 import searchReducer from "./search/search-reducer";
+import commentsReducer from "./detail/comments/comments-reducer";
 import BottomNavBar from "./bottom-nav-options";
 
 
 const store = configureStore({
-  reducer: {search: searchReducer}});
+  reducer: {search: searchReducer, comments: commentsReducer}});
 
 function App() {
   return (

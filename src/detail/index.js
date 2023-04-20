@@ -2,50 +2,43 @@ import {useParams} from "react-router";
 import React, {useEffect, useState} from "react";
 import {getPlaceDetailsThunk} from "../search/search-thunks.js";
 import {useDispatch, useSelector} from "react-redux";
-import Comment from "./comment";
+import Comment from "./comments/comment";
+import {
+  addNewCommentThunk,
+  findCommentsByPlaceIdThunk,
+  getAllCommentsThunk,
+} from "./comments/comments-thunks";
 
 const Detail = () => {
   const xid = useParams().xid;
   const dispatch = useDispatch();
   const {place, loading} = useSelector(state => state.search);
+  const {comments, loading: commentsLoading} = useSelector(state => state.comments);
   useEffect(() => {
-    dispatch(getPlaceDetailsThunk(xid))
+    dispatch(getPlaceDetailsThunk(xid));
+    dispatch(findCommentsByPlaceIdThunk(xid));
   }, [dispatch, xid])
   const numLikes = 423;
   const numRecommendations = 272;
-  const comment1 = {
-    id: 1,
-    placeXid: {xid},
-    user: {
-      username: "john",
-      displayName: "John",
-      userType: "MODERATOR",},
-    text: "This is a comment",
-  }
-  const comment2 = {
-    id: 2,
-    placeXid: {xid},
-    user: {
-      username: "jack",
-      displayName: "Jack",
-      userType: "ALIEN",},
-    text: "This is another comment",
-  }
-  const comment3 = {
-    id: 3,
-    placeXid: {xid},
-    user: {
-      username: "jill",
-      displayName: "Jill",
-      userType: "HUMAN",},
-    text: "This is a third comment",
-  }
-  const comments = [comment1, comment2, comment3];
   const numComments = comments.length;
   const currentUser = {
+    _id: "123",
     username: "jack",
     displayName: "Jack",
     userType: "ALIEN",
+  }
+  let [newCommentText, setNewCommentText] = useState('');
+  const commentClickHandler = () => {
+    const newComment = {
+      text: newCommentText,
+      uid: currentUser._id,
+      username: currentUser.username,
+      display_name: currentUser.displayName,
+      type: currentUser.userType,
+      xid: xid,
+      name: place.name,
+    }
+    dispatch(addNewCommentThunk(newComment));
   }
   return (
       <div className="">
@@ -88,25 +81,30 @@ const Detail = () => {
             </div>
           </div>
           <hr/>
-          <div className="row">
+          {!commentsLoading &&
+            <div className="row">
             <h3>{numComments} Comments</h3>
             <div className="col-6">
-              {comments.map(comment => <Comment comment={comment} key={comment.id}/>)}
+              {comments.map(comment => <Comment comment={comment} key={comment._id}/>)}
             </div>
             <div className="col-6">
               <div className="card border-secondary p-3">
                 <h4>Add a new comment!</h4>
                 <form>
                   <div className="mb-3">
-                    <textarea className="form-control" rows="2" placeholder="What do you want to share?"/>
+                    <textarea value={newCommentText}
+                              className="form-control"
+                              rows="2"
+                              placeholder="What do you want to share?"
+                              onChange={(event) => setNewCommentText(event.target.value)}/>
                   </div>
                   <button type="submit" className="btn btn-primary"
-                          // onSubmit={}
+                          onClick={commentClickHandler}
                   >Submit</button>
                 </form>
               </div>
             </div>
-          </div>
+          </div>}
         </div>}
       </div>
   );

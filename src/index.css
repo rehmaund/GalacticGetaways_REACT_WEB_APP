@@ -26,3 +26,7 @@ img.white-border {
   border: thin solid white;
 }
 
+.wd-no-glow {
+  text-shadow: none;
+}
+
