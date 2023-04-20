@@ -1,22 +1,26 @@
-import {useState} from "react";
+
 import {useNavigate} from "react-router";
 import {useDispatch} from "react-redux";
+import React, { useState } from "react";
+import { loginThunk } from "../services/authentication/auth-thunks.js";
+
 function Login() {
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
 
-    const [username, enterUsername] = useState('');
-    const [password, enterPassword] = useState('');
-    const handleLogin = /*async*/ () => {
-        try {
-            //await dispatch(userLoginThunk({ username, password }));
-            navigate("/profile");
-        } catch (e) {
-            alert(e);
-        }
-    };
+        const [username, setUsername] = useState("");
+        const [password, setPassword] = useState("");
+        const navigate = useNavigate();
+        const dispatch = useDispatch();
+        const handleLogin = async () => {
+            try {
+                await dispatch(loginThunk({ username, password }));
+                navigate("/profile");
+            } catch (e) {
+                alert(e);
+            }
+        };
 
-    return (
+
+        return (
 
         <div className="card text-white bg-secondary mb-3">
             <div className="card-header row">
@@ -35,22 +39,21 @@ function Login() {
                 <div className="col-6">
                 <h4 className="card-title">Login:</h4>
                     <div className="form-group">
-                        <label htmlFor="exampleInputEmail1" className="form-label mt-2">Email address</label>
-                        <input type="email" className="form-control" id="exampleInputEmail1"
-                               aria-describedby="emailHelp" placeholder="Enter email" onChange={(event) => enterUsername(event.target.value)}/>
+                        <label htmlFor="InputUsername" className="form-label mt-2">Username</label>
+                        <input type="text" className="form-control" id="InputUsername"
+                               placeholder="Enter username" onChange={(event) => setUsername(event.target.value)}/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="exampleInputPassword1" className="form-label mt-2">Password</label>
-                        <input type="password" className="form-control" id="exampleInputPassword1" onChange={(event) => enterPassword(event.target.value)}
+                        <input type="password" className="form-control" id="exampleInputPassword1" onChange={(event) => setPassword(event.target.value)}
                                placeholder="Password"/>
                     </div>
-                <button className="btn btn-info btn-lg mt-2">Login</button>
+                <button className="btn btn-info btn-lg mt-2" onClick={handleLogin}>Login</button>
                 </div>
                 <div className="col-1"></div>
                 <div className="col-4">
                 <h4 className="card-title">No Account? Register Today!</h4>
                     <button className="btn btn-info btn-lg mt-2" onClick={() => {
-                        handleLogin();
                         navigate(`/register`);
                     }}>Register</button>
                 </div>

@@ -1,11 +1,12 @@
 import {useState} from "react";
 import {useNavigate} from "react-router";
 import {Link} from "react-router-dom";
+import {useSelector} from "react-redux";
 
-function TopNavBar({loggedIn}) {
+function TopNavBar() {
     let [input, setInput] = useState('');
     const navigate = useNavigate();
-    console.log(loggedIn);
+    const { user } = useSelector((state) => state.user);
 
 
     const goToSearch = () => {
@@ -28,7 +29,7 @@ function TopNavBar({loggedIn}) {
 
                         </li>
                         <li className="nav-item">
-                            <Link to={`${loggedIn === 'y' ? '/profile' : '/login'}`} className="navbar-item mx-2 nav-link active"><i className={`${loggedIn === 'y' ? 'fa-solid fa-user fa-2x' : 'fa-solid fa-right-to-bracket fa-2x'}`}/>
+                            <Link to={`${user ? '/profile' : '/login'}`} className="navbar-item mx-2 nav-link active"><i className={`${user ? 'fa-solid fa-user fa-2x' : 'fa-solid fa-right-to-bracket fa-2x'}`}/>
                             </Link>
                         </li>
                     </ul>
