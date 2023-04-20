@@ -33,9 +33,8 @@ export const updateUser = async (user) => {
 };
 
 
-export const register = async ({ username, password }) => { const response = await axios.post(`${USERS_URL}/users/register`, {
-    username,
-    password,
+export const register = async ({ newUser }) => { const response = await axios.post(`${USERS_URL}/users/register`, {
+    newUser
 });
     return response.data;
 };
