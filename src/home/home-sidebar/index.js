@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import sites from "./TopSites.json";
 import {Link} from "react-router-dom";
+import {useSelector} from "react-redux";
 
 function HomeSidebar({ quotes }) {
+    const { user } = useSelector((state) => state.user);
     const [selectedQuote, setSelectedQuote] = useState(quotes[0]);
 
     useEffect(() => {
@@ -45,7 +47,11 @@ function HomeSidebar({ quotes }) {
         <div className="card text-white bg-info mb-3">
             <div className="card-header">Your Online Destination for all Things Earth Tourism!</div>
             <div className="card-body">
-                <h4 className="card-title">Welcome, NAME!</h4>
+                {user ? (
+                    <h4 className="card-title">Welcome, {user.display_name}</h4>
+                ) : (
+                    <h4 className="card-title">Welcome</h4>
+                )}
                 <br/>
                 <img src="/images/galaxy.jpg" className="white-border" width="100%" height="180px"/>
                 <br/><br/>

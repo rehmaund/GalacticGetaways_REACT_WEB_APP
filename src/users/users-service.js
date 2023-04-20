@@ -33,29 +33,29 @@ export const updateUser = async (user) => {
 };
 
 
-export const register = async ({ newUser }) => { const response = await axios.post(`${USERS_URL}/users/register`, {
+export const register = async ({ newUser }) => { const response = await api.post(`${USERS_URL}/users/register`,
   newUser
-});
+);
   return response.data;
 };
 
 export const getAllUsers = async () => {
-  const response = await axios.get(USERS_URL);
+  const response = await api.get(USERS_URL);
   return response.data;
 }
 
 export const createUser = async (user) => {
-  const response = await axios.post(USERS_URL, user)
+  const response = await api.post(USERS_URL, user)
   return response.data;
 }
 
 export const findUserById = async (uid) => {
-  const response = await axios.get(`${USERS_URL}/${uid}`);
+  const response = await api.get(`${USERS_URL}/${uid}`);
   return response.data;
 }
 
 export const deleteUser = async (uid) => {
-  const response = await axios.delete(`${USERS_URL}/${uid}`)
+  const response = await api.delete(`${USERS_URL}/${uid}`)
   return response.data
 }
 
@@ -65,7 +65,7 @@ export const findUserByUsername = async (username) => {
 }
 
 export const incrementUserLikes = async (uid) => {
-  const response = await axios.put(`${USERS_URL}/${uid}/likes`);
+  const response = await api.put(`${USERS_URL}/${uid}/likes`);
   return response.data;
 }
 

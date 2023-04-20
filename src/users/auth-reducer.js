@@ -6,16 +6,21 @@ import {
 import axios from "axios";
 import {createReducer as userSlice} from "@reduxjs/toolkit";
 
+const initialState = { user: null
+};
 
 const authSlice = createSlice({
     name: "user",
-    initialState: { user: null },
+    initialState,
     reducers: {},
     extraReducers: {
         [loginThunk.fulfilled]: (state, { payload }) => {
             state.user = payload;
-        }, [registerThunk.fulfilled]: (state, {payload}) => {
+        }, [registerThunk.fulfilled]: (state, { payload }) => {
             state.user = payload;
+        },
+        [registerThunk.rejected]: (state, { error }) => {
+            state.error = error.message;
         },  [logoutThunk.fulfilled]: (state) => {
             state.user = null;
         },

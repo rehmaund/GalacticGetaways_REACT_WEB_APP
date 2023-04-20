@@ -29,12 +29,16 @@ function TopNavBar() {
 
                         </li>
                         <li className="nav-item">
-                            <Link to={`${user ? '/profile' : '/login'}`} className="navbar-item mx-2 nav-link active"><i className={`${user ? 'fa-solid fa-user fa-2x' : 'fa-solid fa-right-to-bracket fa-2x'}`}/>
+                            <Link to={`${user ? '/logout' : '/login'}`} className="navbar-item mx-2 nav-link active"><i className={`${user ? 'fa-solid fa-right-from-bracket fa-2x' : 'fa-solid fa-right-to-bracket fa-2x'}`}/>
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to={`${user ? '/profile' : '/'}`} className="navbar-item mx-2 nav-link active"><i className={`${user ? 'fa-solid fa-user fa-2x' : ''}`}/>
                             </Link>
                         </li>
                     </ul>
                     <form className="d-flex w-50">
-                        <input className="form-control me-sm-3" type="search" placeholder="Search"
+                        <input className="form-control me-sm-3" type="search" placeholder="Search for an Earthling City"
                                onChange={(event) => setInput(event.target.value)}/>
                         <button className="btn btn-secondary my-2 my-sm-0 me-4" type="submit" onClick={goToSearch}>Search</button>
                     </form>

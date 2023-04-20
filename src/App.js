@@ -8,6 +8,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import searchReducer from "./search/search-reducer";
 import BottomNavBar from "./bottom-nav-options";
 import Login from "./login/index.js";
+import Logout from "./logout/index.js";
 import Register from "./register";
 import Profile from "./profile";
 import authReducer from "./users/auth-reducer.js";
@@ -33,6 +34,8 @@ function App() {
                      element={<Search/>}/>
               <Route path="/login"
                      element={<Login/>}/>
+              <Route path="/logout"
+                     element={<Logout/>}/>
               <Route path="/register"
                      element={<Register/>}/>
               <Route path="/profile"

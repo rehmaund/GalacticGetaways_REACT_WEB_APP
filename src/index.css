@@ -42,3 +42,7 @@ code {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.width-70pc {
+  width: 70%;
+}

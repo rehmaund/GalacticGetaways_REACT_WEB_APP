@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import { profileThunk, logoutThunk, updateUserThunk }
+import { profileThunk, updateUserThunk }
     from "../users/users-thunks.js";
 function Profile() {
-    const { currentUser } = useSelector((state) => state.user);
-    const [profile, setProfile] = useState(currentUser);
+    const { user } = useSelector((state) => state.user);
+    const [profile, setProfile] = useState(user);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const save = () => { dispatch(updateUserThunk(profile)); };
 
-    useEffect(async () => {
-        const { payload } = await dispatch(profileThunk());
-        setProfile(payload);
+    useEffect( () => {
+        const asyncFn = async () => {const { payload } = await dispatch(profileThunk());
+            setProfile(payload); };
+        asyncFn();
     }, []);
 
     return (
-    <h1>{currentUser.username}</h1>
+    <h1>{user.username}</h1>
     ); // see below
 }
 export default Profile;

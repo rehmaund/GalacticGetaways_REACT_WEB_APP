@@ -31,13 +31,9 @@ export const updateUserThunk = createAsyncThunk(
 
 
 export const registerThunk = createAsyncThunk('auth/register',
-    async (userData, { rejectWithValue }) => {
-        try {
+    async (userData) => {
             const response = await service.register(userData);
             return response;
-        } catch (error) {
-            return rejectWithValue(error.response.data);
-        }
     });
 export const getAllUsersThunk = createAsyncThunk(
     'users/getAllUsers', async () =>
