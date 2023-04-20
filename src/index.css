@@ -13,19 +13,33 @@ code {
     monospace;
 }
 
-.wd-color-white {
-  color: white;
-}
-
-.wd-rounded-corners-white {
-  border-radius: 30px;
-  border: medium solid white;
-}
-
-img.white-border {
+.white-border {
   border: thin solid white;
 }
 
+.wd-color-white{
+  color: white;
+}
+
+.preview-image-container {
+  width: 100%;
+  height: 260px;
+  overflow: hidden;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.preview-image-container > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.preview-font-size {
+  font-size: 14px;
+}
 .wd-no-glow {
   text-shadow: none;
 }
