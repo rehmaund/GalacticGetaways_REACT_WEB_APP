@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
     loginThunk, logoutThunk, registerThunk,
     profileThunk, updateUserThunk,
-} from "./auth-thunks.js";
+} from "../users/users-thunks.js";
 import axios from "axios";
 import {createReducer as userSlice} from "@reduxjs/toolkit";
 

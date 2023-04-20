@@ -1,6 +1,6 @@
 import {useNavigate} from "react-router";
 import {useState} from "react";
-import {loginThunk, registerThunk} from "../services/authentication/auth-thunks";
+import {loginThunk, registerThunk} from "../users/users-thunks.js";
 import {useDispatch} from "react-redux";
 function Register() {
     const navigate = useNavigate();
@@ -13,7 +13,7 @@ function Register() {
     const [userType, setUserType] = useState("");
     const dispatch = useDispatch();
     const handleRegister = async () => {
-        const newUser = {"username": email,
+        const newUser = {"username": username,
             "display_name": displayName,
             "email": email,
             "phone": phone,
@@ -33,6 +33,7 @@ function Register() {
     const handleType = (event) => {
         setUserType(event.target.value);
     }
+
     return(
         <form className="w-75">
             <fieldset>
@@ -105,7 +106,7 @@ function Register() {
 
                 </fieldset>
 
-                <button type="submit" className="btn btn-primary mt-2 mb-4">Submit</button>
+                <button type="submit" className="btn btn-primary mt-2 mb-4" onClick={handleRegister}>Submit</button>
             </fieldset>
         </form>
     );

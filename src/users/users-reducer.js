@@ -140,44 +140,7 @@ const usersSlice = createSlice({
           state.loading = false
           state.error = action.error
         },
-    [incrementUserContributionsThunk.pending]:
-        (state) => {
-          state.loading = true
-        },
-    [incrementUserContributionsThunk.fulfilled]:
-        (state, { payload }) => {
-          state.loading = false
-          const userNdx = state.users
-          .findIndex((t) => t._id === payload._id)
-          state.users[userNdx] = {
-            ...state.users[userNdx],
-            ...payload
-          }
-        },
-    [incrementUserContributionsThunk.rejected]:
-        (state, action) => {
-          state.loading = false
-          state.error = action.error
-        },
-    [incrementUserRecommendationsThunk.pending]:
-        (state) => {
-          state.loading = true
-        },
-    [incrementUserRecommendationsThunk.fulfilled]:
-        (state, { payload }) => {
-          state.loading = false
-          const userNdx = state.users
-          .findIndex((t) => t._id === payload._id)
-          state.users[userNdx] = {
-            ...state.users[userNdx],
-            ...payload
-          }
-        },
-    [incrementUserRecommendationsThunk.rejected]:
-        (state, action) => {
-          state.loading = false
-          state.error = action.error
-        },
+
     [incrementUserLikesThunk.pending]:
         (state) => {
           state.loading = true

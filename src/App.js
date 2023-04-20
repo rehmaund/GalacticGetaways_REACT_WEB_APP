@@ -10,11 +10,12 @@ import BottomNavBar from "./bottom-nav-options";
 import Login from "./login/index.js";
 import Register from "./register";
 import Profile from "./profile";
-import authReducer from "./services/authentication/auth-reducer.js";
+import authReducer from "./users/auth-reducer.js";
+import usersReducer from "./users/users-reducer.js"
 
 
 const store = configureStore({
-  reducer: {search: searchReducer, user: authReducer}});
+  reducer: {search: searchReducer, user: authReducer, allUsers: usersReducer}});
 
 function App() {
 

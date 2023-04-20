@@ -2,7 +2,7 @@
 import {useNavigate} from "react-router";
 import {useDispatch} from "react-redux";
 import React, { useState } from "react";
-import { loginThunk } from "../services/authentication/auth-thunks.js";
+import { loginThunk } from "../users/users-thunks.js";
 
 function Login() {
 

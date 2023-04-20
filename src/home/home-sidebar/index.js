@@ -43,7 +43,7 @@ function HomeSidebar({ quotes }) {
 
     return(
         <div className="card text-white bg-info mb-3">
-            <div className="card-header">Travel, Explore, Visit Earth!</div>
+            <div className="card-header">Your Online Destination for all Things Earth Tourism!</div>
             <div className="card-body">
                 <h4 className="card-title">Welcome, NAME!</h4>
                 <br/>
@@ -59,11 +59,11 @@ function HomeSidebar({ quotes }) {
                         <div className="col-6">
 
                             <Link to={searchSite0}><img src={site0.image} className="white-border" width="100%" height = "90px"/></Link>
-                            {site0.name}
+                            <p className="text-truncate">{site0.name}</p>
                     </div>
                     <div className="col-6">
                         <Link to={searchSite1}><img src={site1.image} className="white-border" width="100%" height = "90px"/></Link>
-                        {site1.name}
+                        <p className="text-truncate">{site1.name}</p>
 
                     </div>
                     </div>
@@ -71,11 +71,11 @@ function HomeSidebar({ quotes }) {
                         <div className="col-6">
 
                             <Link to={searchSite2}><img src={site2.image} className="white-border" width="100%" height = "90px"/></Link>
-                            {site2.name}
+                            <p className="text-truncate">{site2.name}</p>
                         </div>
                         <div className="col-6">
                             <Link to={searchSite3}><img src={site3.image} className="white-border" width="100%" height = "90px"/></Link>
-                            {site3.name}
+                            <p className="text-truncate">{site3.name}</p>
 
                         </div>
                     </div>

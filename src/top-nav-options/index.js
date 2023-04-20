@@ -15,7 +15,7 @@ function TopNavBar() {
     return(
         <nav className="navbar navbar-expand-md navbar-dark bg-primary w-100 mb-4 ps-3 pe-3 p-sm-0">
             <div className="container-fluid m-4">
-                <a className="navbar-brand" href="#">Website name</a>
+                <a className="navbar-brand" href="#">Galactic Getaways</a>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false"
                         aria-label="Toggle navigation">
