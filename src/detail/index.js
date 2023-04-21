@@ -153,7 +153,7 @@ const Detail = () => {
             <div className="col-8">
               <h1 className="mb-0">{place.name}</h1>
               {place.address &&
-                <h4 className="text-muted">{place.address.city}, {place.address.country}</h4>}
+                <h4 className="text-muted">{place.address.city ? `${place.address.city}, ${place.address.country}` : `${place.address.country}`}</h4>}
               {place.wikipedia_extracts && <p className="text-secondary">{place.wikipedia_extracts.text}</p>}
               <p className="text-info">Tags: {place.kinds}</p>
               <p className="text-success">Rating: {rate}/3</p>
