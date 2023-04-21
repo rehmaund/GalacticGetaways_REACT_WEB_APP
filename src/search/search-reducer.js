@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {getPlaceDetailsThunk, getPlacesThunk} from "./search-thunks";
+import {getPlaceDetailsForListThunk, getPlacesThunk, getPlaceDetailsThunk} from "./search-thunks";
 import {useDispatch} from "react-redux";
 import {useEffect} from "react";
 
@@ -8,6 +8,7 @@ const initialState = {
   xidList: [],
   places: [],
   loading: false,
+  place: {},
 }
 
 const searchSlice = createSlice({
@@ -29,17 +30,32 @@ const searchSlice = createSlice({
           state.loading = false
           state.error = action.error
         },
-    [getPlaceDetailsThunk.pending]:
+    [getPlaceDetailsForListThunk.pending]:
         (state) => {
           state.loading = true
         },
-    [getPlaceDetailsThunk.fulfilled]:
+    [getPlaceDetailsForListThunk.fulfilled]:
         (state, { payload }) => {
           state.loading = false
           if (payload != null && !state.places.includes(payload) && !state.xidList.includes(payload.xid)) {
             state.xidList.push(payload.xid)
             state.places.push(payload)
           }
+        },
+    [getPlaceDetailsForListThunk.rejected]:
+        (state, action) => {
+          state.loading = false
+          state.error = action.error
+        },
+    [getPlaceDetailsThunk.pending]:
+        (state) => {
+          state.loading = true
+          state.place = {}
+        },
+    [getPlaceDetailsThunk.fulfilled]:
+        (state, { payload }) => {
+          state.loading = false
+          state.place = payload
         },
     [getPlaceDetailsThunk.rejected]:
         (state, action) => {

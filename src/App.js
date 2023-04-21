@@ -3,9 +3,11 @@ import {BrowserRouter} from "react-router-dom";
 import {Routes, Route} from "react-router";
 import TopNavBar from "./top-nav-options";
 import Search from "./search";
+import Detail from "./detail";
 import {Provider, useSelector} from "react-redux";
 import { configureStore } from '@reduxjs/toolkit';
 import searchReducer from "./search/search-reducer";
+import commentsReducer from "./detail/comments/comments-reducer";
 import BottomNavBar from "./bottom-nav-options";
 import Login from "./login/index.js";
 import Logout from "./logout/index.js";
@@ -17,10 +19,14 @@ import CurrentUserContext from "./components/load-profile";
 
 
 const store = configureStore({
-  reducer: {search: searchReducer, user: authReducer, allUsers: usersReducer}});
+  reducer: {
+    search: searchReducer,
+    user: authReducer,
+    allUsers: usersReducer,
+    comments: commentsReducer,
+  }});
 
 function App() {
-
   return (
       <Provider store={store}>
         <CurrentUserContext>
@@ -34,6 +40,8 @@ function App() {
                      element={<Home/>}/>
               <Route path="/search/:place"
                      element={<Search/>}/>
+              <Route path="/details/:xid"
+                      element={<Detail/>}/>
               <Route path="/login"
                      element={<Login/>}/>
               <Route path="/logout"
