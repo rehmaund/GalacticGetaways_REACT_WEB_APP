@@ -25,7 +25,9 @@ const commentsSlice = createSlice({
         [addNewCommentThunk.fulfilled]:
             (state, {payload}) => {
                 state.loading = false
-                state.comments.push(payload)
+                // if (!state.comments.includes(payload)) {
+                //     state.comments.push(payload)
+                // }
             },
         [addNewCommentThunk.rejected]:
             (state, action) => {
