@@ -1,4 +1,4 @@
-import {useParams} from "react-router";
+import {useNavigate, useParams} from "react-router";
 import React, {useEffect, useState} from "react";
 import {getPlaceDetailsThunk} from "../search/search-thunks.js";
 import {useDispatch, useSelector} from "react-redux";
@@ -8,6 +8,7 @@ import {
   findCommentsByPlaceIdThunk,
   getAllCommentsThunk,
 } from "./comments/comments-thunks";
+import {profileThunk, updateUserThunk} from "../users/users-thunks";
 
 const Detail = () => {
   const xid = useParams().xid;
@@ -21,24 +22,27 @@ const Detail = () => {
   const numLikes = 423;
   const numRecommendations = 272;
   const numComments = comments.length;
-  const currentUser = {
-    _id: "123",
-    username: "jack",
-    displayName: "Jack",
-    userType: "ALIEN",
-  }
+  const { user } = useSelector((state) => state.user);
+  const [currentUser, setCurrentUser] = useState(user);
+  useEffect( () => {
+    const asyncFn = async () => {const { payload } = await dispatch(profileThunk());
+      setCurrentUser(payload); };
+    asyncFn();
+  }, []);
   let [newCommentText, setNewCommentText] = useState('');
   const commentClickHandler = () => {
     const newComment = {
       text: newCommentText,
       uid: currentUser._id,
       username: currentUser.username,
-      display_name: currentUser.displayName,
-      type: currentUser.userType,
+      display_name: currentUser.display_name,
+      type: currentUser.type,
       xid: xid,
       name: place.name,
     }
     dispatch(addNewCommentThunk(newComment));
+    setNewCommentText('')
+    dispatch(findCommentsByPlaceIdThunk(xid));
   }
   return (
       <div className="">
@@ -68,15 +72,15 @@ const Detail = () => {
                   <span className="ms-1">Recommendations from Humans</span>
                 </span>
               </div>
-              {currentUser.userType === "ALIEN" &&
+              {currentUser && currentUser.type === "ALIEN" &&
                   <button className="btn btn-primary mt-2">
-                    <i className="fa fa-thumbs-up"/>
-                    <span className="ms-1">Like</span>
+                  <i className="fa fa-thumbs-up"/>
+                  <span className="ms-1">Like</span>
                   </button>}
-              {currentUser.userType === "HUMAN" &&
+              {currentUser && currentUser.type === "HUMAN" &&
                 <button className="btn btn-primary mt-2">
-                  <i className="fa fa-star"/>
-                  <span className="ms-1">Recommend</span>
+                <i className="fa fa-star"/>
+                <span className="ms-1">Recommend</span>
                 </button>}
             </div>
           </div>
