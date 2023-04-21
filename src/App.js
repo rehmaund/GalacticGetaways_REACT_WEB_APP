@@ -16,6 +16,7 @@ import Profile from "./profile";
 import authReducer from "./users/auth-reducer.js";
 import usersReducer from "./users/users-reducer.js"
 import CurrentUserContext from "./components/load-profile";
+import OtherProfile from "./otherProfile";
 
 
 const store = configureStore({
@@ -50,6 +51,8 @@ function App() {
                      element={<Register/>}/>
               <Route path="/profile"
                      element={<Profile/>} />
+              <Route path="/profile/:userId"
+                     element={<OtherProfile/>}/>
             </Routes>
           </div>
           <div className="row d-block d-md-none">
