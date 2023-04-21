@@ -29,7 +29,7 @@ function Register() {
                 }
         try {
             await dispatch(registerThunk(newUser));
-            navigate("/login");
+            navigate("/profile");
         } catch (e) {
             console.log(e);
             alert(e);
