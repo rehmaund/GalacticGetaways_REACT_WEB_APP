@@ -14,33 +14,37 @@ export const findCountersByPlaceIdThunk = createAsyncThunk(
 );
 
 export const incrementLikeThunk = createAsyncThunk(
-    'counters/incrementLike', async (counter) => {
+    'counters/incrementLike', async (xid) => {
+        const counter = await service.findCountersByPlaceId(xid);
         counter.num_likes++;
-        const updatedCounter = await service.updateCounter(counter);
+        const updatedCounter = await service.updateCounter(xid, counter);
         return updatedCounter;
     }
 );
 
 export const decrementLikeThunk = createAsyncThunk(
-    'counters/decrementLike', async (counter) => {
+    'counters/decrementLike', async (xid) => {
+        const counter = await service.findCountersByPlaceId(xid);
         counter.num_likes--;
-        const updatedCounter = await service.updateCounter(counter);
+        const updatedCounter = await service.updateCounter(xid, counter);
         return updatedCounter;
     }
 );
 
 export const incrementRecommendationThunk = createAsyncThunk(
-    'counters/incrementRecommendation', async (counter) => {
+    'counters/incrementRecommendation', async (xid) => {
+        const counter = await service.findCountersByPlaceId(xid);
         counter.num_recommendations++;
-        const updatedCounter = await service.updateCounter(counter);
+        const updatedCounter = await service.updateCounter(xid, counter);
         return updatedCounter;
     }
 );
 
 export const decrementRecommendationThunk = createAsyncThunk(
-    'counters/decrementRecommendation', async (counter) => {
+    'counters/decrementRecommendation', async (xid) => {
+        const counter = await service.findCountersByPlaceId(xid);
         counter.num_recommendations--;
-        const updatedCounter = await service.updateCounter(counter);
+        const updatedCounter = await service.updateCounter(xid, counter);
         return updatedCounter;
     }
 );

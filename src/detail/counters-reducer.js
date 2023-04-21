@@ -42,8 +42,7 @@ export const countersReducer = createSlice({
     [incrementLikeThunk.fulfilled]:
         (state, { payload }) => {
           state.loading = false
-          state.counters = state.counters
-          .map(c => c._id === payload._id ? payload : c)
+          state.counters = payload
         },
     [decrementLikeThunk.pending]:
         (state) => {
@@ -57,8 +56,7 @@ export const countersReducer = createSlice({
     [decrementLikeThunk.fulfilled]:
         (state, { payload }) => {
           state.loading = false
-          state.counters = state.counters
-          .map(c => c._id === payload._id ? payload : c)
+          state.counters = payload
         },
     [incrementRecommendationThunk.pending]:
         (state) => {
@@ -72,8 +70,7 @@ export const countersReducer = createSlice({
     [incrementRecommendationThunk.fulfilled]:
         (state, { payload }) => {
           state.loading = false
-          state.counters = state.counters
-          .map(c => c._id === payload._id ? payload : c)
+          state.counters = payload
         },
     [decrementRecommendationThunk.pending]:
         (state) => {
@@ -87,8 +84,7 @@ export const countersReducer = createSlice({
     [decrementRecommendationThunk.fulfilled]:
         (state, { payload }) => {
           state.loading = false
-          state.counters = state.counters
-          .map(c => c._id === payload._id ? payload : c)
+          state.counters = payload
         },
   }
 });
