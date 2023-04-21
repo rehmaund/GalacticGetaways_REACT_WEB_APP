@@ -4,36 +4,36 @@ import * as service from "./users-service"
 
 
 export const loginThunk = createAsyncThunk(
-    "user/login", async (credentials) => {
+    "users/login", async (credentials) => {
         const user = await service.login(credentials);
         return user;
     }
 );
 
 export const profileThunk = createAsyncThunk(
-    "auth/profile", async () => {
+    "users/profile", async () => {
         return await service.profile();
     });
 
 
 export const logoutThunk = createAsyncThunk(
-    "auth/logout", async () => {
+    "users/logout", async () => {
         return await service.logout();
     });
 
 
 export const updateUserThunk = createAsyncThunk(
-    "user/updateUser", async (user) => {
+    "users/updateUser", async (user) => {
         await service.updateUser(user);
         return user;
     }
 );
 
 
-export const registerThunk = createAsyncThunk('auth/register',
+export const registerThunk = createAsyncThunk('users/register',
     async (userData) => {
             const response = await service.register(userData);
-            return response;
+            return response.data;
     });
 export const getAllUsersThunk = createAsyncThunk(
     'users/getAllUsers', async () =>
