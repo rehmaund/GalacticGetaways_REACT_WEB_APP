@@ -54,3 +54,7 @@ code {
 .width-70pc {
   width: 70%;
 }
+
+.wd-card-height {
+  height: fit-content;
+}

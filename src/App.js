@@ -16,6 +16,8 @@ import Profile from "./profile";
 import authReducer from "./users/auth-reducer.js";
 import usersReducer from "./users/users-reducer.js"
 import CurrentUserContext from "./components/load-profile";
+import countersReducer from "./detail/counters-reducer";
+import interactionsReducer from "./detail/interactions-reducer";
 
 
 const store = configureStore({
@@ -24,6 +26,8 @@ const store = configureStore({
     user: authReducer,
     allUsers: usersReducer,
     comments: commentsReducer,
+    counters: countersReducer,
+    interactions: interactionsReducer,
   }});
 
 function App() {
