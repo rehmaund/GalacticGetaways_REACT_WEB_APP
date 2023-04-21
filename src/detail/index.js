@@ -105,6 +105,17 @@ const Detail = () => {
               {comments.map(comment => <Comment comment={comment} key={comment._id}/>)}
             </div>
             <div className="col-6">
+              {showLoginAlert &&
+                  <div className="alert alert-dismissible alert-danger">
+                    <button type="button" className="btn-close" onClick={() => setShowLoginAlert(false)}/>
+                    <strong>Oh snap! </strong>
+                    <Link to="/login" className="alert-link">Log in or register</Link> to add comments.
+                  </div>}
+              {showCommentAlert &&
+                  <div className="alert alert-dismissible alert-danger">
+                    <button type="button" className="btn-close" onClick={() => setShowCommentAlert(false)}/>
+                    <strong>Whoops!</strong> You forgot to add your comment. Type something in the input box above and try again.
+                  </div>}
               <div className="card border-secondary p-3 mb-3">
                 <h4>Add a new comment!</h4>
 
@@ -119,17 +130,6 @@ const Detail = () => {
                           onClick={commentClickHandler}
                   >Submit</button>
               </div>
-              {showLoginAlert &&
-                <div className="alert alert-dismissible alert-danger">
-                  <button type="button" className="btn-close" onClick={() => setShowLoginAlert(false)}/>
-                  <strong>Oh snap! </strong>
-                  <Link to="/login" className="alert-link">Log in or register</Link> to add comments.
-                </div>}
-              {showCommentAlert &&
-                  <div className="alert alert-dismissible alert-danger">
-                    <button type="button" className="btn-close" onClick={() => setShowCommentAlert(false)}/>
-                    <strong>Whoops!</strong> You forgot to add your comment. Type something in the input box above and try again.
-                  </div>}
             </div>
           </div>}
         </div>}
