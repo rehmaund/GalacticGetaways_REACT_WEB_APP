@@ -8,7 +8,9 @@ const ItemColumns = ({allContent}) => {
   if (w < 768) {
     numColumns = 2;
   } else if (w >= 1200) {
-    numColumns = 4;
+    numColumns = 3;
+  } else if (w >= 992) {
+    numColumns = 2;
   } else {
     numColumns = 3;
   }

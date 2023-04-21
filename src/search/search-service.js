@@ -9,7 +9,7 @@ export const getPlaces = async (place) => {
   .then(response => {
     const location = response.data;
     return axios.get(BASE_API + "radius?radius=100&lon=" + location.lon
-        + "&lat=" + location.lat + "&limit=100&apikey=" + API_KEY);
+        + "&lat=" + location.lat + "&limit=15&apikey=" + API_KEY);
   })
   .then(response => {
     return response.data.features;
