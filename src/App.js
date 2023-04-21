@@ -15,6 +15,7 @@ import Register from "./register";
 import Profile from "./profile";
 import authReducer from "./users/auth-reducer.js";
 import usersReducer from "./users/users-reducer.js"
+import CurrentUserContext from "./components/load-profile";
 
 
 const store = configureStore({
@@ -28,6 +29,7 @@ const store = configureStore({
 function App() {
   return (
       <Provider store={store}>
+        <CurrentUserContext>
         <BrowserRouter>
           <div className="row d-none d-md-block">
             <TopNavBar/>
@@ -54,6 +56,7 @@ function App() {
             <BottomNavBar/>
           </div>
         </BrowserRouter>
+        </CurrentUserContext>
       </Provider>
   );
 }

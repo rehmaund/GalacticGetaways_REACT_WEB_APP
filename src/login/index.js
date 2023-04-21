@@ -25,7 +25,7 @@ function Login() {
         <div className="card text-white bg-secondary mb-3">
             <div className="card-header row">
                 <div className="col">
-                <h4>Welcome to *WEBSITE NAME*</h4></div>
+                <h4>Welcome, Beings from Earth and Beyond!</h4></div>
                 <div className="col">
                 <button type="button" className="btn-close float-end" data-bs-dismiss="modal" aria-label="Close" onClick={() => {
                     navigate(`/`);
