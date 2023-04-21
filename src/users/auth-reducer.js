@@ -16,12 +16,14 @@ const authSlice = createSlice({
     extraReducers: {
         [loginThunk.fulfilled]: (state, { payload }) => {
             state.user = payload;
-        }, [registerThunk.fulfilled]: (state, { payload }) => {
+        },
+        [registerThunk.fulfilled]: (state, { payload }) => {
             state.user = payload;
         },
         [registerThunk.rejected]: (state, { error }) => {
             state.error = error.message;
-        },  [logoutThunk.fulfilled]: (state) => {
+        },
+        [logoutThunk.fulfilled]: (state) => {
             state.user = null;
         },
         [profileThunk.fulfilled]: (state, { payload }) => {

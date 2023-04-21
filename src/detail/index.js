@@ -9,6 +9,7 @@ import {
   getAllCommentsThunk,
 } from "./comments/comments-thunks";
 import {profileThunk, updateUserThunk} from "../users/users-thunks";
+import {Link} from "react-router-dom";
 
 const Detail = () => {
   const xid = useParams().xid;
@@ -28,9 +29,21 @@ const Detail = () => {
     const asyncFn = async () => {const { payload } = await dispatch(profileThunk());
       setCurrentUser(payload); };
     asyncFn();
-  }, []);
+  }, [dispatch]);
   let [newCommentText, setNewCommentText] = useState('');
+  let [showLoginAlert, setShowLoginAlert] = useState(false);
+  let [showCommentAlert, setShowCommentAlert] = useState(false);
   const commentClickHandler = () => {
+    setShowLoginAlert(false);
+    setShowCommentAlert(false);
+    if (newCommentText === '') {
+      setShowCommentAlert(true);
+      return;
+    }
+    if (!currentUser) {
+      setShowLoginAlert(true);
+      return;
+    }
     const newComment = {
       text: newCommentText,
       uid: currentUser._id,
@@ -92,21 +105,31 @@ const Detail = () => {
               {comments.map(comment => <Comment comment={comment} key={comment._id}/>)}
             </div>
             <div className="col-6">
-              <div className="card border-secondary p-3">
+              <div className="card border-secondary p-3 mb-3">
                 <h4>Add a new comment!</h4>
-                <form>
-                  <div className="mb-3">
-                    <textarea value={newCommentText}
+
+                <div className="mb-3">
+                  <textarea value={newCommentText}
                               className="form-control"
                               rows="2"
                               placeholder="What do you want to share?"
                               onChange={(event) => setNewCommentText(event.target.value)}/>
-                  </div>
-                  <button type="submit" className="btn btn-primary"
+                </div>
+                <button className="btn btn-primary"
                           onClick={commentClickHandler}
                   >Submit</button>
-                </form>
               </div>
+              {showLoginAlert &&
+                <div className="alert alert-dismissible alert-danger">
+                  <button type="button" className="btn-close" onClick={() => setShowLoginAlert(false)}/>
+                  <strong>Oh snap! </strong>
+                  <Link to="/login" className="alert-link">Log in or register</Link> to add comments.
+                </div>}
+              {showCommentAlert &&
+                  <div className="alert alert-dismissible alert-danger">
+                    <button type="button" className="btn-close" onClick={() => setShowCommentAlert(false)}/>
+                    <strong>Whoops!</strong> You forgot to add your comment. Type something in the input box above and try again.
+                  </div>}
             </div>
           </div>}
         </div>}
