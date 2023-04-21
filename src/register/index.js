@@ -12,7 +12,8 @@ function Register() {
     const [location, setLocation] = useState("");
     const [userType, setUserType] = useState("");
     const dispatch = useDispatch();
-    const handleRegister = async () => {
+    const handleRegister = async (e) => {
+        e.preventDefault();
         const newUser = {"username": username,
             "display_name": displayName,
             "email": email,
@@ -21,12 +22,16 @@ function Register() {
             "bio": "",
             "wants_visit": "",
             "password": password,
-            "location": location
+            "location": location,
+            "total_likes": 0,
+            "total_comments": 0,
+            "actions_taken": 0
                 }
         try {
             await dispatch(registerThunk(newUser));
             navigate("/profile");
         } catch (e) {
+            console.log(e);
             alert(e);
         }
     };
