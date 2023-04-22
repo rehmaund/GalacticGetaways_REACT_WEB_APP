@@ -1,4 +1,4 @@
-import {useNavigate, useParams} from "react-router";
+import {useParams} from "react-router";
 import React, {useEffect, useState} from "react";
 import {getPlaceDetailsThunk} from "../search/search-thunks.js";
 import {useDispatch, useSelector} from "react-redux";
@@ -6,18 +6,19 @@ import Comment from "./comments/comment";
 import {
   addNewCommentThunk,
   findCommentsByPlaceIdThunk,
-  getAllCommentsThunk,
 } from "./comments/comments-thunks";
-import {profileThunk, updateUserThunk} from "../users/users-thunks";
+import {profileThunk} from "../users/users-thunks";
 import {Link} from "react-router-dom";
-import {findCountersByPlaceId} from "./counters-service";
 import {
-  decrementLikeThunk, decrementRecommendationThunk,
+  decrementLikeThunk,
+  decrementRecommendationThunk,
   findCountersByPlaceIdThunk,
-  incrementLikeThunk, incrementRecommendationThunk
+  incrementLikeThunk,
+  incrementRecommendationThunk
 } from "./counters-thunks";
 import {
-  createInteractionThunk, deleteInteractionThunk,
+  createInteractionThunk,
+  deleteInteractionThunk,
   findSpecificInteractionThunk
 } from "./interactions-thunks";
 
@@ -29,7 +30,14 @@ const Detail = () => {
   useEffect(() => {
     dispatch(getPlaceDetailsThunk(xid));
     dispatch(findCommentsByPlaceIdThunk(xid));
-  }, [dispatch, xid])
+  }, [dispatch, xid]);
+  const [rate, setRate] = useState("");
+  useEffect(() => {
+    if (place) {
+      let givenRate = String(place.rate);
+      setRate(givenRate.replace("h", ""));
+    }
+  }, [place]);
   const numComments = comments.length;
   useEffect(() => {
     dispatch(findCountersByPlaceIdThunk(xid));
@@ -97,6 +105,7 @@ const Detail = () => {
     dispatch(addNewCommentThunk(newComment));
     setNewCommentText('')
     dispatch(findCommentsByPlaceIdThunk(xid));
+    window.location.reload();
   }
   const interactionClickHandler = async () => {
     if (!currentUser) {
@@ -144,10 +153,10 @@ const Detail = () => {
             <div className="col-8">
               <h1 className="mb-0">{place.name}</h1>
               {place.address &&
-                <h4 className="text-muted">{place.address.city}, {place.address.country}</h4>}
+                <h4 className="text-muted">{place.address.city ? `${place.address.city}, ${place.address.country}` : `${place.address.country}`}</h4>}
               {place.wikipedia_extracts && <p className="text-secondary">{place.wikipedia_extracts.text}</p>}
               <p className="text-info">Tags: {place.kinds}</p>
-              <p className="text-success">Rating: {place.rate}</p>
+              <p className="text-success">Rating: {rate}/3</p>
               {counters &&
                 <div className="row w-100">
                   <span className="col-4">
@@ -161,26 +170,32 @@ const Detail = () => {
                     <span className="ms-1">Recommendations from Humans</span>
                   </span>
                 </div>}
-              {currentUser && currentUser.type === "ALIEN" && !liked &&
-                  <button className="btn btn-primary mt-2" onClick={interactionClickHandler}>
-                  <i className="fa fa-thumbs-up"/>
-                  <span className="ms-1">Like</span>
-                  </button>}
-              {currentUser && currentUser.type === "ALIEN" && liked &&
-                  <button className="btn btn-primary mt-2" onClick={interactionClickHandler}>
-                    <i className="fa fa-thumbs-down"/>
-                    <span className="ms-1">Unlike</span>
-                  </button>}
-              {currentUser && currentUser.type === "HUMAN" && !recommended &&
-                <button className="btn btn-primary mt-2" onClick={interactionClickHandler}>
-                <i className="fa fa-star"/>
-                <span className="ms-1">Recommend</span>
-                </button>}
-              {currentUser && currentUser.type === "HUMAN" && recommended &&
-                  <button className="btn btn-primary mt-2" onClick={interactionClickHandler}>
-                    <i className="fa fa-star-o"/>
-                    <span className="ms-1">Unrecommend</span>
-                  </button>}
+              <div className="row w-100">
+                <div className="col-4">
+                  {currentUser && currentUser.type === "ALIEN" && !liked &&
+                      <button className="btn btn-primary mt-2" onClick={interactionClickHandler}>
+                      <i className="fa fa-thumbs-up"/>
+                      <span className="ms-1">Like</span>
+                      </button>}
+                  {currentUser && currentUser.type === "ALIEN" && liked &&
+                      <button className="btn btn-primary mt-2" onClick={interactionClickHandler}>
+                        <i className="fa fa-thumbs-down"/>
+                        <span className="ms-1">Unlike</span>
+                      </button>}
+                </div>
+                <div className="col-6">
+                  {currentUser && currentUser.type === "HUMAN" && !recommended &&
+                    <button className="btn btn-primary mt-2" onClick={interactionClickHandler}>
+                    <i className="fa fa-star"/>
+                    <span className="ms-1">Recommend</span>
+                    </button>}
+                  {currentUser && currentUser.type === "HUMAN" && recommended &&
+                      <button className="btn btn-primary mt-2" onClick={interactionClickHandler}>
+                        <i className="fa fa-star-o"/>
+                        <span className="ms-1">Unrecommend</span>
+                      </button>}
+                </div>
+              </div>
             </div>
           </div>
           <hr/>
