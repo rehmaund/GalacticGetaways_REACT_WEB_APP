@@ -23,7 +23,6 @@ export const findInteractionsByPlaceId = async (xid) => {
 export const findSpecificInteraction = async (bothIds) => {
   const { xid, uid } = bothIds;
   const response = await api.get(`${INTERACTIONS_URL}/${xid}/${uid}`);
-  console.log(response.data);
   return response.data;
 }
 
