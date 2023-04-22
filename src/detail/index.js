@@ -1,4 +1,4 @@
-import {useNavigate, useParams} from "react-router";
+import {useParams} from "react-router";
 import React, {useEffect, useState} from "react";
 import {getPlaceDetailsThunk} from "../search/search-thunks.js";
 import {useDispatch, useSelector} from "react-redux";
@@ -6,10 +6,21 @@ import Comment from "./comments/comment";
 import {
   addNewCommentThunk,
   findCommentsByPlaceIdThunk,
-  getAllCommentsThunk,
 } from "./comments/comments-thunks";
-import {profileThunk, updateUserThunk} from "../users/users-thunks";
+import {profileThunk} from "../users/users-thunks";
 import {Link} from "react-router-dom";
+import {
+  decrementLikeThunk,
+  decrementRecommendationThunk,
+  findCountersByPlaceIdThunk,
+  incrementLikeThunk,
+  incrementRecommendationThunk
+} from "./counters-thunks";
+import {
+  createInteractionThunk,
+  deleteInteractionThunk,
+  findSpecificInteractionThunk
+} from "./interactions-thunks";
 
 const Detail = () => {
   const xid = useParams().xid;
@@ -19,10 +30,19 @@ const Detail = () => {
   useEffect(() => {
     dispatch(getPlaceDetailsThunk(xid));
     dispatch(findCommentsByPlaceIdThunk(xid));
-  }, [dispatch, xid])
-  const numLikes = 423;
-  const numRecommendations = 272;
+  }, [dispatch, xid]);
+  const [rate, setRate] = useState("");
+  useEffect(() => {
+    if (place) {
+      let givenRate = String(place.rate);
+      setRate(givenRate.replace("h", ""));
+    }
+  }, [place]);
   const numComments = comments.length;
+  useEffect(() => {
+    dispatch(findCountersByPlaceIdThunk(xid));
+  }, [dispatch, xid])
+  const {counters, loading: countersLoading} = useSelector(state => state.counters);
   const { user } = useSelector((state) => state.user);
   const [currentUser, setCurrentUser] = useState(user);
   useEffect( () => {
@@ -30,6 +50,35 @@ const Detail = () => {
       setCurrentUser(payload); };
     asyncFn();
   }, [dispatch]);
+  const {interactions, loading: interactionsLoading} = useSelector(state => state.interactions);
+  const [liked, setLiked] = useState(false);
+  const [recommended, setRecommended] = useState(false);
+  useEffect(() => {
+    if (currentUser) {
+      const bothIds = {xid: xid, uid: currentUser._id};
+      dispatch(findSpecificInteractionThunk(bothIds));
+    } else {
+    setLiked(false);
+    setRecommended(false);
+  }
+  }, [dispatch, xid, currentUser]);
+  useEffect(() => {
+    if (currentUser) {
+      if (interactions.length > 0) {
+        if (currentUser.type === "ALIEN") {
+          setLiked(true);
+        } else if (currentUser.type === "HUMAN") {
+          setRecommended(true);
+        }
+      } else {
+        if (currentUser.type === "ALIEN") {
+          setLiked(false);
+        } else if (currentUser.type === "HUMAN") {
+          setRecommended(false);
+        }
+      }
+    }
+  }, [currentUser, interactions]);
   let [newCommentText, setNewCommentText] = useState('');
   let [showLoginAlert, setShowLoginAlert] = useState(false);
   let [showCommentAlert, setShowCommentAlert] = useState(false);
@@ -56,6 +105,41 @@ const Detail = () => {
     dispatch(addNewCommentThunk(newComment));
     setNewCommentText('')
     dispatch(findCommentsByPlaceIdThunk(xid));
+    window.location.reload();
+  }
+  const interactionClickHandler = async () => {
+    if (!currentUser) {
+      return;
+    }
+    if (currentUser.type === "ALIEN") {
+      if (liked) {
+        await dispatch(deleteInteractionThunk(interactions[0]._id));
+        await dispatch(decrementLikeThunk(xid));
+        await dispatch(findCountersByPlaceIdThunk(xid));
+        setLiked(false);
+      } else {
+        const uid = currentUser._id;
+        const interaction = {xid, uid};
+        await dispatch(createInteractionThunk(interaction));
+        await dispatch(incrementLikeThunk(xid));
+        await dispatch(findCountersByPlaceIdThunk(xid));
+        setLiked(true);
+      }
+    } else if (currentUser.type === "HUMAN") {
+      if (recommended) {
+        await dispatch(deleteInteractionThunk(interactions[0]._id));
+        await dispatch(decrementRecommendationThunk(xid));
+        await dispatch(findCountersByPlaceIdThunk(xid));
+        setRecommended(false);
+      } else {
+        const uid = currentUser._id;
+        const interaction = {xid, uid};
+        await dispatch(createInteractionThunk(interaction));
+        await dispatch(incrementRecommendationThunk(xid));
+        await dispatch(findCountersByPlaceIdThunk(xid));
+        setRecommended(true);
+      }
+    }
   }
   return (
       <div className="">
@@ -69,32 +153,49 @@ const Detail = () => {
             <div className="col-8">
               <h1 className="mb-0">{place.name}</h1>
               {place.address &&
-                <h4 className="text-muted">{place.address.city}, {place.address.country}</h4>}
+                <h4 className="text-muted">{place.address.city ? `${place.address.city}, ${place.address.country}` : `${place.address.country}`}</h4>}
               {place.wikipedia_extracts && <p className="text-secondary">{place.wikipedia_extracts.text}</p>}
               <p className="text-info">Tags: {place.kinds}</p>
-              <p className="text-success">Rating: {place.rate}</p>
+              <p className="text-success">Rating: {rate}/3</p>
+              {counters &&
+                <div className="row w-100">
+                  <span className="col-4">
+                    <i className="fa fa-thumbs-up"/>
+                    <span className="ms-2">{counters.num_likes}</span>
+                    <span className="ms-1">Likes from Aliens</span>
+                  </span>
+                  <span className="col-6">
+                    <i className="fa fa-star"/>
+                    <span className="ms-2">{counters.num_recommendations}</span>
+                    <span className="ms-1">Recommendations from Humans</span>
+                  </span>
+                </div>}
               <div className="row w-100">
-                <span className="col-4">
-                  <i className="fa fa-thumbs-up"/>
-                  <span className="ms-2">{numLikes}</span>
-                  <span className="ms-1">Likes from Aliens</span>
-                </span>
-                <span className="col-6">
-                  <i className="fa fa-star"/>
-                  <span className="ms-2">{numRecommendations}</span>
-                  <span className="ms-1">Recommendations from Humans</span>
-                </span>
+                <div className="col-4">
+                  {currentUser && currentUser.type === "ALIEN" && !liked &&
+                      <button className="btn btn-primary mt-2" onClick={interactionClickHandler}>
+                      <i className="fa fa-thumbs-up"/>
+                      <span className="ms-1">Like</span>
+                      </button>}
+                  {currentUser && currentUser.type === "ALIEN" && liked &&
+                      <button className="btn btn-primary mt-2" onClick={interactionClickHandler}>
+                        <i className="fa fa-thumbs-down"/>
+                        <span className="ms-1">Unlike</span>
+                      </button>}
+                </div>
+                <div className="col-6">
+                  {currentUser && currentUser.type === "HUMAN" && !recommended &&
+                    <button className="btn btn-primary mt-2" onClick={interactionClickHandler}>
+                    <i className="fa fa-star"/>
+                    <span className="ms-1">Recommend</span>
+                    </button>}
+                  {currentUser && currentUser.type === "HUMAN" && recommended &&
+                      <button className="btn btn-primary mt-2" onClick={interactionClickHandler}>
+                        <i className="fa fa-star-o"/>
+                        <span className="ms-1">Unrecommend</span>
+                      </button>}
+                </div>
               </div>
-              {currentUser && currentUser.type === "ALIEN" &&
-                  <button className="btn btn-primary mt-2">
-                  <i className="fa fa-thumbs-up"/>
-                  <span className="ms-1">Like</span>
-                  </button>}
-              {currentUser && currentUser.type === "HUMAN" &&
-                <button className="btn btn-primary mt-2">
-                <i className="fa fa-star"/>
-                <span className="ms-1">Recommend</span>
-                </button>}
             </div>
           </div>
           <hr/>

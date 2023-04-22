@@ -12,7 +12,7 @@ const ItemPreview = ({item}, {key}) => {
           <h5 className="card-title text-truncate">{item.name}</h5>
           <div>
             <Link to={{pathname: `/details/${item.xid}`}} className="btn btn-primary float-end">More</Link>
-            <p className="card-text">{item.address.city}, {item.address.country}</p>
+            <p className="card-text">{item.address.city ? `${item.address.city}, ${item.address.country}` : `${item.address.country}`}</p>
           </div>
         </div>
       </div>
