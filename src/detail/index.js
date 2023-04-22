@@ -7,7 +7,14 @@ import {
   addNewCommentThunk,
   findCommentsByPlaceIdThunk,
 } from "./comments/comments-thunks";
-import {profileThunk} from "../users/users-thunks";
+import {
+  decrementUserLikesThunk,
+  decrementUserRecommendationsThunk,
+  incrementUserCommentsThunk,
+  incrementUserLikesThunk,
+  incrementUserRecommendationsThunk,
+  profileThunk
+} from "../users/users-thunks";
 import {Link} from "react-router-dom";
 import {
   decrementLikeThunk,
@@ -103,6 +110,7 @@ const Detail = () => {
       name: place.name,
     }
     dispatch(addNewCommentThunk(newComment));
+    dispatch(incrementUserCommentsThunk(currentUser._id));
     setNewCommentText('')
     dispatch(findCommentsByPlaceIdThunk(xid));
     window.location.reload();
@@ -115,6 +123,7 @@ const Detail = () => {
       if (liked) {
         await dispatch(deleteInteractionThunk(interactions[0]._id));
         await dispatch(decrementLikeThunk(xid));
+        await dispatch(decrementUserLikesThunk(currentUser._id));
         await dispatch(findCountersByPlaceIdThunk(xid));
         setLiked(false);
       } else {
@@ -122,6 +131,7 @@ const Detail = () => {
         const interaction = {xid, uid};
         await dispatch(createInteractionThunk(interaction));
         await dispatch(incrementLikeThunk(xid));
+        await dispatch(incrementUserLikesThunk(currentUser._id));
         await dispatch(findCountersByPlaceIdThunk(xid));
         setLiked(true);
       }
@@ -129,6 +139,7 @@ const Detail = () => {
       if (recommended) {
         await dispatch(deleteInteractionThunk(interactions[0]._id));
         await dispatch(decrementRecommendationThunk(xid));
+        await dispatch(decrementUserRecommendationsThunk(currentUser._id));
         await dispatch(findCountersByPlaceIdThunk(xid));
         setRecommended(false);
       } else {
@@ -136,6 +147,7 @@ const Detail = () => {
         const interaction = {xid, uid};
         await dispatch(createInteractionThunk(interaction));
         await dispatch(incrementRecommendationThunk(xid));
+        await dispatch(incrementUserRecommendationsThunk(currentUser._id));
         await dispatch(findCountersByPlaceIdThunk(xid));
         setRecommended(true);
       }

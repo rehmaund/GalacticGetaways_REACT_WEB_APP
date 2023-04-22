@@ -1,6 +1,6 @@
 import axios from "axios";
 const SERVER_API_URL = process.env.REACT_APP_API_BASE;
-const USERS_URL = 'http://localhost:4000/api/users';
+const USERS_URL = `${SERVER_API_URL}/users`;
 
 
 const api = axios.create({ withCredentials: true });
@@ -65,16 +65,41 @@ export const findUserByUsername = async (username) => {
 }
 
 export const incrementUserLikes = async (uid) => {
-  const response = await api.put(`${USERS_URL}/${uid}/likes`);
+  const response = await api.put(`${USERS_URL}/${uid}/likes/increment`);
+  return response.data;
+}
+
+export const incrementUserRecommendations = async (uid) => {
+  const response = await api.put(`${USERS_URL}/${uid}/recommendations/increment`);
   return response.data;
 }
 
 export const incrementUserComments = async (uid) => {
-  const response = await axios.put(`${USERS_URL}/${uid}/comments`);
+  const response = await axios.put(`${USERS_URL}/${uid}/comments/increment`);
   return response.data;
 }
 
 export const incrementUserActionsTaken = async (uid) => {
-  const response = await axios.put(`${USERS_URL}/${uid}/actionsTaken`);
+  const response = await axios.put(`${USERS_URL}/${uid}/actionsTaken/increment`);
+  return response.data;
+}
+
+export const decrementUserLikes = async (uid) => {
+  const response = await api.put(`${USERS_URL}/${uid}/likes/decrement`);
+  return response.data;
+}
+
+export const decrementUserRecommendations = async (uid) => {
+  const response = await api.put(`${USERS_URL}/${uid}/recommendations/decrement`);
+  return response.data;
+}
+
+export const decrementUserComments = async (uid) => {
+  const response = await axios.put(`${USERS_URL}/${uid}/comments/decrement`);
+  return response.data;
+}
+
+export const decrementUserActionsTaken = async (uid) => {
+  const response = await axios.put(`${USERS_URL}/${uid}/actionsTaken/decrement`);
   return response.data;
 }

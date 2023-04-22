@@ -4,21 +4,28 @@ import {useDispatch, useSelector} from "react-redux";
 import {deleteFlagThunk} from "./flags-thunks";
 import {
   deleteCommentThunk,
-  findCommentByIdThunk
 } from "../detail/comments/comments-thunks";
-import {deleteUserThunk, findUserByIdThunk} from "../users/users-thunks";
-import Comment from "../detail/comments/comment";
+import {
+  incrementUserActionsTakenThunk, profileThunk
+} from "../users/users-thunks";
 import {Link} from "react-router-dom";
-import FlagButton from "./flag-button";
 
 const Flagged = ({flag}, {key}) => {
   const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.user);
+  const [currentUser, setCurrentUser] = useState(user);
+  useEffect( () => {
+    const asyncFn = async () => {const { payload } = await dispatch(profileThunk());
+      setCurrentUser(payload); };
+    asyncFn();
+  }, [dispatch]);
   const removeContent = () => {
     dispatch(deleteCommentThunk(flag.comment._id));
-    dispatch(deleteFlagThunk(flag._id));
+    resolveFlag();
   }
   const resolveFlag = () => {
     dispatch(deleteFlagThunk(flag._id));
+    dispatch(incrementUserActionsTakenThunk(currentUser._id));
   }
   return(
       <div className="card border-danger">

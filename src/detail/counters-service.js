@@ -1,6 +1,6 @@
 import axios from "axios";
 const SERVER_API_URL = process.env.REACT_APP_API_BASE;
-const COUNTERS_URL = 'http://localhost:4000/api/counters';
+const COUNTERS_URL = `${SERVER_API_URL}/counters`;
 
 
 const api = axios.create({ withCredentials: true });
