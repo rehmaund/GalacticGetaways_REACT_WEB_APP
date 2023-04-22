@@ -15,7 +15,7 @@ function SmallScreenSearch() {
     }
     return(
         <div>
-        {currentPage === "/" &&
+        {(currentPage === "/" || currentPage.startsWith('/search') === true) &&
         <nav className="navbar navbar-expand-md navbar-dark w-100 mb-4 ps-3 pe-3 p-sm-0">
             <div className="container-fluid m-4">
                 <form className="d-flex w-100">
