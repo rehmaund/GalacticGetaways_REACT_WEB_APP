@@ -15,9 +15,8 @@ const ReviewFlagged = () => {
         <h1>Review Flagged Content</h1>
         <div className="row col-12 w-100 p-0 m-0">
           {loading && <div>Loading...</div>}
-          {console.log(flags)}
           {flags.length === 0 && <div>No flags to review</div>}
-          {flags.map(flagged => <Flagged flag={flagged} key={flagged._id}/>)}
+          {flags.length > 0 && flags.map(flagged => <Flagged flag={flagged} key={flagged._id}/>)}
         </div>
       </div>
   );
