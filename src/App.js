@@ -19,6 +19,8 @@ import CurrentUserContext from "./components/load-profile";
 import OtherProfile from "./otherProfile";
 import countersReducer from "./detail/counters-reducer";
 import interactionsReducer from "./detail/interactions-reducer";
+import flagsReducer from "./flag/flags-reducer";
+import ReviewFlagged from "./flag/review-flags";
 
 
 const store = configureStore({
@@ -29,6 +31,7 @@ const store = configureStore({
     comments: commentsReducer,
     counters: countersReducer,
     interactions: interactionsReducer,
+    flags: flagsReducer,
   }});
 
 function App() {
@@ -57,6 +60,8 @@ function App() {
                      element={<Profile/>} />
               <Route path="/profile/:userId"
                      element={<OtherProfile/>}/>
+              <Route path="/review"
+                      element={<ReviewFlagged/>}/>
             </Routes>
           </div>
           <div className="row d-block d-md-none">
