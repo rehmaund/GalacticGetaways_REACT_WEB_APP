@@ -1,7 +1,6 @@
 import {
-  createCounterThunk, decrementLikeThunk, decrementRecommendationThunk,
+  decrementLikeThunk, decrementRecommendationThunk,
   findCountersByPlaceIdThunk, incrementLikeThunk, incrementRecommendationThunk,
-  updateCounterThunk
 } from "./counters-thunks";
 import {createSlice} from "@reduxjs/toolkit";
 

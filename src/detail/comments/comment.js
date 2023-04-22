@@ -1,11 +1,9 @@
 import {Link} from "react-router-dom";
-import {
-  deleteCommentThunk,
-  findCommentsByPlaceIdThunk
-} from "./comments-thunks";
+import {deleteCommentThunk,} from "./comments-thunks";
 import {useDispatch, useSelector} from "react-redux";
 import React, {useEffect, useState} from "react";
 import {profileThunk} from "../../users/users-thunks";
+import FlagButton from "../../flag/flag-button";
 
 const Comment = ({comment}, {key}) => {
   const { user } = useSelector((state) => state.user);
@@ -29,6 +27,8 @@ const Comment = ({comment}, {key}) => {
               <i className={`fa ${comment.type === "ALIEN" ? "fa-brands fa-reddit-alien" : ""} ${comment.type === "HUMAN" ? "fa-solid fa-user-astronaut" : ""} ${comment.type === "MODERATOR" ? "fa-solid fa-user-shield" : ""}`}/>
             </span>
           </Link>
+          {currentUser && currentUser.username !== comment.username &&
+              <FlagButton uid={currentUser._id} username={currentUser.username} comment={comment._id}/>}
           {currentUser && (currentUser.type === "MODERATOR" || comment.username === currentUser.username) &&
             <button className="btn btn-danger float-end" onClick={() => deleteCommentHandler(comment._id)}>
               <span className="me-2">Delete</span>
