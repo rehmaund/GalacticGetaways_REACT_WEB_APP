@@ -24,6 +24,7 @@ function Register() {
             "password": password,
             "location": location,
             "total_likes": 0,
+            "total_recs": 0,
             "total_comments": 0,
             "actions_taken": 0
                 }

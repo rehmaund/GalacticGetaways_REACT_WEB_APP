@@ -1,5 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {createUserThunk, getAllUsersThunk, findUserByIdThunk, findUserByUsernameThunk, deleteUserThunk, updateUserThunk, incrementUserCommentsThunk, incrementUserActionsTakenThunk, incrementUserContributionsThunk, incrementUserRecommendationsThunk, incrementUserLikesThunk} from "./users-thunks";
+import {
+  createUserThunk,
+  getAllUsersThunk,
+  findUserByIdThunk,
+  findUserByUsernameThunk,
+  deleteUserThunk,
+  updateUserThunk,
+  incrementUserLikesThunk,
+  incrementUserRecommendationsThunk,
+  incrementUserCommentsThunk,
+  incrementUserActionsTakenThunk,
+  decrementUserLikesThunk,
+  decrementUserRecommendationsThunk,
+  decrementUserCommentsThunk, decrementUserActionsTakenThunk,
+} from "./users-thunks";
 
 
 const initialState = {
@@ -102,6 +116,44 @@ const usersSlice = createSlice({
           state.loading = false
           state.error = action.error
         },
+    [incrementUserLikesThunk.pending]:
+        (state) => {
+          state.loading = true
+        },
+    [incrementUserLikesThunk.fulfilled]:
+        (state, { payload }) => {
+          state.loading = false
+          const userNdx = state.users
+          .findIndex((t) => t._id === payload._id)
+          state.users[userNdx] = {
+            ...state.users[userNdx],
+            ...payload
+          }
+        },
+    [incrementUserLikesThunk.rejected]:
+        (state, action) => {
+          state.loading = false
+          state.error = action.error
+        },
+    [incrementUserRecommendationsThunk.pending]:
+        (state) => {
+          state.loading = true
+        },
+    [incrementUserRecommendationsThunk.fulfilled]:
+        (state, { payload }) => {
+          state.loading = false
+          const userNdx = state.users
+          .findIndex((t) => t._id === payload._id)
+          state.users[userNdx] = {
+            ...state.users[userNdx],
+            ...payload
+          }
+        },
+    [incrementUserRecommendationsThunk.rejected]:
+        (state, action) => {
+          state.loading = false
+          state.error = action.error
+        },
     [incrementUserCommentsThunk.pending]:
         (state) => {
           state.loading = true
@@ -140,12 +192,11 @@ const usersSlice = createSlice({
           state.loading = false
           state.error = action.error
         },
-
-    [incrementUserLikesThunk.pending]:
+    [decrementUserLikesThunk.pending]:
         (state) => {
           state.loading = true
         },
-    [incrementUserLikesThunk.fulfilled]:
+    [decrementUserLikesThunk.fulfilled]:
         (state, { payload }) => {
           state.loading = false
           const userNdx = state.users
@@ -155,7 +206,64 @@ const usersSlice = createSlice({
             ...payload
           }
         },
-    [incrementUserLikesThunk.rejected]:
+    [decrementUserLikesThunk.rejected]:
+        (state, action) => {
+          state.loading = false
+          state.error = action.error
+        },
+    [decrementUserRecommendationsThunk.pending]:
+        (state) => {
+          state.loading = true
+        },
+    [decrementUserRecommendationsThunk.fulfilled]:
+        (state, { payload }) => {
+          state.loading = false
+          const userNdx = state.users
+          .findIndex((t) => t._id === payload._id)
+          state.users[userNdx] = {
+            ...state.users[userNdx],
+            ...payload
+          }
+        },
+    [decrementUserRecommendationsThunk.rejected]:
+        (state, action) => {
+          state.loading = false
+          state.error = action.error
+        },
+    [decrementUserCommentsThunk.pending]:
+        (state) => {
+          state.loading = true
+        },
+    [decrementUserCommentsThunk.fulfilled]:
+        (state, { payload }) => {
+          state.loading = false
+          const userNdx = state.users
+          .findIndex((t) => t._id === payload._id)
+          state.users[userNdx] = {
+            ...state.users[userNdx],
+            ...payload
+          }
+        },
+    [decrementUserCommentsThunk.rejected]:
+        (state, action) => {
+          state.loading = false
+          state.error = action.error
+        },
+    [decrementUserActionsTakenThunk.pending]:
+        (state) => {
+          state.loading = true
+        },
+    [decrementUserActionsTakenThunk.fulfilled]:
+        (state, { payload }) => {
+          state.loading = false
+          const userNdx = state.users
+          .findIndex((t) => t._id === payload._id)
+          state.users[userNdx] = {
+            ...state.users[userNdx],
+            ...payload
+          }
+        },
+    [decrementUserActionsTakenThunk.rejected]:
         (state, action) => {
           state.loading = false
           state.error = action.error

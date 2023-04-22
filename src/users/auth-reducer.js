@@ -3,8 +3,6 @@ import {
     loginThunk, logoutThunk, registerThunk,
     profileThunk, updateUserThunk,
 } from "../users/users-thunks.js";
-import axios from "axios";
-import {createReducer as userSlice} from "@reduxjs/toolkit";
 
 const initialState = { user: null
 };

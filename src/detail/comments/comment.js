@@ -2,7 +2,10 @@ import {Link} from "react-router-dom";
 import {deleteCommentThunk,} from "./comments-thunks";
 import {useDispatch, useSelector} from "react-redux";
 import React, {useEffect, useState} from "react";
-import {profileThunk} from "../../users/users-thunks";
+import {
+  decrementUserCommentsThunk,
+  profileThunk
+} from "../../users/users-thunks";
 import FlagButton from "../../flag/flag-button";
 
 const Comment = ({comment}, {key}) => {
@@ -16,6 +19,7 @@ const Comment = ({comment}, {key}) => {
   }, [dispatch]);
   const deleteCommentHandler = (id) => {
     dispatch(deleteCommentThunk(id));
+    dispatch(decrementUserCommentsThunk(comment.uid))
     window.location.reload();
   }
   return(
