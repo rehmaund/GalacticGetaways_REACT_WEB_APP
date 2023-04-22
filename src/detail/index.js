@@ -154,12 +154,12 @@ const Detail = () => {
     }
   }
   return (
-      <div className="">
+      <div className="pb-5">
         {loading && <div>Loading...</div>}
         {place && <div>
-          <div className="row">
+          <div className="row mt-3">
             {place.preview &&
-              <div className="col-4">
+              <div className="col-4 mt-2">
                 <img className="w-100" src={place.preview.source}/>
               </div>}
             <div className="col-8">
@@ -167,8 +167,8 @@ const Detail = () => {
               {place.address &&
                 <h4 className="text-muted">{place.address.city ? `${place.address.city}, ${place.address.country}` : `${place.address.country}`}</h4>}
               {place.wikipedia_extracts && <p className="text-secondary">{place.wikipedia_extracts.text}</p>}
-              <p className="text-info">Tags: {place.kinds}</p>
-              <p className="text-success">Rating: {rate}/3</p>
+              <p className="text-info text-wrap" style={{ wordBreak: 'break-word' }}><b>Tags: </b>{place.kinds}</p>
+              <p className="text-success"><b>Rating: </b>{rate}/3</p>
               {counters &&
                 <div className="row w-100">
                   <span className="col-4">
