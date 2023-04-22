@@ -14,9 +14,6 @@ function BottomNavBar() {
                     <li className="nav-item">
                         <Link to="/profile" className="navbar-item mx-2 nav-link active"><i className={`${user ? 'fa-solid fa-user fa-2x' : 'fa-solid fa-right-to-bracket fa-2x'}`}/></Link>
                     </li>
-                    <li className="nav-item">
-                        <Link to="/search/" className="navbar-item mx-2 nav-link active"><i className="fa-solid fa-magnifying-glass fa-2x"/></Link>
-                    </li>
                     { user &&
                         <li className="nav-item">
                         <Link to="/logout" className="navbar-item mx-2 nav-link active"><i className="fa-solid fa-right-from-bracket fa-2x"/></Link>

@@ -21,6 +21,7 @@ import countersReducer from "./detail/counters-reducer";
 import interactionsReducer from "./detail/interactions-reducer";
 import flagsReducer from "./flag/flags-reducer";
 import ReviewFlagged from "./flag/review-flags";
+import SmallScreenSearch from "./bottom-nav-options/small-screen-search";
 
 
 const store = configureStore({
@@ -39,6 +40,9 @@ function App() {
       <Provider store={store}>
         <CurrentUserContext>
         <BrowserRouter>
+          <div className="row d-block d-md-none">
+            <SmallScreenSearch/>
+          </div>
           <div className="row d-none d-md-block">
             <TopNavBar/>
           </div>
