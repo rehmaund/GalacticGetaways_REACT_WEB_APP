@@ -16,6 +16,7 @@ import Profile from "./profile";
 import authReducer from "./users/auth-reducer.js";
 import usersReducer from "./users/users-reducer.js"
 import CurrentUserContext from "./components/load-profile";
+import OtherProfile from "./otherProfile";
 import countersReducer from "./detail/counters-reducer";
 import interactionsReducer from "./detail/interactions-reducer";
 import flagsReducer from "./flag/flags-reducer";
@@ -57,6 +58,8 @@ function App() {
                      element={<Register/>}/>
               <Route path="/profile"
                      element={<Profile/>} />
+              <Route path="/profile/:userId"
+                     element={<OtherProfile/>}/>
               <Route path="/review"
                       element={<ReviewFlagged/>}/>
             </Routes>
