@@ -21,6 +21,17 @@ export const findCommentsByUserIdThunk = createAsyncThunk(
         await service.findCommentsByUserId(uid)
 )
 
+export const findCommentsByUsernameThunk = createAsyncThunk(
+    'comments/findCommentsByUsername', async (username) => {
+        const comments = await service.findCommentsByUsername(username);
+        if (comments) {
+            console.log("thunk", comments);
+            return comments;
+        } else {
+            return([]);
+        }
+    })
+
 export const findCommentsByPlaceIdThunk = createAsyncThunk(
     'comments/findCommentsByPlaceId', async (xid) =>
         await service.findCommentsByPlaceId(xid)

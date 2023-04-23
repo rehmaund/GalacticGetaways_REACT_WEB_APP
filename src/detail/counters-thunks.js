@@ -16,6 +16,8 @@ export const findCountersByPlaceIdThunk = createAsyncThunk(
 export const findAllCountersThunk = createAsyncThunk(
     'counters/findAllCounters', async () => {
         const counters = await service.findAllCounters();
+        console.log("return records from thunk");
+        console.log(counters);
         return counters;
     }
 )
