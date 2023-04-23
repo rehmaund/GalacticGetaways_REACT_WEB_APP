@@ -8,7 +8,7 @@ import ItemColumns from "../item-preview/item-columns";
 function Home() {
   return (
       <div className="container">
-      <div className="row w-100">
+      <div className="row w-100 pb-5">
         <div className="d-none d-lg-block w-25 float-start">
           <HomeSidebar quotes={quotes}/>
         </div>

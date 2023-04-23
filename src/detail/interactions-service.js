@@ -1,6 +1,6 @@
 import axios from "axios";
 const SERVER_API_URL = process.env.REACT_APP_API_BASE;
-const INTERACTIONS_URL = 'http://localhost:4000/api/interactions';
+const INTERACTIONS_URL = `${SERVER_API_URL}/interactions`;
 
 
 const api = axios.create({ withCredentials: true });

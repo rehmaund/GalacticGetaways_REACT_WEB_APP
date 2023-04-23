@@ -7,7 +7,14 @@ import {
   addNewCommentThunk,
   findCommentsByPlaceIdThunk,
 } from "./comments/comments-thunks";
-import {profileThunk} from "../users/users-thunks";
+import {
+  decrementUserLikesThunk,
+  decrementUserRecommendationsThunk,
+  incrementUserCommentsThunk,
+  incrementUserLikesThunk,
+  incrementUserRecommendationsThunk,
+  profileThunk
+} from "../users/users-thunks";
 import {Link} from "react-router-dom";
 import {
   decrementLikeThunk,
@@ -103,6 +110,7 @@ const Detail = () => {
       name: place.name,
     }
     dispatch(addNewCommentThunk(newComment));
+    dispatch(incrementUserCommentsThunk(currentUser._id));
     setNewCommentText('')
     dispatch(findCommentsByPlaceIdThunk(xid));
     window.location.reload();
@@ -115,6 +123,7 @@ const Detail = () => {
       if (liked) {
         await dispatch(deleteInteractionThunk(interactions[0]._id));
         await dispatch(decrementLikeThunk(xid));
+        await dispatch(decrementUserLikesThunk(currentUser._id));
         await dispatch(findCountersByPlaceIdThunk(xid));
         setLiked(false);
       } else {
@@ -122,6 +131,7 @@ const Detail = () => {
         const interaction = {xid, uid};
         await dispatch(createInteractionThunk(interaction));
         await dispatch(incrementLikeThunk(xid));
+        await dispatch(incrementUserLikesThunk(currentUser._id));
         await dispatch(findCountersByPlaceIdThunk(xid));
         setLiked(true);
       }
@@ -129,6 +139,7 @@ const Detail = () => {
       if (recommended) {
         await dispatch(deleteInteractionThunk(interactions[0]._id));
         await dispatch(decrementRecommendationThunk(xid));
+        await dispatch(decrementUserRecommendationsThunk(currentUser._id));
         await dispatch(findCountersByPlaceIdThunk(xid));
         setRecommended(false);
       } else {
@@ -136,18 +147,19 @@ const Detail = () => {
         const interaction = {xid, uid};
         await dispatch(createInteractionThunk(interaction));
         await dispatch(incrementRecommendationThunk(xid));
+        await dispatch(incrementUserRecommendationsThunk(currentUser._id));
         await dispatch(findCountersByPlaceIdThunk(xid));
         setRecommended(true);
       }
     }
   }
   return (
-      <div className="">
+      <div className="pb-5">
         {loading && <div>Loading...</div>}
         {place && <div>
-          <div className="row">
+          <div className="row mt-3">
             {place.preview &&
-              <div className="col-4">
+              <div className="col-4 mt-2">
                 <img className="w-100" src={place.preview.source}/>
               </div>}
             <div className="col-8">
@@ -155,8 +167,8 @@ const Detail = () => {
               {place.address &&
                 <h4 className="text-muted">{place.address.city ? `${place.address.city}, ${place.address.country}` : `${place.address.country}`}</h4>}
               {place.wikipedia_extracts && <p className="text-secondary">{place.wikipedia_extracts.text}</p>}
-              <p className="text-info">Tags: {place.kinds}</p>
-              <p className="text-success">Rating: {rate}/3</p>
+              <p className="text-info text-wrap" style={{ wordBreak: 'break-word' }}><b>Tags: </b>{place.kinds}</p>
+              <p className="text-success"><b>Rating: </b>{rate}/3</p>
               {counters &&
                 <div className="row w-100">
                   <span className="col-4">
