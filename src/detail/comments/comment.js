@@ -34,7 +34,7 @@ const Comment = ({comment}, {key}) => {
           {currentUser && currentUser.username !== comment.username &&
               <FlagButton uid={currentUser._id} username={currentUser.username} comment={comment._id}/>}
           {currentUser && (currentUser.type === "MODERATOR" || comment.username === currentUser.username) &&
-            <button className="btn btn-danger float-end" onClick={() => deleteCommentHandler(comment._id)}>
+            <button className="btn btn-danger float-end mr-1" onClick={() => deleteCommentHandler(comment._id)}>
               <span className="me-2">Delete</span>
               <i className="fa-regular fa-trash-can"/>
             </button>}
