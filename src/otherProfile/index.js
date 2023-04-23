@@ -152,13 +152,6 @@ function OtherProfile() {
                 </div>
             </div>
         </div>
-
-
-
-
-
-
-
         // <div>
         //     <h1>
         //         <button onClick={followUser} className="btn btn-primary float-end" disabled={currentlyFollowing}>
