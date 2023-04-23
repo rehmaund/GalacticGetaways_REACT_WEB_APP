@@ -114,4 +114,4 @@ const EditProfile = () => {
     );
 }
 
-export default EditProfileComponent;
+export default EditProfile;
