@@ -10,7 +10,7 @@ function Profile() {
   const { user } = useSelector((state) => state.user);
   const [profile, setProfile] = useState(user);
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [likes, setLikes] = useState([]);
   const [following, setFollowing] = useState([]);
@@ -24,15 +24,21 @@ function Profile() {
     const follows = await findFollowsByFollowedId(profile._id);
     setFollows(follows);
   };
-
+  const loadScreen = async () => {
+    // await fetchLikes();
+    await fetchFollowing();
+    await fetchFollowers();
+  };
   useEffect(() => {
     const asyncFn = async () => {
       const { payload } = await dispatch(profileThunk());
       setProfile(payload);
     };
     asyncFn();
-
   }, [dispatch]);
+  useEffect(() => {
+    loadScreen();
+  }, [profile]);
 
   return (
     <div>
@@ -46,8 +52,8 @@ function Profile() {
           <div className="col-4 pt-2 mt-2">
             <h1 className="fw-bold">{user.display_name}</h1>
             <h4 className="text-secondary">@{user.username}</h4>
-            {/* <h6><span className="fw-bold me-2">{follows}</span> Followers</h6>
-                    <h6><span className="fw-bold me-2">{following}</span> Following</h6> */}
+            <h6><span className="fw-bold me-2">{follows.length}</span> Followers</h6>
+            <h6><span className="fw-bold me-2">{following.length}</span> Following</h6>
           </div>
           <div className="col-3 position-relative">
             <div className="position-absolute bottom-0 start-0">
@@ -65,9 +71,9 @@ function Profile() {
           <div className="col-3 position-relative">
             <div className="position-absolute bottom-0 start-0">
               <h6 className={user.type === 'MODERATOR' ? '' : 'd-none'}><span className="fw-bold me-2">{user.actions_taken}</span> Actions Taken</h6>
-              <h6><span className="fw-bold me-2">{user.total_likes}</span> Likes</h6>
-              <h6><span className="fw-bold me-2">{user.total_comments}</span> Comments</h6>
+              <h6 className={user.type === 'ALIEN' ? '' : 'd-none'}><span className="fw-bold me-2">{user.total_likes}</span> Likes</h6>
               <h6 className={user.type === 'HUMAN' ? '' : 'd-none'}><span className="fw-bold me-2">{user.total_recs}</span> Recommendations</h6>
+              <h6><span className="fw-bold me-2">{user.total_comments}</span> Comments</h6>
             </div>
           </div>
           <div className="col-2 position-relative">
@@ -92,6 +98,36 @@ function Profile() {
             </div>
           </div>
         </div>
+        {follows && (
+            <div>
+              <h2>Followers</h2>
+              <ul className="list-group">
+                {follows.map((follow) => (
+                    <li className="list-group-item" key={follow.follower._id}>
+                      <button className="h3 btn btn-link" onClick={() => {navigate(`/profile/${follow.follower.username}`)
+                                                             window.location.reload()}}>
+                        <h3>{follow.follower.username}</h3>
+                      </button>
+                    </li>
+                ))}
+              </ul>
+            </div>
+        )}
+      {following && (
+          <div>
+            <h2>Following</h2>
+            <ul className="list-group">
+              {following.map((follow) => (
+                  <li className="list-group-item" key={follow.followed._id}>
+                    <button className="h3 btn btn-link" onClick={() => {navigate(`/profile/${follow.followed.username}`)
+                                                           window.location.reload()}}>
+                      <h3>{follow.followed.username}</h3>
+                    </button>
+                  </li>
+              ))}
+            </ul>
+          </div>
+        )}
         <div className="row my-3 mx-0">
           <h2>Recent Activity</h2>
 

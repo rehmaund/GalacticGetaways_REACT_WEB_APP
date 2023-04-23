@@ -62,7 +62,7 @@ function App() {
                      element={<Register/>}/>
               <Route path="/profile"
                      element={<Profile/>} />
-              <Route path="/profile/:userId"
+              <Route path="/profile/:username"
                      element={<OtherProfile/>}/>
               <Route path="/review"
                       element={<ReviewFlagged/>}/>

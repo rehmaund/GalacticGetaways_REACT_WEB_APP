@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+    findUserByUsernameThunk,
     profileThunk,
     updateUserThunk,
 } from "../users/users-thunks";
 import { useNavigate, useParams } from "react-router";
-import { findUserById } from "../users/users-service";
 import {
     userFollowsUser,
     findFollowsByFollowerId,
     findFollowsByFollowedId, userUnfollowsUser,
 } from "../following/follows-service.js";
 import { Link } from "react-router-dom";
+import {findUserByUsername} from "../users/users-service";
 
 function OtherProfile() {
-    const { userId } = useParams();
+    const { username } = useParams();
     const { user } = useSelector((state) => state.user);
-    console.log(user);
     const [profile, setProfile] = useState(user);
     const [likes, setLikes] = useState([]);
     const [following, setFollowing] = useState([]);
@@ -25,54 +25,29 @@ function OtherProfile() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const fetchFollowing = async () => {
-        const following = await findFollowsByFollowerId(userId);
+        const following = await findFollowsByFollowerId(profile._id);
         setFollowing(following);
-        if (following) {
-            console.log(following);
-        } else {
-            console.log("no following found");
-        }
-        console.log(following);
-
     };
 
     const fetchUser = async () => {
-        const response = await findUserById(userId);
+        const response = await findUserByUsername(username);
         setProfile(response);
     }
     const fetchFollowers = async () => {
-        const follows = await findFollowsByFollowedId(userId);
-        console.log(follows);
+        const follows = await findFollowsByFollowedId(profile._id);
         setFollows(follows);
-        console.log("follows in fetch followers:");
-        console.log(follows);
-        setCurrentlyFollowing(follows.some(follows => follows.follower === user._id && follows.followed === userId));
-        console.log(currentlyFollowing);
-        if (follows) {
-            console.log(follows);
-        } else {
-            console.log("no follows found");
+        if (user && profile) {
+            setCurrentlyFollowing(follows.some(
+                follows => follows.follower === user._id && follows.followed
+                    === profile._id));
         }
     };
     /*const fetchLikes = async () => {
         const likes = await findLikesByUserId(profile._id);
         setLikes(likes);
     };*/
-    /* const fetchProfile = async (userId) => {
-         if (userId) {
-             const user = await findUserById(userId);
-             setProfile(user);
-             return;
-         }
-         const response = await dispatch(profileThunk());
-         setProfile(response.payload);
-     };*/
     const loadScreen = async () => {
-        // if (!profile) {
-        //await fetchProfile(userId);
-        // }
         //await fetchLikes();
-
         await fetchFollowing();
         await fetchFollowers();
     };
@@ -80,34 +55,28 @@ function OtherProfile() {
         await userFollowsUser(user._id, profile._id);
         loadScreen();
     };
-    //const updateProfile = async () => {
-    //   await dispatch(updateUserThunk(profile));
-    //};
-
     const unfollowUser = async () => {
         await userUnfollowsUser(user._id, profile._id);
         loadScreen();
     };
-
     useEffect(() => {
         fetchUser();
+    }, []);
+    useEffect(() => {
+        if (user && profile._id === user._id) {
+            navigate('/profile');
+        }
         loadScreen();
-    }, [userId]);
+    }, [profile]);
     return (
-
-
-
-
-
-
         <div>
             <h1>
                 <button onClick={followUser} className="btn btn-primary float-end" disabled={currentlyFollowing}>
                     {currentlyFollowing ? 'Following' : 'Follow'}
                 </button>
-                {currentlyFollowing && <button onClick={unfollowUser} className="btn btn-warning float-end">UnFollow</button>}
+                {profile && currentlyFollowing && <button onClick={unfollowUser} className="btn btn-warning float-end">UnFollow</button>}
 
-                Profile {typeof userId !== undefined ? "me" : userId}
+                {profile && profile.username}'s Profile
             </h1>
 
             {profile && (
@@ -126,10 +95,11 @@ function OtherProfile() {
                     <h2>Followers</h2>
                     <ul className="list-group">
                         {follows.map((follow) => (
-                            <li className="list-group-item">
-                                <Link to={`/profile/${follow.follower}`}>
-                                    <h3>{follow.follower}</h3>
-                                </Link>
+                            <li className="list-group-item" key={follow.follower._id}>
+                                <button className="btn btn-link" onClick={() => {navigate(`/profile/${follow.follower.username}`)
+                                                                       window.location.reload()}}>
+                                    <h3>{follow.follower.username}</h3>
+                                </button>
                             </li>
                         ))}
                     </ul>
@@ -141,10 +111,11 @@ function OtherProfile() {
                     <h2>Following</h2>
                     <ul className="list-group">
                         {following.map((follow) => (
-                            <li className="list-group-item">
-                                <Link to={`/profile/${follow.followed}`}>
-                                    <h3>{follow.followed}</h3>
-                                </Link>
+                            <li className="list-group-item" key={follow.followed._id}>
+                                <button className="h3 btn btn-link" onClick={() => {navigate(`/profile/${follow.followed.username}`)
+                                                                       window.location.reload()}}>
+                                    <h3>{follow.followed.username}</h3>
+                                </button>
                             </li>
                         ))}
                     </ul>
