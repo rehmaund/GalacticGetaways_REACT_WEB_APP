@@ -27,7 +27,7 @@ function OtherProfile() {
     const fetchFollowing = async () => {
         const following = await findFollowsByFollowerId(userId);
         setFollowing(following);
-        if(following){
+        if (following) {
             console.log(following);
         } else {
             console.log("no following found");
@@ -48,7 +48,7 @@ function OtherProfile() {
         console.log(follows);
         setCurrentlyFollowing(follows.some(follows => follows.follower === user._id && follows.followed === userId));
         console.log(currentlyFollowing);
-        if(follows){
+        if (follows) {
             console.log(follows);
         } else {
             console.log("no follows found");
@@ -58,15 +58,15 @@ function OtherProfile() {
         const likes = await findLikesByUserId(profile._id);
         setLikes(likes);
     };*/
-   /* const fetchProfile = async (userId) => {
-        if (userId) {
-            const user = await findUserById(userId);
-            setProfile(user);
-            return;
-        }
-        const response = await dispatch(profileThunk());
-        setProfile(response.payload);
-    };*/
+    /* const fetchProfile = async (userId) => {
+         if (userId) {
+             const user = await findUserById(userId);
+             setProfile(user);
+             return;
+         }
+         const response = await dispatch(profileThunk());
+         setProfile(response.payload);
+     };*/
     const loadScreen = async () => {
         // if (!profile) {
         //await fetchProfile(userId);
@@ -81,7 +81,7 @@ function OtherProfile() {
         loadScreen();
     };
     //const updateProfile = async () => {
-     //   await dispatch(updateUserThunk(profile));
+    //   await dispatch(updateUserThunk(profile));
     //};
 
     const unfollowUser = async () => {
@@ -94,6 +94,12 @@ function OtherProfile() {
         loadScreen();
     }, [userId]);
     return (
+
+
+
+
+
+
         <div>
             <h1>
                 <button onClick={followUser} className="btn btn-primary float-end" disabled={currentlyFollowing}>

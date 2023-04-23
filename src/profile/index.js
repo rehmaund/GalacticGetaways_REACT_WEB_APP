@@ -2,13 +2,15 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { profileThunk, updateUserThunk }
-    from "../users/users-thunks.js";
-import {findFollowsByFollowedId, findFollowsByFollowerId, userFollowsUser} from "../following/follows-service";
+  from "../users/users-thunks.js";
+import { ProfileComponent } from "./profile.js";
+import { findFollowsByFollowedId, findFollowsByFollowerId, userFollowsUser } from "../following/follows-service";
+
 function Profile() {
-    const { user } = useSelector((state) => state.user);
-    const [profile, setProfile] = useState(user);
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+  const { user } = useSelector((state) => state.user);
+  const [profile, setProfile] = useState(user);
+  const dispatch = useDispatch();
+  // const navigate = useNavigate();
 
   const [likes, setLikes] = useState([]);
   const [following, setFollowing] = useState([]);
@@ -23,20 +25,20 @@ function Profile() {
     setFollows(follows);
   };
 
+  useEffect(() => {
+    const asyncFn = async () => {
+      const { payload } = await dispatch(profileThunk());
+      setProfile(payload);
+    };
+    asyncFn();
 
+  }, []);
 
-
-    useEffect( () => {
-        const asyncFn = async () => {const { payload } = await dispatch(profileThunk());
-            setProfile(payload); };
-        asyncFn();
-
-    }, []);
-
-    return (
-        <div>
-            {user ? <h1>{user.username}</h1>: <h1>No user logged in</h1>}
-        </div>
-    ); // see below
+  return (
+    <div>
+      {/* {user ? <h1>{user.username}</h1>: <h1>No user logged in</h1>} */}
+      {user ? ProfileComponent(user, likes, following, follows) : <h1>No user logged in</h1>}
+    </div>
+  );
 }
 export default Profile;
