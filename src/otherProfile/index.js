@@ -36,8 +36,9 @@ function OtherProfile() {
         const follows = await findFollowsByFollowedId(profile._id);
         setFollows(follows);
         if (user && profile && user._id !== profile._id) {
+            console.log(follows)
             setCurrentlyFollowing(follows.some(
-                follows => follows.follower === user._id && follows.followed
+                follows => follows.follower._id === user._id && follows.followed
                     === profile._id));
         }
     };
