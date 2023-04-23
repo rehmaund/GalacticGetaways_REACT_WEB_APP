@@ -1,6 +1,6 @@
 import {
-  decrementLikeThunk, decrementRecommendationThunk,
-  findCountersByPlaceIdThunk, incrementLikeThunk, incrementRecommendationThunk,
+    decrementLikeThunk, decrementRecommendationThunk, findAllCountersThunk,
+    findCountersByPlaceIdThunk, incrementLikeThunk, incrementRecommendationThunk,
 } from "./counters-thunks";
 import {createSlice} from "@reduxjs/toolkit";
 
@@ -29,6 +29,21 @@ export const countersReducer = createSlice({
           state.loading = false
           state.error = action.error
         },
+      [findAllCountersThunk.pending]:
+          (state) => {
+              state.loading = true
+              state.counters = []
+          },
+      [findAllCountersThunk.fulfilled]:
+          (state, { payload }) => {
+              state.loading = false
+              state.counters = payload
+          },
+      [findAllCountersThunk.rejected]:
+          (state, action) => {
+              state.loading = false
+              state.error = action.error
+          },
     [incrementLikeThunk.pending]:
         (state) => {
           state.loading = true

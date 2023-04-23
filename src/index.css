@@ -62,3 +62,13 @@ code {
 .wd-card-height {
   height: fit-content;
 }
+
+.text-wrap {
+  wordWrap: break-word;
+  overflowWrap: break-word;
+  whiteSpace: pre-wrap;
+}
+
+.override-card-text {
+  margin-bottom: 0;
+}

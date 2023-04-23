@@ -24,9 +24,10 @@ function Register() {
             "password": password,
             "location": location,
             "total_likes": 0,
+            "total_recs": 0,
             "total_comments": 0,
             "actions_taken": 0
-                }
+        }
         try {
             await dispatch(registerThunk(newUser));
             navigate("/profile");
@@ -40,11 +41,11 @@ function Register() {
     }
 
     return(
-        <form className="w-75">
+        <form className="pb-5 mt-2">
             <fieldset>
                 <legend>
-                    <div className="col text-center">
-                    Register for an Account:</div>
+                    <div className="col text-center w-75">
+                        Register for an Account:</div>
                     <div className="col">
                         <button type="button" className="float-end btn btn-danger btn-md" onClick={() => {
                             navigate(`/`);
@@ -52,6 +53,8 @@ function Register() {
                         </button>
                     </div>
                 </legend>
+
+                <div className="w-75">
 
                 <div className="form-group">
                     <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
@@ -111,7 +114,8 @@ function Register() {
 
                 </fieldset>
 
-                <button type="submit" className="btn btn-primary mt-2 mb-4" onClick={handleRegister}>Submit</button>
+                <button type="submit" className="btn btn-primary mt-2 mb-5" onClick={handleRegister}>Submit</button>
+                </div>
             </fieldset>
         </form>
     );

@@ -65,6 +65,11 @@ export const incrementUserLikesThunk = createAsyncThunk(
         await service.incrementUserLikes(uid)
 )
 
+export const incrementUserRecommendationsThunk = createAsyncThunk(
+    'users/incrementUserRecommendations', async (uid) =>
+        await service.incrementUserRecommendations(uid)
+)
+
 export const incrementUserCommentsThunk = createAsyncThunk(
     'users/incrementUserComments', async (uid) =>
         await service.incrementUserComments(uid)
@@ -74,5 +79,26 @@ export const incrementUserCommentsThunk = createAsyncThunk(
 export const incrementUserActionsTakenThunk = createAsyncThunk(
     'users/incrementUserActionsTaken', async (uid) =>
         await service.incrementUserActionsTaken(uid)
+)
+
+export const decrementUserLikesThunk = createAsyncThunk(
+    'users/decrementUserLikes', async (uid) =>
+        await service.decrementUserLikes(uid)
+)
+
+export const decrementUserRecommendationsThunk = createAsyncThunk(
+    'users/decrementUserRecommendations', async (uid) =>
+        await service.decrementUserRecommendations(uid)
+)
+
+export const decrementUserCommentsThunk = createAsyncThunk(
+    'users/decrementUserComments', async (uid) =>
+        await service.decrementUserComments(uid)
+)
+
+
+export const decrementUserActionsTakenThunk = createAsyncThunk(
+    'users/decrementUserActionsTaken', async (uid) =>
+        await service.decrementUserActionsTaken(uid)
 )
 

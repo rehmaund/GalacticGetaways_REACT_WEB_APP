@@ -1,6 +1,6 @@
 import axios from "axios";
 const SERVER_API_URL = process.env.REACT_APP_API_BASE;
-const COUNTERS_URL = 'http://localhost:4000/api/counters';
+const COUNTERS_URL = `${SERVER_API_URL}/counters`;
 
 
 const api = axios.create({ withCredentials: true });
@@ -12,6 +12,13 @@ export const findCountersByPlaceId = async (xid) => {
   } else {
     return null;
   }
+}
+
+export const findAllCounters = async () => {
+  const response = await api.get(COUNTERS_URL);
+  console.log("records in service");
+  console.log(response);
+  return response.data;
 }
 
 export const createCounter = async (counter) => {
