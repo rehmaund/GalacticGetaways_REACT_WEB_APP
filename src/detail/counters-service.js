@@ -16,6 +16,8 @@ export const findCountersByPlaceId = async (xid) => {
 
 export const findAllCounters = async () => {
   const response = await api.get(COUNTERS_URL);
+  console.log("records in service");
+  console.log(response);
   return response.data;
 }
 
