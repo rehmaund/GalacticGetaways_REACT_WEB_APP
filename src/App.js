@@ -21,7 +21,6 @@ import countersReducer from "./detail/counters-reducer";
 import interactionsReducer from "./detail/interactions-reducer";
 import flagsReducer from "./flag/flags-reducer";
 import ReviewFlagged from "./flag/review-flags";
-import EditProfile from "./edit-profile";
 import SmallScreenSearch from "./bottom-nav-options/small-screen-search";
 import EditProfile from "./edit-profile";
 
