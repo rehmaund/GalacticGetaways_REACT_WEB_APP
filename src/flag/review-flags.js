@@ -14,7 +14,7 @@ const ReviewFlagged = () => {
     dispatch(getAllFlagsThunk())
   }, [dispatch])
   return (
-      <div>
+      <div className="mt-3 mb-4">
       { (!user || user.type != "MODERATOR" ) &&
           <div className="card border-danger m-4 align-content-center w-75">
               <div className="card-header">Warning</div>

@@ -65,10 +65,10 @@ function Home() {
             console.log("tempArraycomments", tempArrayComments);
 
             let numRecords = tempArrayComments.length;
-            if(numRecords < 5) {
+            if(numRecords < 6) {
                 numRecords = 0;
             } else {
-                numRecords = numRecords - 5;
+                numRecords = numRecords - 6;
             }
 
             let xidArrayComments = [];
@@ -106,6 +106,7 @@ function Home() {
 
     useEffect(() => {
         if (likedPlacesList.length > 0) {
+
             // Extract xid from each record into list of xids
             let tempArrayLikes = [];
             let tempArrayRecs = [];
@@ -115,19 +116,21 @@ function Home() {
 
             }
 
+
             // Sort to find most popular
             tempArrayLikes.sort((a, b) => b.popularity - a.popularity);
             tempArrayRecs.sort((a, b) => b.popularity - a.popularity);
 
             let numRecords = tempArrayLikes.length;
-            if(5 < numRecords) {
-                numRecords = 5;
+            if(6 < numRecords) {
+                numRecords = 6;
             }
+
 
             let xidArrayLikes = [];
             let xidArrayRecs = [];
 
-            for (let i = 1; i <= numRecords; i++) {
+            for (let i = 0; i < numRecords; i++) {
                 xidArrayLikes.push(tempArrayLikes[i].xid);
                 xidArrayRecs.push(tempArrayRecs[i].xid);
 
@@ -153,8 +156,10 @@ function Home() {
             setPlaceDetails(placeDetails);
 
         }
+        setTimeout(() => {
+            fetchPlaceDetailsLikes();
+        }, 3000);
 
-        fetchPlaceDetailsLikes();
 
     }, [dispatch, placesList, xidListLikes]);
 
@@ -172,15 +177,13 @@ function Home() {
 
         }
 
-        setTimeout(() => {
-            fetchPlaceDetailsRecs();
-        }, 4);
+        fetchPlaceDetailsRecs();
 
     }, [dispatch, placesList, xidListRecs]);
 
   return (
       <div className="container">
-          <div className="row w-100 pb-5">
+          <div className="row pb-5">
           <div className="col-lg-3 d-none d-lg-block float-start">
               <HomeSidebar quotes={quotes}/>
           </div>
