@@ -1,6 +1,6 @@
 import Home from "./home";
-import {BrowserRouter} from "react-router-dom";
-import {Routes, Route} from "react-router";
+import { BrowserRouter } from "react-router-dom";
+import { Routes, Route } from "react-router";
 import TopNavBar from "./top-nav-options";
 import Search from "./search";
 import Detail from "./detail";
@@ -21,6 +21,7 @@ import countersReducer from "./detail/counters-reducer";
 import interactionsReducer from "./detail/interactions-reducer";
 import flagsReducer from "./flag/flags-reducer";
 import ReviewFlagged from "./flag/review-flags";
+import EditProfile from "./edit-profile";
 import SmallScreenSearch from "./bottom-nav-options/small-screen-search";
 import EditProfile from "./edit-profile";
 
@@ -34,33 +35,34 @@ const store = configureStore({
     counters: countersReducer,
     interactions: interactionsReducer,
     flags: flagsReducer,
-  }});
+  }
+});
 
 function App() {
   return (
-      <Provider store={store}>
-        <CurrentUserContext>
+    <Provider store={store}>
+      <CurrentUserContext>
         <BrowserRouter>
           <div className="row d-block d-md-none">
             <SmallScreenSearch/>
           </div>
           <div className="row d-none d-md-block">
-            <TopNavBar/>
+            <TopNavBar />
           </div>
           <div className="container">
             <Routes>
               <Route index
-                     element={<Home/>}/>
+                element={<Home />} />
               <Route path="/search/:place"
-                     element={<Search/>}/>
+                element={<Search />} />
               <Route path="/details/:xid"
-                      element={<Detail/>}/>
+                element={<Detail />} />
               <Route path="/login"
-                     element={<Login/>}/>
+                element={<Login />} />
               <Route path="/logout"
-                     element={<Logout/>}/>
+                element={<Logout />} />
               <Route path="/register"
-                     element={<Register/>}/>
+                element={<Register />} />
               <Route path="/profile"
                      element={<Profile/>} />
               <Route path="/profile/:username"
@@ -72,11 +74,11 @@ function App() {
             </Routes>
           </div>
           <div className="row d-block d-md-none">
-            <BottomNavBar/>
+            <BottomNavBar />
           </div>
         </BrowserRouter>
-        </CurrentUserContext>
-      </Provider>
+      </CurrentUserContext>
+    </Provider>
   );
 }
 export default App;

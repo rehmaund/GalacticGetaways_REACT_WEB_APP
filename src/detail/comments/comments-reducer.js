@@ -1,10 +1,10 @@
 import {
-  addNewCommentThunk,
-  deleteCommentThunk, findCommentByIdThunk,
-  findCommentsByPlaceIdThunk,
-  findCommentsByUserIdThunk,
-  getAllCommentsThunk,
-  updateCommentThunk
+    addNewCommentThunk,
+    deleteCommentThunk, findCommentByIdThunk,
+    findCommentsByPlaceIdThunk,
+    findCommentsByUserIdThunk, findCommentsByUsernameThunk,
+    getAllCommentsThunk,
+    updateCommentThunk
 } from "./comments-thunks";
 import {createSlice} from "@reduxjs/toolkit";
 
@@ -78,6 +78,21 @@ const commentsSlice = createSlice({
             (state, action) => {
               state.loading = false
               state.error = action.error
+            },
+        [findCommentsByUsernameThunk.pending]:
+            (state) => {
+                state.loading = true
+                state.comments = []
+            },
+        [findCommentsByUsernameThunk.fulfilled]:
+            (state, { payload }) => {
+                state.loading = false
+                state.comments = payload
+            },
+        [findCommentsByUsernameThunk.rejected]:
+            (state, action) => {
+                state.loading = false
+                state.error = action.error
             },
         [findCommentsByPlaceIdThunk.pending]:
             (state) => {

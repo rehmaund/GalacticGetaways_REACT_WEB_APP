@@ -23,6 +23,12 @@ export const findCommentsByUserId = async (uid) => {
   return response.data;
 }
 
+export const findCommentsByUsername = async (username) => {
+  const response = await axios.get(`${COMMENTS_API}/username/${username}`);
+  console.log("service: ", response.data);
+  return response.data;
+}
+
 export const findCommentsByPlaceId = async (xid) => {
   const response = await axios.get(`${COMMENTS_API}/place/${xid}`);
   return response.data;
