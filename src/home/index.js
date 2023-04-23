@@ -107,11 +107,11 @@ function Home() {
     }, [dispatch, placesList, xidListRecs]);
 
   return (
-      <div className="container d-flex flex-row">
+      <div className="container row">
           <div className="w-25 d-none d-lg-block float-start">
               <HomeSidebar quotes={quotes}/>
           </div>
-          <div className="d-flex flex-column">
+          <div className="col">
               <div>
                   <h1>Highly Recommended Sites</h1>
                   <ItemColumns allContent={placeDetailsRec}/>
