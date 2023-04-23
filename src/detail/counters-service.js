@@ -14,6 +14,11 @@ export const findCountersByPlaceId = async (xid) => {
   }
 }
 
+export const findAllCounters = async () => {
+  const response = await api.get(COUNTERS_URL);
+  return response.data;
+}
+
 export const createCounter = async (counter) => {
   const response = await api.post(COUNTERS_URL, counter);
   return response.data;

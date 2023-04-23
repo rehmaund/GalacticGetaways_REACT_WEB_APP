@@ -13,6 +13,13 @@ export const findCountersByPlaceIdThunk = createAsyncThunk(
     }
 );
 
+export const findAllCountersThunk = createAsyncThunk(
+    'counters/findAllCounters', async () => {
+        const counters = await service.findAllCounters();
+        return counters;
+    }
+)
+
 export const incrementLikeThunk = createAsyncThunk(
     'counters/incrementLike', async (xid) => {
         const counter = await service.findCountersByPlaceId(xid);
