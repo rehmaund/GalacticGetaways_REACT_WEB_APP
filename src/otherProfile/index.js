@@ -22,16 +22,20 @@ function OtherProfile() {
         const following = await findFollowsByFollowerId(profile._id);
         setFollowing(following);
     };
-
     const fetchUser = async () => {
+        console.log(user)
         const response = await findUserByUsername(username);
-        console.log(response)
         setProfile(response);
+        console.log(user)
+        console.log(response)
+        if (user && response && response._id === user._id) {
+            navigate('/profile');
+        }
     }
     const fetchFollowers = async () => {
         const follows = await findFollowsByFollowedId(profile._id);
         setFollows(follows);
-        if (user && profile) {
+        if (user && profile && user._id !== profile._id) {
             setCurrentlyFollowing(follows.some(
                 follows => follows.follower === user._id && follows.followed
                     === profile._id));
@@ -42,9 +46,11 @@ function OtherProfile() {
         setLikes(likes);
     };*/
     const loadScreen = async () => {
-        //await fetchLikes();
-        await fetchFollowing();
-        await fetchFollowers();
+        if (profile._id !== user._id) {
+            //await fetchLikes();
+            await fetchFollowing();
+            await fetchFollowers();
+        }
     };
     const followUser = async () => {
         await userFollowsUser(user._id, profile._id);
@@ -56,14 +62,12 @@ function OtherProfile() {
     };
     useEffect(() => {
         fetchUser();
-    }, []);
+    }, [user]);
     useEffect(() => {
-        if (user && profile && profile._id === user._id) {
-            navigate('/profile');
-        }
         loadScreen();
-    }, [navigate, profile, user]);
+    }, [navigate, profile]);
     return (
+        <> {profile && profile._id !== user._id &&
         <div>
             <h1>
                 <button onClick={followUser} className="btn btn-primary float-end" disabled={currentlyFollowing}>
@@ -122,6 +126,7 @@ function OtherProfile() {
 
             </div>
         </div>
+        } </>
     );
 }
 

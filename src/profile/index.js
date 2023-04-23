@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import { profileThunk}
-  from "../users/users-thunks.js";
 import { findFollowsByFollowedId, findFollowsByFollowerId} from "../following/follows-service";
 import {Link} from "react-router-dom";
 
 function Profile() {
   const { user } = useSelector((state) => state.user);
-  const [profile, setProfile] = useState(user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -17,11 +14,11 @@ function Profile() {
   const [follows, setFollows] = useState([]);
 
   const fetchFollowing = async () => {
-    const following = await findFollowsByFollowerId(profile._id);
+    const following = await findFollowsByFollowerId(user._id);
     setFollowing(following);
   };
   const fetchFollowers = async () => {
-    const follows = await findFollowsByFollowedId(profile._id);
+    const follows = await findFollowsByFollowedId(user._id);
     setFollows(follows);
   };
   const loadScreen = async () => {
@@ -29,16 +26,16 @@ function Profile() {
     await fetchFollowing();
     await fetchFollowers();
   };
-  useEffect(() => {
-    const asyncFn = async () => {
-      const { payload } = await dispatch(profileThunk());
-      setProfile(payload);
-    };
-    asyncFn();
-  }, [dispatch]);
+  // useEffect(() => {
+  //   const asyncFn = async () => {
+  //     const { payload } = await dispatch(profileThunk());
+  //     setProfile(payload);
+  //   };
+  //   asyncFn();
+  // }, [dispatch]);
   useEffect(() => {
     loadScreen();
-  }, [profile]);
+  }, [user]);
 
   return (
     <div>
