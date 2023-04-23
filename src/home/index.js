@@ -8,13 +8,13 @@ import {getPlaceDetailsForListThunk, getPlacesThunk} from "../search/search-thun
 import {findAllCountersThunk} from "../detail/counters-thunks";
 
 
-
 function Home() {
-    const { user } = useSelector((state) => state.user);
-    const { counters } = useSelector((state) => state.counters);
+
     let [likedPlacesList, setLikedPlacesList] = useState([]);
     const [placeDetails, setPlaceDetails] = useState([]);
-    let [xidList, setXidList] = useState([]);
+    const [placeDetailsRec, setPlaceDetailsRec] = useState([]);
+    let [xidListLikes, setXidListLikes] = useState([]);
+    let [xidListRecs, setXidListRecs] = useState([]);
     const {placesList, places, loading} = useSelector(state => state.search);
     const dispatch = useDispatch();
 
@@ -24,56 +24,103 @@ function Home() {
         const populateXidList = async () => {
             // Find all liked or recommended records
             const records = await dispatch(findAllCountersThunk());
+            console.log("records returned from thunk:");
+            console.log(records);
             setLikedPlacesList(records.payload);
-            console.log("getting places");
-            console.log(likedPlacesList);
-
-            // Extract xid from each record into list of xids
-            let xidArray = [];
-            for (let location in likedPlacesList) {
-                xidArray.push(location.properties.xid);
-            }
-
-            setXidList(xidArray);
         }
 
         populateXidList();
     }, []);
 
+    useEffect(() => {
+        console.log('Liked places list updated:', likedPlacesList);
+        if (likedPlacesList.length > 0) {
+            // Extract xid from each record into list of xids
+            let tempArrayLikes = [];
+            let tempArrayRecs = [];
+            for (let location of likedPlacesList) {
+                    tempArrayLikes.push({xid: location.xid, popularity:location.num_likes});
+                    tempArrayRecs.push({xid: location.xid, popularity:location.num_recommendations});
+
+            }
+
+            // Sort to find most popular
+            tempArrayLikes.sort((a, b) => b.popularity - a.popularity);
+            tempArrayRecs.sort((a, b) => b.popularity - a.popularity);
+
+            let numRecords = tempArrayLikes.length;
+            if(4 < numRecords) {
+                numRecords = 4;
+            }
+
+            let xidArrayLikes = [];
+            let xidArrayRecs = [];
+
+            for (let i = 1; i <= numRecords; i++) {
+                xidArrayLikes.push(tempArrayLikes[i].xid);
+                xidArrayRecs.push(tempArrayRecs[i].xid);
+
+            }
+            console.log(xidArrayLikes);
+
+            setXidListLikes(xidArrayLikes);
+            setXidListRecs(xidArrayRecs);
+        }
+    }, [likedPlacesList]);
+
     useEffect( () => {
 
-        const fetchPlaceDetails = async () => {
-            if (xidList.length === 0) return;
+        const fetchPlaceDetailsLikes = async () => {
+            if (!xidListLikes || xidListLikes.length === 0) return;
 
-            const promises = xidList.map(xid => dispatch(getPlaceDetailsForListThunk(xid)));
+            const promisesLikes = xidListLikes.map(xid => dispatch(getPlaceDetailsForListThunk(xid)));
 
-            const results = await Promise.all(promises);
-            console.log("results:");
-            console.log(results);
+            const resultsLikes = await Promise.all(promisesLikes);
 
-            const placeDetails = results.map(result => result.payload);
+            const placeDetails = resultsLikes.map(result => result.payload);
+
 
             setPlaceDetails(placeDetails);
-            console.log("placedetails:");
-            console.log(placeDetails);
+
         }
 
-        fetchPlaceDetails();
+        fetchPlaceDetailsLikes();
 
-    }, [dispatch, placesList, xidList])
+    }, [dispatch, placesList, xidListLikes]);
+
+
+    useEffect( () => {
+        const fetchPlaceDetailsRecs = async () => {
+            if (!xidListRecs || xidListRecs.length === 0) return;
+            const promisesRecs = xidListRecs.map(xid => dispatch(getPlaceDetailsForListThunk(xid)));
+
+            const resultsRecs = await Promise.all(promisesRecs);
+
+            const placeDetailsRecs = resultsRecs.map(result => result.payload);
+
+            setPlaceDetailsRec(placeDetailsRecs);
+
+        }
+
+            setTimeout(fetchPlaceDetailsRecs(), 4);
+
+    }, [dispatch, placesList, xidListRecs]);
 
   return (
-      <div className="container">
-      <div className="row w-100 pb-5">
-        <div className="d-none d-lg-block w-25 float-start">
-          <HomeSidebar quotes={quotes}/>
-        </div>
-          <div>
-
-
-        {<ItemColumns allContent={placeDetails}/>}
+      <div className="container d-flex flex-row">
+          <div className="w-25 d-none d-lg-block float-start">
+              <HomeSidebar quotes={quotes}/>
           </div>
-      </div>
+          <div className="d-flex flex-column">
+              <div>
+                  <h1>Highly Recommended Sites</h1>
+                  <ItemColumns allContent={placeDetailsRec}/>
+              </div>
+              <div>
+                  <h1>Most Liked By Aliens</h1>
+                  <ItemColumns allContent={placeDetails}/>
+              </div>
+          </div>
       </div>
   );
 }
