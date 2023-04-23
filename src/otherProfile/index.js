@@ -6,7 +6,7 @@ import {
     findFollowsByFollowerId,
     findFollowsByFollowedId, userUnfollowsUser,
 } from "../following/follows-service.js";
-import {findUserByUsername} from "../users/users-service";
+import { findUserByUsername } from "../users/users-service";
 
 function OtherProfile() {
     const { username } = useParams();
@@ -65,63 +65,158 @@ function OtherProfile() {
     }, [navigate, profile, user]);
     return (
         <div>
-            <h1>
-                <button onClick={followUser} className="btn btn-primary float-end" disabled={currentlyFollowing}>
-                    {currentlyFollowing ? 'Following' : 'Follow'}
-                </button>
-                {profile && currentlyFollowing && <button onClick={unfollowUser} className="btn btn-warning float-end">UnFollow</button>}
-
-                {profile && profile.username}'s Profile
-            </h1>
-
-            {profile && (
-                <div>
-                    <h2>Profile</h2>
-
-                    <div>
-                        <h3>{profile.username}</h3>
-                        <h3>{profile._id}</h3>
+            <div className="row w-100 mx-0 px-0">
+                <div className="col-12 position-relative px-0">
+                    <img className="w-100 rounded" alt="" src={`/images/${profile.type}_banner.png`} />
+                    <img className="h-75 position-absolute rounded start-0 bottom-0" alt="" src={`/images/${user.type}_pfp.jpg`} />
+                </div>
+                <div className="row my-2">
+                    <div className="col-4 pt-2 mt-2">
+                        <h1 className="fw-bold">{profile.display_name}</h1>
+                        <h4 className="text-secondary">@{profile.username}</h4>
+                        <h6><span className="fw-bold me-2">{follows.length}</span> Followers</h6>
+                        <h6><span className="fw-bold me-2">{following.length}</span> Following</h6>
+                    </div>
+                    <div className="row my-2">
+                        <div className="col-3 position-relative">
+                            <div className="position-absolute bottom-0 start-0">
+                                <div className={profile.location === "" ? "d-none" : 'd-flex align-items-start'}>
+                                    <i className="fa fa-solid fa-location-dot me-3" /><h6>{user.location}</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-3 position-relative">
+                            <div className="position-absolute bottom-0 start-0">
+                                <h6 className={profile.type === 'MODERATOR' ? '' : 'd-none'}><span className="fw-bold me-2">{user.actions_taken}</span> Actions Taken</h6>
+                                <h6 className={profile.type === 'ALIEN' ? '' : 'd-none'}><span className="fw-bold me-2">{user.total_likes}</span> Likes</h6>
+                                <h6 className={profile.type === 'HUMAN' ? '' : 'd-none'}><span className="fw-bold me-2">{user.total_recs}</span> Recommendations</h6>
+                                <h6><span className="fw-bold me-2">{profile.total_comments}</span> Comments</h6>
+                            </div>
+                        </div>
+                        <div className="col-2 position-relative"></div>
+                        <button onClick={followUser} className="btn btn-primary float-end" disabled={currentlyFollowing}>
+                        </button>
+                        {profile && currentlyFollowing && <button onClick={unfollowUser} className="btn btn-warning float-end">UnFollow</button>}                    {currentlyFollowing ? 'Following' : 'Follow'}
                     </div>
                 </div>
-            )}
-
-            {follows && (
-                <div>
-                    <h2>Followers</h2>
-                    <ul className="list-group">
-                        {follows.map((follow) => (
-                            <li className="list-group-item" key={follow.follower._id}>
-                                <button className="btn btn-link" onClick={() => {navigate(`/profile/${follow.follower.username}`)
-                                                                       window.location.reload()}}>
-                                    <h3>{follow.follower.username}</h3>
-                                </button>
-                            </li>
-                        ))}
-                    </ul>
+                <div className="row my-3 mx-0">
+                    <div className="col-8 card bg-secondary">
+                        <div className="card-body">
+                            <h4 className="card-title">Bio</h4>
+                            <p className="card-text">{profile.bio}</p>
+                        </div>
+                    </div>
+                    <div className="col-4 card bg-primary">
+                        <div className="card-body">
+                            <h4 className="card-title">Wants to visit</h4>
+                            <p className="card-text">{profile.wants_visit}</p>
+                        </div>
+                    </div>
                 </div>
-            )}
-
-            {following && (
-                <div>
-                    <h2>Following</h2>
-                    <ul className="list-group">
-                        {following.map((follow) => (
-                            <li className="list-group-item" key={follow.followed._id}>
-                                <button className="h3 btn btn-link" onClick={() => {navigate(`/profile/${follow.followed.username}`)
-                                                                       window.location.reload()}}>
-                                    <h3>{follow.followed.username}</h3>
-                                </button>
-                            </li>
-                        ))}
-                    </ul>
+                {follows && (
+                    <div className="row my-3 mx-0">
+                        <h2>Followers</h2>
+                        <ul className="list-group">
+                            {follows.map((follow) => (
+                                <li className="list-group-item" key={follow.follower._id}>
+                                    <button className="h3 btn btn-link" onClick={() => {
+                                        navigate(`/profile/${follow.follower.username}`)
+                                        window.location.reload()
+                                    }}>
+                                        <h3>{follow.follower.username}</h3>
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
+                {following && (
+                    <div className="row my-3 mx-0">
+                        <h2>Following</h2>
+                        <ul className="list-group">
+                            {following.map((follow) => (
+                                <li className="list-group-item" key={follow.followed._id}>
+                                    <button className="h3 btn btn-link" onClick={() => {
+                                        navigate(`/profile/${follow.followed.username}`)
+                                        window.location.reload()
+                                    }}>
+                                        <h3>{follow.followed.username}</h3>
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
+                <div className="row my-3 mx-0">
+                    <h2>Recent Activity</h2>
                 </div>
-            )}
-
-            <div>
-                <h2>Likes</h2>
-
             </div>
         </div>
+
+
+
+
+
+
+
+        // <div>
+        //     <h1>
+        //         <button onClick={followUser} className="btn btn-primary float-end" disabled={currentlyFollowing}>
+        //        </button>
+        //         {profile && currentlyFollowing && <button onClick={unfollowUser} className="btn btn-warning float-end">UnFollow</button>}                    {currentlyFollowing ? 'Following' : 'Follow'}
+
+
+        //         {profile && profile.username}'s Profile
+        //     </h1>
+
+        //     {profile && (
+        //         <div>
+        //             <h2>Profile</h2>
+
+        //             <div>
+        //                 <h3>{profile.username}</h3>
+        //                 <h3>{profile._id}</h3>
+        //             </div>
+        //         </div>
+        //     )}
+
+        //     {follows && (
+        //         <div>
+        //             <h2>Followers</h2>
+        //             <ul className="list-group">
+        //                 {follows.map((follow) => (
+        //                     <li className="list-group-item" key={follow.follower._id}>
+        //                         <button className="btn btn-link" onClick={() => {navigate(`/profile/${follow.follower.username}`)
+        //                                                                window.location.reload()}}>
+        //                             <h3>{follow.follower.username}</h3>
+        //                         </button>
+        //                     </li>
+        //                 ))}
+        //             </ul>
+        //         </div>
+        //     )}
+
+        //     {following && (
+        //         <div>
+        //             <h2>Following</h2>
+        //             <ul className="list-group">
+        //                 {following.map((follow) => (
+        //                     <li className="list-group-item" key={follow.followed._id}>
+        //                         <button className="h3 btn btn-link" onClick={() => {navigate(`/profile/${follow.followed.username}`)
+        //                                                                window.location.reload()}}>
+        //                             <h3>{follow.followed.username}</h3>
+        //                         </button>
+        //                     </li>
+        //                 ))}
+        //             </ul>
+        //         </div>
+        //     )}
+
+        //     <div>
+        //         <h2>Likes</h2>
+
+        //     </div>
+        // </div>
     );
 }
 

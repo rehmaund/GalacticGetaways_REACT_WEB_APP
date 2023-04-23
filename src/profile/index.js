@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import { profileThunk}
+import { profileThunk }
   from "../users/users-thunks.js";
-import { findFollowsByFollowedId, findFollowsByFollowerId} from "../following/follows-service";
-import {Link} from "react-router-dom";
+import { findFollowsByFollowedId, findFollowsByFollowerId } from "../following/follows-service";
+import { Link } from "react-router-dom";
 
 function Profile() {
   const { user } = useSelector((state) => state.user);
@@ -45,8 +45,8 @@ function Profile() {
       {!user && <h1>No user logged in</h1>}
       {user && <div className="row w-100 mx-0 px-0">
         <div className="col-12 position-relative px-0">
-          <img className="w-100 rounded" alt="" src={`images/${user.type}_banner.png`}/>
-          <img className="h-75 position-absolute rounded start-0 bottom-0" alt="" src={`images/${user.type}_pfp.jpg`}/>
+          <img className="w-100 rounded" alt="" src={`/images/${user.type}_banner.png`} />
+          <img className="h-75 position-absolute rounded start-0 bottom-0" alt="" src={`/images/${user.type}_pfp.jpg`} />
         </div>
         <div className="row my-2">
           <div className="col-4 pt-2 mt-2">
@@ -58,13 +58,13 @@ function Profile() {
           <div className="col-3 position-relative">
             <div className="position-absolute bottom-0 start-0">
               <div className={user.location === "" ? "d-none" : 'd-flex align-items-start'}>
-                <i className="fa fa-solid fa-location-dot me-3"/><h6>{user.location}</h6>
+                <i className="fa fa-solid fa-location-dot me-3" /><h6>{user.location}</h6>
               </div>
               <div className={user.email === "" ? "d-none" : 'd-flex align-items-start'}>
-                <i className="fa fa-solid fa-envelope me-3"/><h6>{user.email}</h6>
+                <i className="fa fa-solid fa-envelope me-3" /><h6>{user.email}</h6>
               </div>
               <div className={user.phone === "" ? "d-none" : 'd-flex align-items-start'}>
-                <i className="fa fa-solid fa-phone me-3"/><h6>{user.phone}</h6>
+                <i className="fa fa-solid fa-phone me-3" /><h6>{user.phone}</h6>
               </div>
             </div>
           </div>
@@ -99,31 +99,35 @@ function Profile() {
           </div>
         </div>
         {follows && (
-            <div>
-              <h2>Followers</h2>
-              <ul className="list-group">
-                {follows.map((follow) => (
-                    <li className="list-group-item" key={follow.follower._id}>
-                      <button className="h3 btn btn-link" onClick={() => {navigate(`/profile/${follow.follower.username}`)
-                                                             window.location.reload()}}>
-                        <h3>{follow.follower.username}</h3>
-                      </button>
-                    </li>
-                ))}
-              </ul>
-            </div>
+          <div>
+            <h2>Followers</h2>
+            <ul className="list-group">
+              {follows.map((follow) => (
+                <li className="list-group-item" key={follow.follower._id}>
+                  <button className="h3 btn btn-link" onClick={() => {
+                    navigate(`/profile/${follow.follower.username}`)
+                    window.location.reload()
+                  }}>
+                    <h3>{follow.follower.username}</h3>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
         )}
-      {following && (
+        {following && (
           <div>
             <h2>Following</h2>
             <ul className="list-group">
               {following.map((follow) => (
-                  <li className="list-group-item" key={follow.followed._id}>
-                    <button className="h3 btn btn-link" onClick={() => {navigate(`/profile/${follow.followed.username}`)
-                                                           window.location.reload()}}>
-                      <h3>{follow.followed.username}</h3>
-                    </button>
-                  </li>
+                <li className="list-group-item" key={follow.followed._id}>
+                  <button className="h3 btn btn-link" onClick={() => {
+                    navigate(`/profile/${follow.followed.username}`)
+                    window.location.reload()
+                  }}>
+                    <h3>{follow.followed.username}</h3>
+                  </button>
+                </li>
               ))}
             </ul>
           </div>
