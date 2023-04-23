@@ -5,10 +5,9 @@ import { profileThunk, updateUserThunk }
     from "../users/users-thunks.js";
 import "./index.css";
 
-const EditProfileComponent = () => {
+const EditProfile = () => {
     const { user } = useSelector((state) => state.user);
     const [profile, setProfile] = useState(user);
-
     const dispatch = useDispatch();
 
     const saveProfileClickHandler = (profile) => {

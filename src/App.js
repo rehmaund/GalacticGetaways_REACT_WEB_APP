@@ -4,7 +4,7 @@ import { Routes, Route } from "react-router";
 import TopNavBar from "./top-nav-options";
 import Search from "./search";
 import Detail from "./detail";
-import { Provider, useSelector } from "react-redux";
+import {Provider} from "react-redux";
 import { configureStore } from '@reduxjs/toolkit';
 import searchReducer from "./search/search-reducer";
 import commentsReducer from "./detail/comments/comments-reducer";
@@ -23,6 +23,7 @@ import flagsReducer from "./flag/flags-reducer";
 import ReviewFlagged from "./flag/review-flags";
 import EditProfile from "./edit-profile";
 import SmallScreenSearch from "./bottom-nav-options/small-screen-search";
+import EditProfile from "./edit-profile";
 
 
 const store = configureStore({
@@ -63,13 +64,13 @@ function App() {
               <Route path="/register"
                 element={<Register />} />
               <Route path="/profile"
-                element={<Profile />} />
-              <Route path="/profile/:userId"
-                element={<OtherProfile />} />
+                     element={<Profile/>} />
+              <Route path="/profile/:username"
+                     element={<OtherProfile/>}/>
               <Route path="/review"
-                element={<ReviewFlagged />} />
+                      element={<ReviewFlagged/>}/>
               <Route path="/edit-profile"
-                element={<EditProfile />} />
+                      element={<EditProfile/>}/>
             </Routes>
           </div>
           <div className="row d-block d-md-none">
