@@ -19,7 +19,8 @@ const Search = () => {
   }, [dispatch, place])
   useEffect(() => {
     if (placesList === undefined) return;
-    placesList.forEach(place => {
+
+    placesList.slice(0, 8).forEach(place => {
       if (xidList.includes(place.properties.xid)) return;
       dispatch(getPlaceDetailsForListThunk(place.properties.xid))
     })
