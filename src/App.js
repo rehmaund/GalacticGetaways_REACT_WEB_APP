@@ -22,6 +22,7 @@ import interactionsReducer from "./detail/interactions-reducer";
 import flagsReducer from "./flag/flags-reducer";
 import ReviewFlagged from "./flag/review-flags";
 import SmallScreenSearch from "./bottom-nav-options/small-screen-search";
+import EditProfile from "./edit-profile";
 
 
 const store = configureStore({
@@ -66,6 +67,8 @@ function App() {
                      element={<OtherProfile/>}/>
               <Route path="/review"
                       element={<ReviewFlagged/>}/>
+              <Route path="/edit-profile"
+                      element={<EditProfile/>}/>
             </Routes>
           </div>
           <div className="row d-block d-md-none">
