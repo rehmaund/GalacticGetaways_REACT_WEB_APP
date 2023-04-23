@@ -1,17 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-    findUserByUsernameThunk,
-    profileThunk,
-    updateUserThunk,
-} from "../users/users-thunks";
 import { useNavigate, useParams } from "react-router";
 import {
     userFollowsUser,
     findFollowsByFollowerId,
     findFollowsByFollowedId, userUnfollowsUser,
 } from "../following/follows-service.js";
-import { Link } from "react-router-dom";
 import {findUserByUsername} from "../users/users-service";
 
 function OtherProfile() {
@@ -31,6 +25,7 @@ function OtherProfile() {
 
     const fetchUser = async () => {
         const response = await findUserByUsername(username);
+        console.log(response)
         setProfile(response);
     }
     const fetchFollowers = async () => {
@@ -63,7 +58,7 @@ function OtherProfile() {
         fetchUser();
     }, []);
     useEffect(() => {
-        if (user && profile._id === user._id) {
+        if (user && profile && profile._id === user._id) {
             navigate('/profile');
         }
         loadScreen();
