@@ -67,7 +67,7 @@ function OtherProfile() {
             navigate('/profile');
         }
         loadScreen();
-    }, [profile]);
+    }, [navigate, profile, user]);
     return (
         <div>
             <h1>

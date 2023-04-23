@@ -4,7 +4,7 @@ import {Routes, Route} from "react-router";
 import TopNavBar from "./top-nav-options";
 import Search from "./search";
 import Detail from "./detail";
-import {Provider, useSelector} from "react-redux";
+import {Provider} from "react-redux";
 import { configureStore } from '@reduxjs/toolkit';
 import searchReducer from "./search/search-reducer";
 import commentsReducer from "./detail/comments/comments-reducer";

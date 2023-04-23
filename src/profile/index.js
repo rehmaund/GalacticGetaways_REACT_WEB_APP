@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import { profileThunk, updateUserThunk }
+import { profileThunk}
   from "../users/users-thunks.js";
-import { findFollowsByFollowedId, findFollowsByFollowerId, userFollowsUser } from "../following/follows-service";
+import { findFollowsByFollowedId, findFollowsByFollowerId} from "../following/follows-service";
 import {Link} from "react-router-dom";
 
 function Profile() {
