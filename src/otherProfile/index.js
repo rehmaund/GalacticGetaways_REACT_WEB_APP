@@ -73,13 +73,13 @@ function OtherProfile() {
     useEffect(() => {
         const getComments = async () => {
             // Find all liked or recommended records
-            if (user) {
+            if (profile) {
                 const records = await dispatch(findCommentsByUsernameThunk(profile.username));
                 setCommentsList(records.payload);
             }
         }
         getComments();
-    }, [dispatch, user]);
+    }, [dispatch]);
 
     useEffect(() => {
 
