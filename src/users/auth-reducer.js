@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
     loginThunk, logoutThunk, registerThunk,
     profileThunk, updateUserThunk,
-} from "../users/users-thunks.js";
+} from "./users-thunks";
 
 const initialState = { user: null
 };

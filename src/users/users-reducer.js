@@ -69,25 +69,6 @@ const usersSlice = createSlice({
           state.loading = false
           state.error = action.error
         },
-    [updateUserThunk.pending]:
-        (state) => {
-          state.loading = true
-        },
-    [updateUserThunk.fulfilled]:
-        (state, { payload }) => {
-          state.loading = false
-          const userNdx = state.users
-          .findIndex((t) => t._id === payload._id)
-          state.users[userNdx] = {
-            ...state.users[userNdx],
-            ...payload
-          }
-        },
-    [updateUserThunk.rejected]:
-        (state, action) => {
-          state.loading = false
-          state.error = action.error
-        },
     [findUserByIdThunk.pending]:
         (state) => {
           state.loading = true
