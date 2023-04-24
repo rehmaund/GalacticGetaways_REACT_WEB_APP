@@ -159,10 +159,10 @@ const Detail = () => {
         {place && <div className="mb-4">
           <div className="row mt-3">
             {place.preview &&
-              <div className="col-4 mt-2">
+              <div className="col-12 col-md-4 mt-2 mb-3">
                 <img className="w-100" src={place.preview.source}/>
               </div>}
-            <div className="col-8">
+            <div className="col-12 col-md-8">
               <h1 className="mb-0">{place.name}</h1>
               {place.address &&
                 <h4 className="text-muted">{place.address.city ? `${place.address.city}, ${place.address.country}` : `${place.address.country}`}</h4>}
@@ -171,19 +171,19 @@ const Detail = () => {
               <p className="text-success"><b>Rating: </b>{rate}/3</p>
               {counters &&
                 <div className="row w-100">
-                  <span className="col-4">
+                  <span className="col-12 col-md-5 mb-1">
                     <i className="fa fa-thumbs-up"/>
                     <span className="ms-2">{counters.num_likes}</span>
                     <span className="ms-1">Likes from Aliens</span>
                   </span>
-                  <span className="col-6">
+                  <span className="col-12 col-md-7">
                     <i className="fa fa-star"/>
                     <span className="ms-2">{counters.num_recommendations}</span>
                     <span className="ms-1">Recommendations from Humans</span>
                   </span>
                 </div>}
               <div className="row w-100">
-                <div className="col-4">
+                <div className="col-12 col-md-5 mb-1">
                   {currentUser && currentUser.type === "ALIEN" && !liked &&
                       <button className="btn btn-primary mt-2" onClick={interactionClickHandler}>
                       <i className="fa fa-thumbs-up"/>
@@ -195,7 +195,7 @@ const Detail = () => {
                         <span className="ms-1">Unlike</span>
                       </button>}
                 </div>
-                <div className="col-6">
+                <div className="col-12 col-md-7">
                   {currentUser && currentUser.type === "HUMAN" && !recommended &&
                     <button className="btn btn-primary mt-2" onClick={interactionClickHandler}>
                     <i className="fa fa-star"/>
@@ -214,10 +214,10 @@ const Detail = () => {
           {!commentsLoading &&
             <div className="row">
             <h3>{numComments} Comments</h3>
-            <div className="col-6">
+            <div className="col-12 col-md-7">
               {comments.map(comment => <Comment comment={comment} key={comment._id}/>)}
             </div>
-            <div className="col-6">
+            <div className="col-12 col-md-5">
               {showLoginAlert &&
                   <div className="alert alert-dismissible alert-danger">
                     <button type="button" className="btn-close" onClick={() => setShowLoginAlert(false)}/>
