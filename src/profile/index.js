@@ -75,7 +75,7 @@ function Profile() {
           </div>
           <div className="col-2 position-relative">
             <Link to="/edit-profile/">
-              <button className="w-100 rounded-pill btn btn-light fw-bold position-absolute top-50 end-0">
+              <button className="w-100 rounded btn btn-light fw-bold position-absolute top-50 end-0">
                 Edit Profile
               </button>
             </Link>
