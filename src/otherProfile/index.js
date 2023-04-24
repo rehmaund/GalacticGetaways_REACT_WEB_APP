@@ -68,7 +68,7 @@ function OtherProfile() {
             <div className="row w-100 mx-0 px-0">
                 <div className="col-12 position-relative px-0">
                     <img className="w-100 rounded" alt="" src={`/images/${profile.type}_banner.png`} />
-                    <img className="h-75 position-absolute rounded start-0 bottom-0" alt="" src={`/images/${user.type}_pfp.jpg`} />
+                    <img className="h-75 position-absolute rounded start-0 bottom-0" alt="" src={`/images/${profile.type}_pfp.jpg`} />
                 </div>
                 <div className="row my-2">
                     <div className="col-4 pt-2 mt-2">
@@ -77,26 +77,21 @@ function OtherProfile() {
                         <h6><span className="fw-bold me-2">{follows.length}</span> Followers</h6>
                         <h6><span className="fw-bold me-2">{following.length}</span> Following</h6>
                     </div>
-                    <div className="row my-2">
-                        <div className="col-3 position-relative">
-                            <div className="position-absolute bottom-0 start-0">
-                                <div className={profile.location === "" ? "d-none" : 'd-flex align-items-start'}>
-                                    <i className="fa fa-solid fa-location-dot me-3" /><h6>{user.location}</h6>
-                                </div>
+                    <div className="col-4 position-relative">
+                        <div className="position-absolute bottom-0 start-25">
+                            <div className={profile.location === "" ? "d-none" : 'd-flex align-items-start'}>
+                                <i className="fa fa-solid fa-location-dot me-3" /><h6>{profile.location}</h6>
                             </div>
+                            <h6 className={profile.type === 'MODERATOR' ? '' : 'd-none'}><span className="fw-bold me-2">{profile.actions_taken}</span> Actions Taken</h6>
+                            <h6 className={profile.type === 'ALIEN' ? '' : 'd-none'}><span className="fw-bold me-2">{profile.total_likes}</span> Likes</h6>
+                            <h6 className={profile.type === 'HUMAN' ? '' : 'd-none'}><span className="fw-bold me-2">{profile.total_recs}</span> Recommendations</h6>
+                            <h6><span className="fw-bold me-2">{profile.total_comments}</span> Comments</h6>
                         </div>
-                        <div className="col-3 position-relative">
-                            <div className="position-absolute bottom-0 start-0">
-                                <h6 className={profile.type === 'MODERATOR' ? '' : 'd-none'}><span className="fw-bold me-2">{user.actions_taken}</span> Actions Taken</h6>
-                                <h6 className={profile.type === 'ALIEN' ? '' : 'd-none'}><span className="fw-bold me-2">{user.total_likes}</span> Likes</h6>
-                                <h6 className={profile.type === 'HUMAN' ? '' : 'd-none'}><span className="fw-bold me-2">{user.total_recs}</span> Recommendations</h6>
-                                <h6><span className="fw-bold me-2">{profile.total_comments}</span> Comments</h6>
-                            </div>
-                        </div>
-                        <div className="col-2 position-relative"></div>
-                        <button onClick={followUser} className="btn btn-primary float-end" disabled={currentlyFollowing}>
+                    </div>
+                    <div className="col-4 position-relative">
+                        <button onClick={followUser} className="w-50 rounded btn btn-primary fw-bold position-absolute top-50 end-0" disabled={currentlyFollowing}>
+                            {profile && currentlyFollowing && <button onClick={unfollowUser} className="btn btn-warning float-end">UnFollow</button>}                    {currentlyFollowing ? 'Following' : 'Follow'}
                         </button>
-                        {profile && currentlyFollowing && <button onClick={unfollowUser} className="btn btn-warning float-end">UnFollow</button>}                    {currentlyFollowing ? 'Following' : 'Follow'}
                     </div>
                 </div>
                 <div className="row my-3 mx-0">
