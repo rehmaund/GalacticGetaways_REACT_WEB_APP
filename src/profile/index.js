@@ -3,12 +3,19 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { findFollowsByFollowedId, findFollowsByFollowerId } from "../following/follows-service";
 import { Link } from "react-router-dom";
+import { findCommentsByUsernameThunk } from "../detail/comments/comments-thunks.js";
+import { getPlaceDetailsForListThunk } from "../search/search-thunks";
+import ItemColumns from "../item-preview/item-columns";
+
+
 
 function Profile() {
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  let [commentsList, setCommentsList] = useState([]);
+  const [commentedPlaceDetails, setCommentedPlaceDetails] = useState([]);
+  let [xidListComments, setXidListComments] = useState([]);
   const [likes, setLikes] = useState([]);
   const [following, setFollowing] = useState([]);
   const [follows, setFollows] = useState([]);
@@ -33,6 +40,71 @@ function Profile() {
   //   };
   //   asyncFn();
   // }, [dispatch]);
+  useEffect(() => {
+    const getComments = async () => {
+      // Find all liked or recommended records
+      if (user) {
+        const records = await dispatch(findCommentsByUsernameThunk(user.username));
+        setCommentsList(records.payload);
+      }
+    }
+    getComments();
+  }, [dispatch, user]);
+
+  useEffect(() => {
+
+    if (commentsList.length > 0) {
+      console.log("comments List:");
+      console.log(commentsList);
+      // Extract xid from each record into list of xids where user id is the current user
+
+      let tempArrayComments = [];
+      for (let comment of commentsList) {
+        if (!tempArrayComments.includes(comment.xid)) {
+          tempArrayComments.push(comment.xid);
+        }
+      }
+
+      console.log("tempArraycomments", tempArrayComments);
+
+      let numRecords = tempArrayComments.length;
+      if (numRecords < 6) {
+        numRecords = 0;
+      } else {
+        numRecords = numRecords - 6;
+      }
+
+      let xidArrayComments = [];
+
+      for (let i = tempArrayComments.length - 1; i >= numRecords; i--) {
+        xidArrayComments.push(tempArrayComments[i]);
+      }
+
+      console.log("xidArrayComments");
+      console.log(xidArrayComments);
+
+      setXidListComments(xidArrayComments);
+    }
+  }, [commentsList]);
+  useEffect(() => {
+
+    const fetchPlaceDetailsComments = async () => {
+      if (!xidListComments || xidListComments.length === 0) return;
+
+      const promisesComments = xidListComments.map(xid => dispatch(getPlaceDetailsForListThunk(xid)));
+
+      const resultsComments = await Promise.all(promisesComments);
+
+      const placeDetailsComments = resultsComments.map(result => result.payload);
+
+      setCommentedPlaceDetails(placeDetailsComments);
+
+    }
+
+    fetchPlaceDetailsComments();
+
+  }, [dispatch, xidListComments]);
+
   useEffect(() => {
     loadScreen();
   }, [user]);
@@ -96,7 +168,7 @@ function Profile() {
           </div>
         </div>
         {follows && (
-          <div>
+          <div className="mx-0 my-3">
             <h2>Followers</h2>
             <ul className="list-group">
               {follows.map((follow) => (
@@ -113,7 +185,7 @@ function Profile() {
           </div>
         )}
         {following && (
-          <div>
+          <div className="mx-0 my-3">
             <h2>Following</h2>
             <ul className="list-group">
               {following.map((follow) => (
@@ -129,9 +201,9 @@ function Profile() {
             </ul>
           </div>
         )}
-        <div className="row my-3 mx-0">
-          <h2>Recent Activity</h2>
-
+        <div className="row my-3 mx-0 px-0">
+          <h2>Recently Commented Places</h2>
+          <ItemColumns allContent={commentedPlaceDetails} />
         </div>
       </div>}
     </div>

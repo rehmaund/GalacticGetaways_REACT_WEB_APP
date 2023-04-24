@@ -7,11 +7,19 @@ import {
     findFollowsByFollowedId, userUnfollowsUser,
 } from "../following/follows-service.js";
 import { findUserByUsername } from "../users/users-service";
+import { findCommentsByUsernameThunk } from "../detail/comments/comments-thunks.js";
+import { getPlaceDetailsForListThunk } from "../search/search-thunks";
+import ItemColumns from "../item-preview/item-columns";
+
+
 
 function OtherProfile() {
     const { username } = useParams();
     const { user } = useSelector((state) => state.user);
     const [profile, setProfile] = useState(user);
+    let [commentsList, setCommentsList] = useState([]);
+    const [commentedPlaceDetails, setCommentedPlaceDetails] = useState([]);
+    let [xidListComments, setXidListComments] = useState([]);
     const [likes, setLikes] = useState([]);
     const [following, setFollowing] = useState([]);
     const [currentlyFollowing, setCurrentlyFollowing] = useState(false);
@@ -61,12 +69,80 @@ function OtherProfile() {
         await userUnfollowsUser(user._id, profile._id);
         loadScreen();
     };
+
+    useEffect(() => {
+        const getComments = async () => {
+            // Find all liked or recommended records
+            if (user) {
+                const records = await dispatch(findCommentsByUsernameThunk(profile.username));
+                setCommentsList(records.payload);
+            }
+        }
+        getComments();
+    }, [dispatch, user]);
+
+    useEffect(() => {
+
+        if (commentsList.length > 0) {
+            console.log("comments List:");
+            console.log(commentsList);
+            // Extract xid from each record into list of xids where user id is the current user
+
+            let tempArrayComments = [];
+            for (let comment of commentsList) {
+                if (!tempArrayComments.includes(comment.xid)) {
+                    tempArrayComments.push(comment.xid);
+                }
+            }
+
+            console.log("tempArraycomments", tempArrayComments);
+
+            let numRecords = tempArrayComments.length;
+            if (numRecords < 6) {
+                numRecords = 0;
+            } else {
+                numRecords = numRecords - 6;
+            }
+
+            let xidArrayComments = [];
+
+            for (let i = tempArrayComments.length - 1; i >= numRecords; i--) {
+                xidArrayComments.push(tempArrayComments[i]);
+            }
+
+            console.log("xidArrayComments");
+            console.log(xidArrayComments);
+
+            setXidListComments(xidArrayComments);
+        }
+    }, [commentsList]);
+    useEffect(() => {
+
+        const fetchPlaceDetailsComments = async () => {
+            if (!xidListComments || xidListComments.length === 0) return;
+
+            const promisesComments = xidListComments.map(xid => dispatch(getPlaceDetailsForListThunk(xid)));
+
+            const resultsComments = await Promise.all(promisesComments);
+
+            const placeDetailsComments = resultsComments.map(result => result.payload);
+
+            setCommentedPlaceDetails(placeDetailsComments);
+
+        }
+
+        fetchPlaceDetailsComments();
+
+    }, [dispatch, xidListComments]);
+
     useEffect(() => {
         fetchUser();
     }, [user]);
+
     useEffect(() => {
         loadScreen();
     }, [navigate, profile]);
+
     return (
         <> {profile && profile._id !== user._id &&
             <div>
@@ -147,69 +223,12 @@ function OtherProfile() {
                         </div>
                     )}
                     <div className="row my-3 mx-0">
-                        <h2>Recent Activity</h2>
+                        <h2>Recently Commented Places</h2>
+                        <ItemColumns allContent={commentedPlaceDetails} />
                     </div>
                 </div>
             </div>
         }
-            {/* // <div>
-        //     <h1>
-        //         <button onClick={followUser} className="btn btn-primary float-end" disabled={currentlyFollowing}>
-        //        </button>
-        //         {profile && currentlyFollowing && <button onClick={unfollowUser} className="btn btn-warning float-end">UnFollow</button>}                    {currentlyFollowing ? 'Following' : 'Follow'}
-
-
-        //         {profile && profile.username}'s Profile
-        //     </h1>
-
-        //     {profile && (
-        //         <div>
-        //             <h2>Profile</h2>
-
-        //             <div>
-        //                 <h3>{profile.username}</h3>
-        //                 <h3>{profile._id}</h3>
-        //             </div>
-        //         </div>
-        //     )}
-
-        //     {follows && (
-        //         <div>
-        //             <h2>Followers</h2>
-        //             <ul className="list-group">
-        //                 {follows.map((follow) => (
-        //                     <li className="list-group-item" key={follow.follower._id}>
-        //                         <button className="btn btn-link" onClick={() => {navigate(`/profile/${follow.follower.username}`)
-        //                                                                window.location.reload()}}>
-        //                             <h3>{follow.follower.username}</h3>
-        //                         </button>
-        //                     </li>
-        //                 ))}
-        //             </ul>
-        //         </div>
-        //     )}
-
-        //     {following && (
-        //         <div>
-        //             <h2>Following</h2>
-        //             <ul className="list-group">
-        //                 {following.map((follow) => (
-        //                     <li className="list-group-item" key={follow.followed._id}>
-        //                         <button className="h3 btn btn-link" onClick={() => {navigate(`/profile/${follow.followed.username}`)
-        //                                                                window.location.reload()}}>
-        //                             <h3>{follow.followed.username}</h3>
-        //                         </button>
-        //                     </li>
-        //                 ))}
-        //             </ul>
-        //         </div>
-        //     )}
-
-        //     <div>
-        //         <h2>Likes</h2>
-
-        //     </div>
-        // </div> */}
         </>
     );
 }
