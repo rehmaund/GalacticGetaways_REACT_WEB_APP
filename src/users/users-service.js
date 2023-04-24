@@ -27,8 +27,10 @@ export const profile = async () => {
 };
 
 
-export const updateUser = async (user) => {
-  const response = await api.put(`${USERS_URL}/${user._id}`, user);
+export const updateUser = async (uid, user) => {
+  const response = await api.put(`${USERS_URL}/${uid}`, user);
+  console.log("user in service: ", user);
+  console.log("response in service: ", response);
   return response.data;
 };
 

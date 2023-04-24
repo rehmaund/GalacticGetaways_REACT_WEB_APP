@@ -24,8 +24,10 @@ export const logoutThunk = createAsyncThunk(
 
 export const updateUserThunk = createAsyncThunk(
     "users/updateUser", async (user) => {
-        await service.updateUser(user);
-        return user;
+        const uid = user._id;
+        const updatedUser = await service.updateUser(uid, user);
+        console.log("updated in thunk: ", updatedUser);
+        return updatedUser;
     }
 );
 
