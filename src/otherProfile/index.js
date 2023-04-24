@@ -50,10 +50,6 @@ function OtherProfile() {
                     === profile._id));
         }
     };
-    /*const fetchLikes = async () => {
-        const likes = await findLikesByUserId(profile._id);
-        setLikes(likes);
-    };*/
     const loadScreen = async () => {
         if (profile && (user ? profile._id !== user._id : true)) {
             //await fetchLikes();
@@ -69,17 +65,23 @@ function OtherProfile() {
         await userUnfollowsUser(user._id, profile._id);
         loadScreen();
     };
+    useEffect(() => {
+        fetchUser();
+    }, [user]);
 
+    useEffect(() => {
+        loadScreen();
+    }, [navigate, profile]);
     useEffect(() => {
         const getComments = async () => {
             // Find all liked or recommended records
-            if (profile) {
-                const records = await dispatch(findCommentsByUsernameThunk(profile.username));
+            if (user) {
+                const records = await dispatch(findCommentsByUsernameThunk(username));
                 setCommentsList(records.payload);
             }
         }
         getComments();
-    }, [dispatch]);
+    }, [dispatch, user]);
 
     useEffect(() => {
 
@@ -134,14 +136,6 @@ function OtherProfile() {
         fetchPlaceDetailsComments();
 
     }, [dispatch, xidListComments]);
-
-    useEffect(() => {
-        fetchUser();
-    }, [user]);
-
-    useEffect(() => {
-        loadScreen();
-    }, [navigate, profile]);
 
     return (
         <> {profile && (user ? profile._id !== user._id : true) &&
