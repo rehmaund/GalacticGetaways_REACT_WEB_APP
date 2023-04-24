@@ -38,8 +38,31 @@ function Profile() {
   }, [user]);
 
   return (
-    <div>
-      {!user && <h1>No user logged in</h1>}
+    <div className="mt-3 mb-4">
+      {!user &&
+
+        <div className="card text-white bg-secondary mb-3 mt-3">
+          <div className="card-header row">
+            <div className="col">
+              <h4>Welcome, Beings from Earth and Beyond!</h4></div>
+            <div className="col">
+              <button type="button" className="btn-close float-end" data-bs-dismiss="modal" aria-label="Close" onClick={() => {
+                navigate(`/`);
+              }}>
+                <span aria-hidden="true"></span>
+              </button>
+            </div>
+          </div>
+
+          <div className="card-body row">
+            <div className="col-6">
+              <h4 className="card-title">Invalid Login credentials.</h4>
+
+              <button className="btn btn-info btn-lg mt-2" onClick={() => {navigate('/login')}}>Try Again</button>
+            </div>
+
+          </div>
+        </div>}
       {user && <div className="row w-100 mx-0 px-0">
         <div className="col-12 position-relative px-0">
           <img className="w-100 rounded" alt="" src={`images/${user.type}_banner.png`}/>
