@@ -117,14 +117,22 @@ function Profile() {
           <img className="w-100 rounded" alt="" src={`/images/${user.type}_banner.png`} />
           <img className="h-75 position-absolute rounded start-0 bottom-0" alt="" src={`/images/${user.type}_pfp.jpg`} />
         </div>
+
         <div className="row my-2">
-          <div className="col-4 pt-2 mt-2">
+          <div className="col-xl-3 col-lg-3 col-md-3 d-none d-md-block pt-2 mt-2">
             <h1 className="fw-bold">{user.display_name}</h1>
             <h4 className="text-secondary">@{user.username}</h4>
             <h6><span className="fw-bold me-2">{follows.length}</span> Followers</h6>
             <h6><span className="fw-bold me-2">{following.length}</span> Following</h6>
           </div>
-          <div className="col-3 position-relative">
+          <div className="row d-md-none pt-2 mt-2">
+            <h1 className="fw-bold">{user.display_name}</h1>
+            <h4 className="text-secondary">@{user.username}</h4>
+            <h6><span className="fw-bold me-2">{follows.length}</span> Followers</h6>
+            <h6><span className="fw-bold me-2">{following.length}</span> Following</h6>
+          </div>
+
+          <div className="col-xl-3 col-lg-3 col-md-3 d-none d-md-block position-relative">
             <div className="position-absolute bottom-0 start-0">
               <div className={user.location === "" ? "d-none" : 'd-flex align-items-start'}>
                 <i className="fa fa-solid fa-location-dot me-3" /><h6>{user.location}</h6>
@@ -137,7 +145,22 @@ function Profile() {
               </div>
             </div>
           </div>
-          <div className="col-3 position-relative">
+          <div className="row d-md-none position-relative">
+            <div className="row">
+              <div className={user.location === "" ? "d-none" : 'd-flex align-items-start'}>
+                <i className="fa fa-solid fa-location-dot me-3" /><h6>{user.location}</h6>
+              </div>
+              <div className={user.email === "" ? "d-none" : 'd-flex align-items-start'}>
+                <i className="fa fa-solid fa-envelope me-3" /><h6>{user.email}</h6>
+              </div>
+              <div className={user.phone === "" ? "d-none" : 'd-flex align-items-start'}>
+                <i className="fa fa-solid fa-phone me-3" /><h6>{user.phone}</h6>
+              </div>
+            </div>
+          </div>
+
+
+          <div className="col-xl-3 col-lg-3 col-md-3 d-none d-md-block position-relative">
             <div className="position-absolute bottom-0 start-0">
               <h6 className={user.type === 'MODERATOR' ? '' : 'd-none'}><span className="fw-bold me-2">{user.actions_taken}</span> Actions Taken</h6>
               <h6 className={user.type === 'ALIEN' ? '' : 'd-none'}><span className="fw-bold me-2">{user.total_likes}</span> Likes</h6>
@@ -145,13 +168,33 @@ function Profile() {
               <h6><span className="fw-bold me-2">{user.total_comments}</span> Comments</h6>
             </div>
           </div>
-          <div className="col-2 position-relative">
+          <div className="row d-md-none position-relative">
+            <div className="row">
+              <h6 className={user.type === 'MODERATOR' ? '' : 'd-none'}><span className="fw-bold me-2">{user.actions_taken}</span> Actions Taken</h6>
+              <h6 className={user.type === 'ALIEN' ? '' : 'd-none'}><span className="fw-bold me-2">{user.total_likes}</span> Likes</h6>
+              <h6 className={user.type === 'HUMAN' ? '' : 'd-none'}><span className="fw-bold me-2">{user.total_recs}</span> Recommendations</h6>
+              <h6><span className="fw-bold me-2">{user.total_comments}</span> Comments</h6>
+            </div>
+          </div>
+
+
+          <div className="col-xl-3 col-lg-3 col-md-3 d-none d-md-block position-relative">
             <Link to="/edit-profile/">
-              <button className="w-100 rounded btn btn-light fw-bold position-absolute top-50 end-0">
+              <button className="w-50 rounded btn btn-light fw-bold position-absolute top-50 end-0">
                 Edit Profile
               </button>
             </Link>
           </div>
+          <div className="row d-md-none d-flex">
+            <Link to="/edit-profile/">
+              <button className="w-50 rounded btn btn-light fw-bold">
+                Edit Profile
+              </button>
+            </Link>
+          </div>
+
+
+
         </div>
         <div className="row my-3 mx-0">
           <div className="col-8 card bg-secondary">

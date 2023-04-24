@@ -151,17 +151,26 @@ function OtherProfile() {
                         <img className="w-100 rounded" alt="" src={`/images/${profile.type}_banner.png`} />
                         <img className="h-75 position-absolute rounded start-0 bottom-0" alt="" src={`/images/${profile.type}_pfp.jpg`} />
                     </div>
+
                     <div className="row my-2">
-                        <div className="col-4 pt-2 mt-2">
+                        <div className="col-xl-4 col-lg-4 col-md-4 d-none d-md-block pt-2 mt-2">
                             <h1 className="fw-bold">{profile.display_name}</h1>
                             <h4 className="text-secondary">@{profile.username}</h4>
                             <h6><span className="fw-bold me-2">{follows.length}</span> Followers</h6>
                             <h6><span className="fw-bold me-2">{following.length}</span> Following</h6>
                         </div>
-                        <div className="col-4 position-relative">
+                        <div className="row d-md-none pt-2 mt-2">
+                            <h1 className="fw-bold">{profile.display_name}</h1>
+                            <h4 className="text-secondary">@{profile.username}</h4>
+                            <h6><span className="fw-bold me-2">{follows.length}</span> Followers</h6>
+                            <h6><span className="fw-bold me-2">{following.length}</span> Following</h6>
+                        </div>
+
+
+                        <div className="col-xl-4 col-lg-4 col-md-4 d-none d-md-block pt-2 mt-2">
                             <div className="position-absolute bottom-0 start-25">
                                 <div className={profile.location === "" ? "d-none" : 'd-flex align-items-start'}>
-                                    <i className="fa fa-solid fa-location-dot me-3" /><h6>{profile.location}</h6>
+                                    <i className="fa fa-solid fa-location-dot me-2" /><h6>{profile.location}</h6>
                                 </div>
                                 <h6 className={profile.type === 'MODERATOR' ? '' : 'd-none'}><span className="fw-bold me-2">{profile.actions_taken}</span> Actions Taken</h6>
                                 <h6 className={profile.type === 'ALIEN' ? '' : 'd-none'}><span className="fw-bold me-2">{profile.total_likes}</span> Likes</h6>
@@ -169,9 +178,25 @@ function OtherProfile() {
                                 <h6><span className="fw-bold me-2">{profile.total_comments}</span> Comments</h6>
                             </div>
                         </div>
-                        <div className="col-4 position-relative">
+                        <div className="row d-md-none">
+                            <div className="row">
+                                <div className={profile.location === "" ? "d-none" : 'd-flex align-items-start'}>
+                                    <i className="fa fa-solid fa-location-dot me-2" /><h6>{profile.location}</h6>
+                                </div>
+                                <h6 className={profile.type === 'MODERATOR' ? '' : 'd-none'}><span className="fw-bold me-2">{profile.actions_taken}</span> Actions Taken</h6>
+                                <h6 className={profile.type === 'ALIEN' ? '' : 'd-none'}><span className="fw-bold me-2">{profile.total_likes}</span> Likes</h6>
+                                <h6 className={profile.type === 'HUMAN' ? '' : 'd-none'}><span className="fw-bold me-2">{profile.total_recs}</span> Recommendations</h6>
+                                <h6><span className="fw-bold me-2">{profile.total_comments}</span> Comments</h6>
+                            </div>
+                        </div>
+
+                        <div className="col-xl-4 col-lg-4 col-md-4 d-none d-md-block pt-2 mt-2">
                             {(!profile || (profile && !currentlyFollowing)) && <button onClick={followUser} className="w-50 rounded btn btn-secondary fw-bold position-absolute top-50 end-0" disabled={currentlyFollowing}>Follow</button>}
                             {profile && currentlyFollowing && <button onClick={unfollowUser} className="w-50 rounded btn btn-warning fw-bold position-absolute top-50 end-0">Unfollow</button>}
+                        </div>
+                        <div className="row d-md-none pt-2 mt-2 mx-1">
+                            {(!profile || (profile && !currentlyFollowing)) && <button onClick={followUser} className="w-50 rounded btn btn-secondary fw-bold" disabled={currentlyFollowing}>Follow</button>}
+                            {profile && currentlyFollowing && <button onClick={unfollowUser} className="w-50 rounded btn btn-warning fw-bold">Unfollow</button>}
                         </div>
                     </div>
                     <div className="row my-3 mx-0">
