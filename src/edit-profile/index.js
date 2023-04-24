@@ -43,7 +43,7 @@ const EditProfile = () => {
                         </div>
                         <div className="d-flex-row mt-5 mb-3">
                             <div className="col-12 border d-flex justify-content-center">
-                                <label className="w-25 text-success me-2 mt-1 fw-bold" for="display-name-field">Display name</label>
+                                <label className="w-25 text-success me-2 mt-1 fw-bold" htmlFor="display-name-field">Display name</label>
 
                                 <textarea id="display-name-field" rows="1"
                                     className="form-control mw-75 border-0 wd-textarea ms-1" value={profile.display_name}
@@ -53,7 +53,7 @@ const EditProfile = () => {
                         </div>
                         <div className="d-flex-row mb-5">
                             <div className="col-12 border d-flex justify-content-center align-items-center">
-                                <label className="w-25 text-success me-2 mt-1 fw-bold" for="username-field">Username</label>
+                                <label className="w-25 text-success me-2 mt-1 fw-bold" htmlFor="username-field">Username</label>
                                 <textarea id="username-field" rows="1"
                                     className="form-control mw-75 border-0 wd-textarea ms-1" value={profile.username}
                                     onChange={(event) => setProfile(event.target.value)}>
@@ -62,7 +62,7 @@ const EditProfile = () => {
                         </div>
                         <div className="d-flex-row mt-5 mb-3">
                             <div className="col-12 border d-flex justify-content-center align-items-center">
-                                <label className="w-25 text-success me-2 mt-1 fw-bold" for="email-field">Email address</label>
+                                <label className="w-25 text-success me-2 mt-1 fw-bold" htmlFor="email-field">Email address</label>
                                 <textarea id="email-field" rows="1"
                                     className="form-control mw-75 border-0 wd-textarea ms-1" value={profile.email}
                                     onChange={(event) => setProfile(event.target.value)}>
@@ -71,7 +71,7 @@ const EditProfile = () => {
                         </div>
                         <div className="d-flex-row mb-3">
                             <div className="col-12 border d-flex justify-content-center align-items-center">
-                                <label className="w-25 text-success me-2 mt-1 fw-bold" for="phone-number-field">Phone number</label>
+                                <label className="w-25 text-success me-2 mt-1 fw-bold" htmlFor="phone-number-field">Phone number</label>
                                 <textarea id="phone-number-field" rows="1"
                                     className="form-control mw-75 border-0 wd-textarea ms-1" value={profile.phone}
                                     onChange={(event) => setProfile(event.target.value)}>
@@ -80,7 +80,7 @@ const EditProfile = () => {
                         </div>
                         <div className="d-flex-row mb-5">
                             <div className="col-12 border d-flex justify-content-center align-items-center">
-                                <label className="w-25 text-success me-2 mt-1 fw-bold" for="location-field">Location</label>
+                                <label className="w-25 text-success me-2 mt-1 fw-bold" htmlFor="location-field">Location</label>
                                 <textarea id="location-field" rows="1" value={profile.location}
                                     className="form-control mw-75 border-0 wd-textarea ms-1"
                                     onChange={(event) => setProfile(event.target.value)}>
@@ -89,7 +89,7 @@ const EditProfile = () => {
                         </div>
                         <div className="d-flex-row mt-5 mb-3">
                             <div className="col-12 border d-flex justify-content-center align-items-center">
-                                <label className="w-25 text-success me-2 mt-1 fw-bold" for="bio-field">Bio</label>
+                                <label className="w-25 text-success me-2 mt-1 fw-bold" htmlFor="bio-field">Bio</label>
                                 <textarea id="bio-field" rows="auto" value={profile.bio}
                                     className="form-control mw-75 border-0 wd-textarea ms-1"
                                     onChange={(event) => setProfile(event.target.value)}>
@@ -98,7 +98,7 @@ const EditProfile = () => {
                         </div>
                         <div className="d-flex-row mb-5">
                             <div className="col-12 border d-flex justify-content-center align-items-center">
-                                <label className="w-25 text-success me-2 mt-1 fw-bold" for="bio-field">Wants to visit</label>
+                                <label className="w-25 text-success me-2 mt-1 fw-bold" htmlFor="bio-field">Wants to visit</label>
                                 <textarea id="bio-field" rows="auto" value={profile.wants_visit}
                                     className="form-control mw-75 border-0 wd-textarea ms-1"
                                     onChange={(event) => setProfile(event.target.value)}>

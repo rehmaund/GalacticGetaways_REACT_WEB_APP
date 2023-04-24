@@ -156,7 +156,7 @@ const Detail = () => {
   return (
       <div className="pb-5">
         {loading && <div>Loading...</div>}
-        {place && <div>
+        {place && <div className="mb-4">
           <div className="row mt-3">
             {place.preview &&
               <div className="col-4 mt-2">

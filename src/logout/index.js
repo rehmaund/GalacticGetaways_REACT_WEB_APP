@@ -18,7 +18,7 @@ function Logout() {
 
     return (
         <div className="d-flex justify-content-center align-items-center">
-        <div className="card text-white bg-secondary mb-3 width-70pc">
+        <div className="card text-white bg-secondary mb-3 width-70pc mt-3">
             <div className="card-header row">
                 <div className="col">
                     <h4>Travel Again Soon!</h4></div>

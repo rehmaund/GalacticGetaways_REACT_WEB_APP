@@ -50,7 +50,7 @@ function HomeSidebar({ quotes }) {
                 {user ? (
                     <h4 className="card-title">Welcome, {user.display_name}</h4>
                 ) : (
-                    <h4 className="card-title">Welcome</h4>
+                    <h4 className="card-title">Welcome, Traveler</h4>
                 )}
                 <br/>
                 <img src="/images/galaxy.jpg" className="white-border" width="100%" height="180px"/>
@@ -58,7 +58,7 @@ function HomeSidebar({ quotes }) {
                 {selectedQuote && <p className="card-text">{selectedQuote}</p>}
 
             <br/>
-                <h6>Top Sites:</h6>
+                <h6>We recommend:</h6>
                 <br/>
                 <div className="container">
                     <div className="row mb-4">

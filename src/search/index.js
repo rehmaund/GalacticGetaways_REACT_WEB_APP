@@ -1,5 +1,5 @@
 import {useParams} from "react-router";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useLayoutEffect, useState} from "react";
 import {
   getPlaceDetailsForListThunk,
   getPlaceDetailsThunk,
@@ -16,14 +16,17 @@ const Search = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getPlacesThunk(place))
-  }, [dispatch, place])
+  }, [])
   useEffect(() => {
     if (placesList === undefined) return;
-    placesList.forEach(place => {
+      const placesListLimited = placesList.slice(0, 8);
+      placesListLimited.forEach(place => {
       if (xidList.includes(place.properties.xid)) return;
       dispatch(getPlaceDetailsForListThunk(place.properties.xid))
     })
   }, [dispatch, placesList, xidList])
+
+
     return (
       <div>
         <h1>Search</h1>

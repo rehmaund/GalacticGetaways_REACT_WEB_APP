@@ -25,7 +25,7 @@ const Comment = ({comment}, {key}) => {
   return(
       <div className={`card mb-4 bg-light bg-opacity-25`}>
         <div className="card-header">
-          <Link to={{pathname: `/profile/${comment.uid}`}} className="text-decoration-none wd-no-glow">
+          <Link to={{pathname: `/profile/${comment.username}`}} className="text-decoration-none wd-no-glow">
             <span className="card-title fw-bold me-2 wd-color-white">{`${comment.display_name} : ${comment.username}`}</span>
             <span className={`wd-no-glow ${comment.type === "ALIEN" ? "text-success" : ""} ${comment.type === "HUMAN" ? "text-warning" : ""} ${comment.type === "MODERATOR" ? "text-danger" : ""}`}>
               <i className={`fa ${comment.type === "ALIEN" ? "fa-brands fa-reddit-alien" : ""} ${comment.type === "HUMAN" ? "fa-solid fa-user-astronaut" : ""} ${comment.type === "MODERATOR" ? "fa-solid fa-user-shield" : ""}`}/>
@@ -34,7 +34,7 @@ const Comment = ({comment}, {key}) => {
           {currentUser && currentUser.username !== comment.username &&
               <FlagButton uid={currentUser._id} username={currentUser.username} comment={comment._id}/>}
           {currentUser && (currentUser.type === "MODERATOR" || comment.username === currentUser.username) &&
-            <button className="btn btn-danger float-end" onClick={() => deleteCommentHandler(comment._id)}>
+            <button className="btn btn-danger float-end mr-1" onClick={() => deleteCommentHandler(comment._id)}>
               <span className="me-2">Delete</span>
               <i className="fa-regular fa-trash-can"/>
             </button>}
