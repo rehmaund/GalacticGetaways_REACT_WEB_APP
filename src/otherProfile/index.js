@@ -46,7 +46,7 @@ function OtherProfile() {
         setLikes(likes);
     };*/
     const loadScreen = async () => {
-        if (profile._id !== user._id) {
+        if (profile && (user ? profile._id !== user._id : true)) {
             //await fetchLikes();
             await fetchFollowing();
             await fetchFollowers();
@@ -67,7 +67,7 @@ function OtherProfile() {
         loadScreen();
     }, [navigate, profile]);
     return (
-        <> {profile && profile._id !== user._id &&
+        <> {profile && (user ? profile._id !== user._id : true) &&
         <div>
             <h1>
                 <button onClick={followUser} className="btn btn-primary float-end" disabled={currentlyFollowing}>
