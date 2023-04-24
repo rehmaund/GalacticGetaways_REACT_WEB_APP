@@ -26,12 +26,11 @@ export const profile = async () => {
   return response.data;
 };
 
-
 export const updateUser = async (user) => {
   const response = await api.put(`${USERS_URL}/${user._id}`, user);
-  return response.data;
+  const status = response.data;
+  return status;
 };
-
 
 export const register = async (newUser) => { const response = await api.post(`${USERS_URL}/register`,
   newUser

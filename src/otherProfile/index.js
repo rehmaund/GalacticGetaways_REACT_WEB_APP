@@ -55,7 +55,7 @@ function OtherProfile() {
         setLikes(likes);
     };*/
     const loadScreen = async () => {
-        if (profile._id !== user._id) {
+        if (profile && (user ? profile._id !== user._id : true)) {
             //await fetchLikes();
             await fetchFollowing();
             await fetchFollowers();
@@ -144,7 +144,7 @@ function OtherProfile() {
     }, [navigate, profile]);
 
     return (
-        <> {profile && profile._id !== user._id &&
+        <> {profile && (user ? profile._id !== user._id : true) &&
             <div>
                 <div className="row w-100 mx-0 px-0">
                     <div className="col-12 position-relative px-0">

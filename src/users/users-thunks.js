@@ -21,10 +21,10 @@ export const logoutThunk = createAsyncThunk(
         return await service.logout();
     });
 
-
 export const updateUserThunk = createAsyncThunk(
-    "users/updateUser", async (user) => {
-        await service.updateUser(user);
+    "user/updateUser",
+    async (user) => {
+        const status = await service.updateUser(user);
         return user;
     }
 );
