@@ -194,13 +194,13 @@ function OtherProfile() {
                         </div>
                     </div>
                     <div className="row my-3 mx-0">
-                        <div className="col-8 card bg-secondary">
+                        <div className="col-12 col-md-7 card bg-secondary me-3 mb-3">
                             <div className="card-body">
                                 <h4 className="card-title">Bio</h4>
                                 <p className="card-text">{profile.bio}</p>
                             </div>
                         </div>
-                        <div className="col-4 card bg-primary">
+                        <div className="col-12 col-md-4 card bg-primary mb-3">
                             <div className="card-body">
                                 <h4 className="card-title">Wants to visit</h4>
                                 <p className="card-text">{profile.wants_visit}</p>
