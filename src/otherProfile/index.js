@@ -75,9 +75,8 @@ function OtherProfile() {
     useEffect(() => {
         const getComments = async () => {
             // Find all liked or recommended records
-                const records = await dispatch(findCommentsByUsernameThunk(username));
-                setCommentsList(records.payload);
-
+            const records = await dispatch(findCommentsByUsernameThunk(username));
+            setCommentsList(records.payload);
         }
         getComments();
     }, [dispatch, user]);
@@ -182,24 +181,26 @@ function OtherProfile() {
                                 <h6><span className="fw-bold me-2">{profile.total_comments}</span> Comments</h6>
                             </div>
                         </div>
-
-                        <div className="col-xl-4 col-lg-4 col-md-4 d-none d-md-block pt-2 mt-2">
-                            {(!profile || (profile && !currentlyFollowing)) && <button onClick={followUser} className="w-50 rounded btn btn-secondary fw-bold position-absolute top-50 end-0" disabled={currentlyFollowing}>Follow</button>}
-                            {profile && currentlyFollowing && <button onClick={unfollowUser} className="w-50 rounded btn btn-warning fw-bold position-absolute top-50 end-0">Unfollow</button>}
-                        </div>
-                        <div className="row d-md-none pt-2 mt-2 mx-1">
-                            {(!profile || (profile && !currentlyFollowing)) && <button onClick={followUser} className="w-50 rounded btn btn-secondary fw-bold" disabled={currentlyFollowing}>Follow</button>}
-                            {profile && currentlyFollowing && <button onClick={unfollowUser} className="w-50 rounded btn btn-warning fw-bold">Unfollow</button>}
-                        </div>
+                        {user && <>
+                            <div className="col-xl-4 col-lg-4 col-md-4 d-none d-md-block pt-2 mt-2">
+                                {(!profile || (profile && !currentlyFollowing)) && <button onClick={followUser} className="w-50 rounded btn btn-secondary fw-bold position-absolute top-50 end-0" disabled={currentlyFollowing}>Follow</button>}
+                                {profile && currentlyFollowing && <button onClick={unfollowUser} className="w-50 rounded btn btn-warning fw-bold position-absolute top-50 end-0">Unfollow</button>}
+                            </div>
+                            <div className="row d-md-none pt-2 mt-2 mx-1">
+                                {(!profile || (profile && !currentlyFollowing)) && <button onClick={followUser} className="w-50 rounded btn btn-secondary fw-bold" disabled={currentlyFollowing}>Follow</button>}
+                                {profile && currentlyFollowing && <button onClick={unfollowUser} className="w-50 rounded btn btn-warning fw-bold">Unfollow</button>}
+                            </div>
+                        </>
+                        }
                     </div>
                     <div className="row my-3 mx-0">
-                        <div className="col-8 card bg-secondary">
+                        <div className="col-12 col-md-7 card bg-secondary me-3 mb-3">
                             <div className="card-body">
                                 <h4 className="card-title">Bio</h4>
                                 <p className="card-text">{profile.bio}</p>
                             </div>
                         </div>
-                        <div className="col-4 card bg-primary">
+                        <div className="col-12 col-md-4 card bg-primary mb-3">
                             <div className="card-body">
                                 <h4 className="card-title">Wants to visit</h4>
                                 <p className="card-text">{profile.wants_visit}</p>
